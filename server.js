@@ -32,17 +32,3 @@ function newConnection(sck) {
     sck.broadcast.emit("connection_name", data);
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
