@@ -23,25 +23,26 @@ function startHold(event) {
     document.getElementById("status").innerText = "go backward";
   } 
   if(buttonId == "left"){
-    document.getElementById("status").innerText += "go left";
+    document.getElementById("status").innerText += "and left";
   } else if(buttonId == "right"){
-    document.getElementById("status").innerText += "go right";
+
+    document.getElementById("status").innerText += " and right";
   }
   
     // Start an interval to continuously send the signal
-    holdTimers[buttonId] = setInterval(() => {
-      if(buttonId == "forward"){
-        document.getElementById("status").innerText = "go forward";
+    // holdTimers[buttonId] = setInterval(() => {
+      // if(buttonId == "forward"){
+      //   document.getElementById("status").innerText = "go forward";
         
-      } else if(buttonId == "backward"){
-        document.getElementById("status").innerText = "go backward";
-      } 
-      if(buttonId == "left"){
-        document.getElementById("status").innerText += "go left";
-      } else if(buttonId == "right"){
-        document.getElementById("status").innerText += "go right";
-      }
-    }, 100); // Adjust interval as needed
+      // } else if(buttonId == "backward"){
+      //   document.getElementById("status").innerText = "go backward";
+      // } 
+      // if(buttonId == "left"){
+      //   document.getElementById("status").innerText += "go left";
+      // } else if(buttonId == "right"){
+      //   document.getElementById("status").innerText += "go right";
+      // }
+    // }, 100); // Adjust interval as needed
 
 }
 
@@ -79,22 +80,17 @@ document.querySelectorAll('.button').forEach(button => {
 //   document.getElementById("time-display").textContent = `${event.data}`;
 // });
 
-// source.addEventListener("finish", (event) => {
-//   isR = false;
-//   document.getElementById("time-display").textContent = `${event.data}`;
-// });
+source.addEventListener("finish", (event) => {
+  isR = false;
+  document.getElementById("time-display").textContent = `${event.data}`;
+});
 
-// function goRight() {
-//   var btn = document.getElementById("right");
+function goRight() {
+  // var btn = document.getElementById("right");
+    fetch("/right"); 
+}
 
-//     fetch("/right"); 
-//     // btn.textContent = "Stop Disinfection";
-
-//   isR = !isR; 
-// }
-
-// function goLeft() {
-//   var btn = document.getElementById("left");
-//   fetch("/left"); 
-//   isL = !isL; 
-// }
+function goLeft() {
+  // var btn = document.getElementById("left");
+  fetch("/left"); 
+}
