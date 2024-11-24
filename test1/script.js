@@ -21,22 +21,25 @@ function startHold(event) {
     
   } else if(buttonId == "backward"){
     document.getElementById("status").innerText = "go backward";
-  } else if(buttonId == "left"){
-    document.getElementById("status").innerText = "go left";
-  } else{
-    document.getElementById("status").innerText = "go right";
+  } 
+  if(buttonId == "left"){
+    document.getElementById("status").innerText += "go left";
+  } else if(buttonId == "right"){
+    document.getElementById("status").innerText += "go right";
   }
   
     // Start an interval to continuously send the signal
     holdTimers[buttonId] = setInterval(() => {
       if(buttonId == "forward"){
         document.getElementById("status").innerText = "go forward";
+        
       } else if(buttonId == "backward"){
         document.getElementById("status").innerText = "go backward";
-      } else if(buttonId == "left"){
-        document.getElementById("status").innerText = "go left";
-      } else{
-        document.getElementById("status").innerText = "go right";
+      } 
+      if(buttonId == "left"){
+        document.getElementById("status").innerText += "go left";
+      } else if(buttonId == "right"){
+        document.getElementById("status").innerText += "go right";
       }
     }, 100); // Adjust interval as needed
 
