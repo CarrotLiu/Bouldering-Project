@@ -12,7 +12,7 @@ WebServer server(80);
 WiFiClient client;
 
 // motor
-int motor1IN = 14;
+int motor1IN = 26;
 int motor1OUT = 27;
 
 // servo
@@ -106,6 +106,12 @@ void setup()
             {
     server.sendHeader("content-encoding", "gzip");
     server.send_P(200, "text/html", index_page, sizeof(index_page)); });
+
+  server.on("/stop", []
+            { 
+             server.send(200, "text/plain", "front"); 
+             state = 0; //forward
+            });
 
   server.on("/front", []
             { 

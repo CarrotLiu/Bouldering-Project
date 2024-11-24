@@ -18,39 +18,46 @@ function startHold(event) {
   const buttonId = button.id;
   if(buttonId == "forward"){
     document.getElementById("status").innerText = "go forward";
-    
+    // fetch("/front");
   } else if(buttonId == "backward"){
     document.getElementById("status").innerText = "go backward";
+    // fetch("/back");
   } 
   if(buttonId == "left"){
     document.getElementById("status").innerText += "and left";
+    // fetch("/turnLeft");
   } else if(buttonId == "right"){
-
+    // fetch("/turnRight");
     document.getElementById("status").innerText += " and right";
   }
+
   
-    // Start an interval to continuously send the signal
+    // // Start an interval to continuously send the signal
     // holdTimers[buttonId] = setInterval(() => {
-      // if(buttonId == "forward"){
-      //   document.getElementById("status").innerText = "go forward";
+    //   if(buttonId == "forward"){
+    //     document.getElementById("status").innerText = "go forward";
         
-      // } else if(buttonId == "backward"){
-      //   document.getElementById("status").innerText = "go backward";
-      // } 
-      // if(buttonId == "left"){
-      //   document.getElementById("status").innerText += "go left";
-      // } else if(buttonId == "right"){
-      //   document.getElementById("status").innerText += "go right";
-      // }
+    //   } else if(buttonId == "backward"){
+    //     document.getElementById("status").innerText = "go backward";
+    //   } 
+    //   if(buttonId == "left"){
+    //     document.getElementById("status").innerText += "go left";
+    //   } else if(buttonId == "right"){
+    //     document.getElementById("status").innerText += "go right";
+    //   }
     // }, 100); // Adjust interval as needed
 
 }
 
 // End hold event - clears the interval for the specific button
 function endHold(event) {
-  console.log("released");
-  document.getElementById("status").innerText = "released";
+  console.log("stop");
   const buttonId = event.target.id;
+  if(buttonId == "forward" || buttonId == "backward"){
+    // fetch("/stop");
+    document.getElementById("status").innerText = "stop";
+  }
+  
   clearInterval(holdTimers[buttonId]);
   delete holdTimers[buttonId];
 }
@@ -80,17 +87,4 @@ document.querySelectorAll('.button').forEach(button => {
 //   document.getElementById("time-display").textContent = `${event.data}`;
 // });
 
-source.addEventListener("finish", (event) => {
-  isR = false;
-  document.getElementById("time-display").textContent = `${event.data}`;
-});
 
-function goRight() {
-  // var btn = document.getElementById("right");
-    fetch("/right"); 
-}
-
-function goLeft() {
-  // var btn = document.getElementById("left");
-  fetch("/left"); 
-}
