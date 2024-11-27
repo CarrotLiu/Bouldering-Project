@@ -35,6 +35,14 @@ body {
     background-color: #1e2b38;
     color: white;
     transition: background-color 0.2s ease;
+    /* Disable text highlighting */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  /* Disable tap highlight on mobile */
+  -webkit-tap-highlight-color: transparent;
   }
 
   /* Positioning each button in the rhombus layout */

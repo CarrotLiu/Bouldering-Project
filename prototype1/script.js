@@ -13,51 +13,39 @@ const holdTimers = {};
 
 // Start hold event - sets an interval for the specific button
 function startHold(event) {
-  const button = event.target;
+  const buttonId = event.target.id;
 
-  const buttonId = button.id;
-  if(buttonId == "forward"){
-    document.getElementById("status").innerText = "go forward";
-    // fetch("/front");
-  } else if(buttonId == "backward"){
-    document.getElementById("status").innerText = "go backward";
-    // fetch("/back");
-  } 
-  if(buttonId == "left"){
-    document.getElementById("status").innerText += "and left";
-    // fetch("/turnLeft");
-  } else if(buttonId == "right"){
-    // fetch("/turnRight");
-    document.getElementById("status").innerText += " and right";
+  if (buttonId === "forward") {
+    fetch("/front");
+    document.getElementById("status").innerText = "Go forward";
+  } else if (buttonId === "backward") {
+    fetch("/back");
+    document.getElementById("status").innerText = "Go backward";
+  } else if (buttonId === "left") {
+    fetch("/turnLeft");
+    document.getElementById("status").innerText = "Turn left";
+  } else if (buttonId === "right") {
+    fetch("/turnRight");
+    document.getElementById("status").innerText = "Turn right";
   }
 
-  
-    // // Start an interval to continuously send the signal
-    // holdTimers[buttonId] = setInterval(() => {
-    //   if(buttonId == "forward"){
-    //     document.getElementById("status").innerText = "go forward";
-        
-    //   } else if(buttonId == "backward"){
-    //     document.getElementById("status").innerText = "go backward";
-    //   } 
-    //   if(buttonId == "left"){
-    //     document.getElementById("status").innerText += "go left";
-    //   } else if(buttonId == "right"){
-    //     document.getElementById("status").innerText += "go right";
-    //   }
-    // }, 100); // Adjust interval as needed
-
+  // Repeat fetch at intervals
+  holdTimers[buttonId] = setInterval(() => {
+    fetch(`/${buttonId}`);
+  }, 100);
 }
 
-// End hold event - clears the interval for the specific button
 function endHold(event) {
-  console.log("stop");
   const buttonId = event.target.id;
-  if(buttonId == "forward" || buttonId == "backward"){
-    // fetch("/stop");
-    document.getElementById("status").innerText = "stop";
+
+  if (buttonId === "forward" || buttonId === "backward") {
+    fetch("/stop");
+    document.getElementById("status").innerText = "Stop";
+  } else if (buttonId === "left" || buttonId === "right") {
+    fetch("/goStraight");
+    document.getElementById("status").innerText = "Straighten servo";
   }
-  
+
   clearInterval(holdTimers[buttonId]);
   delete holdTimers[buttonId];
 }

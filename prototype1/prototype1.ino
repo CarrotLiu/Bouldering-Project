@@ -1,9 +1,17 @@
 #include <WebServer.h>
 #include <ESPmDNS.h>
+#include <ESP32Servo.h>
+#include <WiFi.h>
+
+#include <SPI.h>
+#include <Wire.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
-#include <ESP32Servo.h>
-#include <FastLED.h>
+
+#define SCREEN_WIDTH 128 // OLED display width, in pixels
+#define SCREEN_HEIGHT 64 // OLED display height, in pixels
+// Declaration for an SSD1306 display connected to I2C (SDA, SCL pins)
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
 
 WebServer server(80);
 
@@ -14,55 +22,43 @@ WiFiClient client;
 // motor
 int motor1IN = 26;
 int motor1OUT = 27;
+int enablerPin = 14;
+
+//button
+int yesPin = 19;
+int noPin = 18;
+int ifyes = 0;
+int ifno = 0;
 
 // servo
-static const int servoPin = 13;
+static const int servoPin = 32;
 Servo servo1;
-
-// ultrasonic
-const int trigPin = 5;
-const int echoPin = 18;
-long duration;
-float distanceCm;
-float distanceInch;
-#define SOUND_SPEED 0.034
-#define CM_TO_INCH 0.393701
-
-
-// LED
-#define LED_TYPE NEOPIXEL 
-uint8_t max_bright = 128;
-#define LEDPin 19
-#define NUM_LED 40
-CRGBArray<NUM_LED> LED;
-
 
 int state = 0;
 int dir = 0;
 
-void setup() {
-  Serial.begin(115200); 
-  pinMode(trigPin, OUTPUT); 
-  pinMode(echoPin, INPUT); 
-}
-
 void setup()
 {
   Serial.begin(115200);
-
-  // initialize led
-  FastLED.addLeds<LED_TYPE, LEDPin>(LED, NUM_LED);
-  
-  // ultrasonic pinmode
-  pinMode(trigPin, OUTPUT); // Sets the trigPin as an Output
-  pinMode(echoPin, INPUT); // Sets the echoPin as an Input
- 
-  //motor pinmode
-  pinMode(12, OUTPUT);
+//motor pinmode
+  pinMode(enablerPin, OUTPUT);
   pinMode(motor1IN, OUTPUT);
   pinMode(motor1OUT, OUTPUT);
+  digitalWrite(enablerPin, HIGH);
 
-  digitalWrite(12, HIGH);
+//servo pinmode
+  servo1.attach(32);
+  servo1.write(90);
+  
+// OLED
+  if(!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) { // Default is 0x3C
+    Serial.println(F("SSD1306 allocation failed"));
+    for(;;); // Don't proceed, loop forever
+  }
+
+//button pinmode
+  pinMode(yesPin, INPUT);
+  pinMode(noPin, INPUT);
 
  // init wifi
 #if 1
@@ -110,7 +106,7 @@ void setup()
   server.on("/stop", []
             { 
              server.send(200, "text/plain", "front"); 
-             state = 0; //forward
+             state = 0; //stop
             });
 
   server.on("/front", []
@@ -136,19 +132,11 @@ void setup()
               server.send(200, "text/plain", "turn right"); 
               dir = 1; //right
               });
-
-  // server.on("/add", []
-  //           { 
-  //             server.send(200, "text/plain", "add 5s"); 
-  //             if (startCount == false){
-  //               if(countTotal < 180 * 1000){
-  //                 countTotal +=5 * 1000;
-  //                }else{
-  //                 countTotal = 180 * 1000;
-  //                }
-  //                remain_time = countTotal;
-                
-  //             } })
+  server.on("/goStraight", []
+            { 
+             server.send(200, "text/plain", "turn left"); 
+             dir = 0; //straight
+             });
 
   server.on("/style.css", []
             {
@@ -186,84 +174,83 @@ void setup()
                     { server.send(404, "text/html", "<h1>Not Found</h1>"); });
 
   server.begin();
+
+  display.clearDisplay();
+  display.setTextSize(1.5);             
+  display.setTextColor(WHITE);        
+  display.setCursor(5,10);             
+  display.println("Hello!");
+  display.println(" ");
+  display.println("Do you want to meet");
+  display.println(" ");
+  display.println("a new friend?");
+  display.display();
+  delay(1000); 
 }
 
-void loop(){
-  // --- Ultrasonic sensor: detect obstacles --- //
-  // Clears the trigPin
-  digitalWrite(trigPin, LOW);
-  delayMicroseconds(2);
-  // Sets the trigPin on HIGH state for 10 micro seconds
-  digitalWrite(trigPin, HIGH);
-  delayMicroseconds(10);
-  digitalWrite(trigPin, LOW);
-  
-  // Reads the echoPin, returns the sound wave travel time in microseconds
-  duration = pulseIn(echoPin, HIGH);
-  
-  // Calculate the distance
-  distanceCm = duration * SOUND_SPEED/2;
-  
-  // Convert to inches
-  distanceInch = distanceCm * CM_TO_INCH;
-  
-  // Prints the distance in the Serial Monitor
-  Serial.print("Distance (cm): ");
-  Serial.println(distanceCm);
-  Serial.print("Distance (inch): ");
-  Serial.println(distanceInch);
-  
-  delay(1000);
-
-  server.handleClient();
-  Serial.print("ultra: ");
-  unsigned long now = millis();
- 
-  if (state != 0) {
-        fill_solid(LED, 6, CRGB::Blue);
-        FastLED.show();
-        // fill_solid(disinfectionLED, 6, CRGB::Black);
-        // FastLED.show();
-        // if (client.connected())
-        //   client.printf("event: pause\n"
-        //                 "data: Please Stay Away\n"
-        //                 "\n");
+void loop() {
+  server.handleClient();  
+  if(digitalRead(yesPin) != 0){
+    ifyes = 1;
+  }else if(digitalRead(noPin) != 0){
+    ifyes = -1;
   }
-  if(state != 0){
-    if(state == 1){
-      if(dir == 1){ // right
+  if(ifyes == 1){
+    display.clearDisplay();            
+    display.setTextColor(WHITE);        
+    display.setCursor(5,10);             
+    display.println("Please wait ");
+    display.println(" ");
+    display.println("for a moment");
+    display.display();
+    delay(1000); 
+  }else if(ifyes == -1){
+    display.clearDisplay();  
+    display.setTextColor(WHITE);        
+    display.setCursor(5,20);             
+    display.println("Okay! Bye!");
+    display.display();
+    delay(1000); 
+  }else{
+    display.clearDisplay();            
+    display.setTextColor(WHITE);        
+    display.setCursor(5,10);             
+    display.println("Hello!");
+    display.println(" ");
+    display.println("Do you want to meet");
+    display.println(" ");
+  display.println("a new friend?");
+    display.display();
+    delay(1000); 
+  }
+  // Handle motor control
+  if (state == 1) { // Forward
+    digitalWrite(motor1IN, LOW);
+    digitalWrite(motor1OUT, HIGH);
+    Serial.print(state);
+    Serial.print(", ");
+    Serial.println(dir);
+  } else if (state == 2) { // Backward
+    digitalWrite(motor1IN, HIGH);
+    digitalWrite(motor1OUT, LOW);
+    Serial.print(state);
+    Serial.print(", ");
+    Serial.println(dir);
+  } else { // Stop motor
+    digitalWrite(motor1IN, LOW);
+    digitalWrite(motor1OUT, LOW);
+    Serial.print(state);
+    Serial.print(", ");
+    Serial.println(dir);
+  }
 
-      }else if(dir == 2){ //left
-        
-      }
-      digitalWrite(motor1IN, LOW);
-      digitalWrite(motor1OUT, HIGH);
-    } else {
-      if(dir == 1){ // right
-
-      }else if(dir == 2){ //left
-        
-      }
-      digitalWrite(motor1IN, HIGH);
-      digitalWrite(motor1OUT, LOW);
-    } 
-  
-//     for(int i = 0; i <255; i++ ){
-// analogWrite(motorP2, i);
-// delay(1000);
-// }
-//   digitalWrite(motorP1, LOW);
-// } 
-
-
-
-      // fill_solid(lighterLED, 16, CRGB::OrangeRed);
-      // fill_solid(lighterLED2, 12, CRGB::OrangeRed);
-      // FastLED.show();
-    
-
-  } else{
-    analogWrite(motor1IN, 0);
-    analogWrite(motor1OUT, 0);
+  // Handle servo control independently
+  if (dir == 1) { // Right
+    servo1.write(180);
+  } else if (dir == 2) { // Left
+    servo1.write(0);
+  } else { // Straight (no direction command)
+    servo1.write(90);
+    Serial.println("now should be straight");
   }
 }
