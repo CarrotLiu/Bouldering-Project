@@ -1,8 +1,8 @@
 let socket;
 
 function setup() {
-  createCanvas(400, 500);
-  background(0, 0, 255);
+  createCanvas(windowWidth, windowHeight);
+  background(0);
 
   socket = io.connect();
   console.log(socket);
@@ -17,17 +17,17 @@ function mouseDragged() {
   let data = {}; // JS Object
   data.x = mouseX;
   data.y = mouseY;
-  
+
   noStroke();
   fill(0, 255, 0);
   ellipse(data.x, data.y, 10, 10);
-  
+
   socket.emit("connection_name", data);
 }
 
 function receive(data) {
   console.log(data);
-  
+
   noStroke();
   fill(255, 0, 255);
   ellipse(data.x, data.y, 10, 10);
