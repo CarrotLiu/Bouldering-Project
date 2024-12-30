@@ -1,4 +1,9 @@
 let socket;
+let sd;
+
+function preload(){
+  sd = loadSound('https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/test.m4a?v=1735554953863');
+}
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -39,7 +44,7 @@ function mouseDragged() {
 function receive(data) {
   console.log(data);
   if(data.s){
-    
+    sd.play();
   }
   // noStroke();
   // fill(255, 0, 255);
