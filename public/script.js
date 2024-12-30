@@ -10,27 +10,40 @@ function setup() {
 }
 
 function draw() {
+  fill(255);
+  circle(width / 2, height / 2, 100);
+  
   //
+}
+function mouseClicked(){
+  if(dist(mouseX, mouseY, width / 2, height / 2) < 100){
+    let data = {}; // JS Object
+    data.s = true;
+    socket.emit("connection_name", data);
+  }
 }
 
 function mouseDragged() {
-  let data = {}; // JS Object
-  data.x = mouseX;
-  data.y = mouseY;
+  // let data = {}; // JS Object
+  // data.x = mouseX;
+  // data.y = mouseY;
+  
 
-  noStroke();
-  fill(0, 255, 0);
-  ellipse(data.x, data.y, 10, 10);
+  // noStroke();
+  // fill(0, 255, 0);
+  // ellipse(data.x, data.y, 10, 10);
 
-  socket.emit("connection_name", data);
+  // socket.emit("connection_name", data);
 }
 
 function receive(data) {
   console.log(data);
-
-  noStroke();
-  fill(255, 0, 255);
-  ellipse(data.x, data.y, 10, 10);
+  if(data.s){
+    
+  }
+  // noStroke();
+  // fill(255, 0, 255);
+  // ellipse(data.x, data.y, 10, 10);
 }
 
 /* global
