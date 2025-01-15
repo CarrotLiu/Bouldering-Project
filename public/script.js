@@ -55,16 +55,26 @@ const challengeW = ["challenge", "climbing", "fun", "game", "interesting"];
     recognition.onresult = (event) => {
       const transcript = event.results[event.results.length - 1][0].transcript.toLowerCase();
       console.log("Recognized:", transcript);
-
+      
 
       challengeW.forEach(word => {
         if (transcript.includes(word) && !detected.includes(word)) {
           detected.push(word);
+          stage = 2;
         }
       });
+
+      
       friendW.forEach(word => {
         if (transcript.includes(word) && !detected.includes(word)) {
           detected.push(word);
+          stage = 3;
+        }
+      });
+      photoW.forEach(word => {
+        if (transcript.includes(word) && !detected.includes(word)) {
+          detected.push(word);
+          stage = 4;
         }
       });
 
