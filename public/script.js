@@ -5,12 +5,16 @@ let blinkProgress = 0;
 let nextBlinkTime = 0; 
 let lastBlinkTime = 0;
 
+let eyeWidth = 60;
+let eyeHeight = 60;
 let eyeOffsetX = 0; 
 let eyeOffsetY = 0; 
 let targetEyeOffsetX = 0; 
 let targetEyeOffsetY = 0; 
 let nextShiftTime = 0; 
 let shiftDuration = 2000; 
+
+let stage = 0;
 
 function preload(){
   sd = loadSound('https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/test.m4a?v=1735554953863');
@@ -32,46 +36,14 @@ function draw() {
   background(0);
   fill(255);
   noStroke();
-
-  let eyeWidth = 60;
-  let eyeHeight = 60;
-
-
-  if (millis() > nextBlinkTime) {
-    lastBlinkTime = millis();
-    nextBlinkTime = millis() + random(1000, 6000); 
-    blinkState = 1; 
+  if(stage == 0){
+    idling();
+  } else if(stage == 1){
+    focusing();
+  } else if(stage == 2){
+    
   }
-
-  if (blinkState === 1) {
-    blinkProgress += 0.1;
-    if (blinkProgress >= 1) {
-      blinkState = 2; 
-    }
-  } else if (blinkState === 2) {
-    blinkProgress -= 0.1;
-    if (blinkProgress <= 0) {
-      blinkState = 0; 
-      blinkProgress = 0;
-    }
-  }
-
   
-  eyeHeight = lerp(60, 10, blinkProgress);
-
-  if (millis() > nextShiftTime) {
-    nextShiftTime = millis() + random(3000, 7000); 
-    targetEyeOffsetX = random(-50, 50); 
-    targetEyeOffsetY = random(-50, 50);
-  }
-
-
-  eyeOffsetX = lerp(eyeOffsetX, targetEyeOffsetX, 0.05);
-  eyeOffsetY = lerp(eyeOffsetY, targetEyeOffsetY, 0.05);
-
-  
-  ellipse(width / 2 - 100 + eyeOffsetX, height / 2 + eyeOffsetY, eyeWidth, eyeHeight);
-  ellipse(width / 2 + 100 + eyeOffsetX, height / 2 + eyeOffsetY, eyeWidth, eyeHeight);
 }
   
 
@@ -104,6 +76,46 @@ function receive(data) {
   // noStroke();
   // fill(255, 0, 255);
   // ellipse(data.x, data.y, 10, 10);
+}
+
+
+function idling(){
+  if (millis() > nextBlinkTime) {
+    lastBlinkTime = millis();
+    nextBlinkTime = millis() + random(1000, 6000); 
+    blinkState = 1; 
+  }
+
+  if (blinkState === 1) {
+    blinkProgress += 0.1;
+    if (blinkProgress >= 1) {
+      blinkState = 2; 
+    }
+  } else if (blinkState === 2) {
+    blinkProgress -= 0.1;
+    if (blinkProgress <= 0) {
+      blinkState = 0; 
+      blinkProgress = 0;
+    }
+  }
+  
+  eyeHeight = lerp(60, 10, blinkProgress);
+
+  if (millis() > nextShiftTime) {
+    nextShiftTime = millis() + random(3000, 7000); 
+    targetEyeOffsetX = random(-50, 50); 
+    targetEyeOffsetY = random(-50, 50);
+  }
+
+  eyeOffsetX = lerp(eyeOffsetX, targetEyeOffsetX, 0.05);
+  eyeOffsetY = lerp(eyeOffsetY, targetEyeOffsetY, 0.05);
+  
+  ellipse(width / 2 - 100 + eyeOffsetX, height / 2 + eyeOffsetY, eyeWidth, eyeHeight);
+  ellipse(width / 2 + 100 + eyeOffsetX, height / 2 + eyeOffsetY, eyeWidth, eyeHeight);
+}
+
+function focusing(){
+  
 }
 
 function windowResized() {
