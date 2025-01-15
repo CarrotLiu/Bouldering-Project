@@ -14,7 +14,78 @@
     <script src="script.js"></script>
   </head>
   <body>
+    
     <div id="container-three"></div>
     <div id="container-p5"></div>
+<button id="startButton">Start</button>
+  <button id="stopButton" disabled>Stop</button>
+  <p>Detected Words: <span id="detectedWords"></span></p>
+  <script>
+    // 自定义词汇列表
+    const detectWords = ["challenge", "give", "climbing", "fun", "game", "interesting"];
+
+    // 页面元素
+    const statusElement = document.getElementById("status");
+    const detectedWordsElement = document.getElementById("detectedWords");
+    const startButton = document.getElementById("startButton");
+    const stopButton = document.getElementById("stopButton");
+
+    // Web Speech API 初始化
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const recognition = new SpeechRecognition();
+
+    recognition.lang = "en-US"; // 设置语言
+    recognition.continuous = true; // 连续监听
+    recognition.interimResults = false; // 仅返回完整结果
+
+    let detected = []; // 存储检测到的词汇
+
+    // 开始监听
+    startButton.addEventListener("click", () => {
+      detected = []; // 清空检测列表
+      detectedWordsElement.textContent = "";
+      statusElement.textContent = "Listening for speech...";
+      recognition.start();
+      startButton.disabled = true;
+      stopButton.disabled = false;
+    });
+
+    // 停止监听
+    stopButton.addEventListener("click", () => {
+      recognition.stop();
+      statusElement.textContent = "Stopped listening.";
+      startButton.disabled = false;
+      stopButton.disabled = true;
+    });
+
+    // 处理语音结果
+    recognition.onresult = (event) => {
+      const transcript = event.results[event.results.length - 1][0].transcript.toLowerCase();
+      console.log("Recognized:", transcript);
+
+      // 匹配检测词汇
+      detectWords.forEach(word => {
+        if (transcript.includes(word) && !detected.includes(word)) {
+          detected.push(word);
+        }
+      });
+
+      // 更新页面
+      detectedWordsElement.textContent = detected.join(", ");
+    };
+
+    // 错误处理
+    recognition.onerror = (event) => {
+      console.error("Speech recognition error:", event.error);
+      statusElement.textContent = "Error occurred. Please try again.";
+    };
+
+    // 停止监听事件
+    recognition.onend = () => {
+      if (!stopButton.disabled) {
+        statusElement.textContent = "Listening paused. Click 'Start' to resume.";
+      }
+    };
+  </script>
   </body>
 </html>
