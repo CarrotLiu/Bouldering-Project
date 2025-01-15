@@ -17,9 +17,14 @@
     
     <div id="container-three"></div>
     <div id="container-p5"></div>
-<button id="startButton">Start</button>
-  <button id="stopButton" disabled>Stop</button>
-  <p>Detected Words: <span id="detectedWords"></span></p>
+    <div class="elements">
+      <p id="status">Click "Start" to begin listening...</p>
+      <button id="startButton">Start</button>
+      <button id="stopButton" disabled>Stop</button>
+      <p>Detected Words: <span id="detectedWords"></span></p>
+      
+    </div>
+
   <script>
     // 自定义词汇列表
     const detectWords = ["challenge", "give", "climbing", "fun", "game", "interesting"];

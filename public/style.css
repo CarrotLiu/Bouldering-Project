@@ -3,3 +3,9 @@ body {
   padding: 0;
   overflow: hidden;
 }
+
+.elements{
+  margin: 0;
+  position: absolute;
+  background-color:tomato;
+}
