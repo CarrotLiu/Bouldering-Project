@@ -1,5 +1,9 @@
 let socket;
 let sd;
+let blinkState = 0; 
+let blinkProgress = 0; 
+let nextBlinkTime = 0; 
+let lastBlinkTime = 0; 
 
 function preload(){
   sd = loadSound('https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/test.m4a?v=1735554953863');
@@ -12,14 +16,48 @@ function setup() {
   socket = io.connect();
   console.log(socket);
   socket.on("connection_name", receive);
+  
+  nextBlinkTime = millis() + random(2000, 5000);
 }
 
 function draw() {
+  background(0);
   fill(255);
-  circle(width / 2, height / 2, 100);
+  noStroke();
+
+  let eyeWidth = 60;
+  let eyeHeight = 60;
+
+  // Handle blinking state
+  if (millis() > nextBlinkTime) {
+    lastBlinkTime = millis();
+    nextBlinkTime = millis() + random(1000, 6000); // Next blink in 2 to 5 seconds
+    blinkState = 1; // Start blinking
+  }
+
+  if (blinkState === 1) {
+    blinkProgress += 0.1; // Adjust the speed of the transition here
+    if (blinkProgress >= 1) {
+      blinkState = 2; // Transition back to circle
+    }
+  } else if (blinkState === 2) {
+    blinkProgress -= 0.1; // Adjust the speed of the transition here
+    if (blinkProgress <= 0) {
+      blinkState = 0; // Back to normal state
+      blinkProgress = 0;
+    }
+  }
+
+  // Adjust eye height during blink transition
+  eyeHeight = lerp(60, 10, blinkProgress);
+
+  // Draw the eyes
+  ellipse(width / 2 - 100, height / 2, eyeWidth, eyeHeight);
+  ellipse(width / 2 + 100, height / 2, eyeWidth, eyeHeight);
+}
   
   //
-}
+
 function mouseClicked(){
   if(dist(mouseX, mouseY, width / 2, height / 2) < 100){
     let data = {}; // JS Object
