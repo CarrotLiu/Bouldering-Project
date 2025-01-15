@@ -78,14 +78,12 @@ function receive(data) {
   // ellipse(data.x, data.y, 10, 10);
 }
 
-
-function idling(){
+function blinkControl(){
   if (millis() > nextBlinkTime) {
     lastBlinkTime = millis();
     nextBlinkTime = millis() + random(1000, 6000); 
     blinkState = 1; 
   }
-
   if (blinkState === 1) {
     blinkProgress += 0.1;
     if (blinkProgress >= 1) {
@@ -98,15 +96,17 @@ function idling(){
       blinkProgress = 0;
     }
   }
-  
   eyeHeight = lerp(60, 10, blinkProgress);
+}
 
+function idling(){
+  blinkControl();
+  
   if (millis() > nextShiftTime) {
     nextShiftTime = millis() + random(3000, 7000); 
     targetEyeOffsetX = random(-50, 50); 
     targetEyeOffsetY = random(-50, 50);
   }
-
   eyeOffsetX = lerp(eyeOffsetX, targetEyeOffsetX, 0.05);
   eyeOffsetY = lerp(eyeOffsetY, targetEyeOffsetY, 0.05);
   
@@ -114,7 +114,22 @@ function idling(){
   ellipse(width / 2 + 100 + eyeOffsetX, height / 2 + eyeOffsetY, eyeWidth, eyeHeight);
 }
 
+
 function focusing(){
+  blinkControl();
+  
+  eyeOffsetX = lerp(eyeOffsetX, 0, 0.05);
+  eyeOffsetY = lerp(eyeOffsetY, 0, 0.05);
+  
+  ellipse(width / 2 - 100 + eyeOffsetX, height / 2 + eyeOffsetY, eyeWidth, eyeHeight);
+  ellipse(width / 2 + 100 + eyeOffsetX, height / 2 + eyeOffsetY, eyeWidth, eyeHeight);
+}
+
+function challenging(){
+  
+}
+
+function socializing(){
   
 }
 
