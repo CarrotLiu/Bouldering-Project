@@ -42,7 +42,7 @@ function draw() {
   } else if(stage == 1){
     focusing();
   } else if(stage == 2){
-    
+    challenging();
   }
   
 }
@@ -127,7 +127,7 @@ function focusing(){
 }
 
 function challenging(){
-  
+  text();
 }
 
 function socializing(){
