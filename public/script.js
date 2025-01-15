@@ -15,7 +15,75 @@ let nextShiftTime = 0;
 let shiftDuration = 2000; 
 
 let stage = 0;
+const challengeW = ["challenge", "climbing", "fun", "game", "interesting"];
+    const friendW = ["friend","buddy", "partner"];
+    const photoW = ["photo", "camera", "picture"];
 
+    const statusElement = document.getElementById("status");
+    const matchedWords = document.getElementById("detectedWords");
+    const startButton = document.getElementById("startButton");
+    const stopButton = document.getElementById("stopButton");
+
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const recognition = new SpeechRecognition();
+
+    recognition.lang = "en-US";
+    recognition.continuous = true;
+    recognition.interimResults = false;
+
+    let detected = []; 
+
+    
+    startButton.addEventListener("click", () => {
+      detected = []; 
+      matchedWords.textContent = "";
+      statusElement.textContent = "Listening for speech...";
+      recognition.start();
+      startButton.disabled = true;
+      stopButton.disabled = false;
+    });
+
+   
+    stopButton.addEventListener("click", () => {
+      recognition.stop();
+      statusElement.textContent = "Stopped listening.";
+      startButton.disabled = false;
+      stopButton.disabled = true;
+    });
+
+
+    recognition.onresult = (event) => {
+      const transcript = event.results[event.results.length - 1][0].transcript.toLowerCase();
+      console.log("Recognized:", transcript);
+
+
+      challengeW.forEach(word => {
+        if (transcript.includes(word) && !detected.includes(word)) {
+          detected.push(word);
+        }
+      });
+      friendW.forEach(word => {
+        if (transcript.includes(word) && !detected.includes(word)) {
+          detected.push(word);
+        }
+      });
+
+      matchedWords.textContent = detected.join(", ");
+      // console.log(matchedWords);
+    };
+
+
+    recognition.onerror = (event) => {
+      console.error("Speech recognition error:", event.error);
+      statusElement.textContent = "Error occurred. Please try again.";
+    };
+
+  
+    recognition.onend = () => {
+      if (!stopButton.disabled) {
+        statusElement.textContent = "Listening paused. Click 'Start' to resume.";
+      }
+    };
 
 function preload(){
   sd = loadSound('https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/test.m4a?v=1735554953863');

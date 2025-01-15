@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Sketch | three + p5 + node + socket</title>
+    <title>Bolder to Boulder</title>
 
     <link rel="stylesheet" href="style.css" />
     <script src="/socket.io/socket.io.js"></script>
@@ -25,69 +25,5 @@
       
     </div>
 
-  <script>
-    const challengeW = ["challenge", "climbing", "fun", "game", "interesting"];
-
-    const statusElement = document.getElementById("status");
-    const detectedWordsElement = document.getElementById("detectedWords");
-    const startButton = document.getElementById("startButton");
-    const stopButton = document.getElementById("stopButton");
-
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    const recognition = new SpeechRecognition();
-
-    recognition.lang = "en-US";
-    recognition.continuous = true;
-    recognition.interimResults = false;
-
-    let detected = []; 
-
-    
-    startButton.addEventListener("click", () => {
-      detected = []; 
-      detectedWordsElement.textContent = "";
-      statusElement.textContent = "Listening for speech...";
-      recognition.start();
-      startButton.disabled = true;
-      stopButton.disabled = false;
-    });
-
-   
-    stopButton.addEventListener("click", () => {
-      recognition.stop();
-      statusElement.textContent = "Stopped listening.";
-      startButton.disabled = false;
-      stopButton.disabled = true;
-    });
-
-
-    recognition.onresult = (event) => {
-      const transcript = event.results[event.results.length - 1][0].transcript.toLowerCase();
-      console.log("Recognized:", transcript);
-
-
-      startChallenge.forEach(word => {
-        if (transcript.includes(word) && !detected.includes(word)) {
-          detected.push(word);
-        }
-      });
-
-
-      detectedWordsElement.textContent = detected.join(", ");
-    };
-
-
-    recognition.onerror = (event) => {
-      console.error("Speech recognition error:", event.error);
-      statusElement.textContent = "Error occurred. Please try again.";
-    };
-
-  
-    recognition.onend = () => {
-      if (!stopButton.disabled) {
-        statusElement.textContent = "Listening paused. Click 'Start' to resume.";
-      }
-    };
-  </script>
   </body>
 </html>
