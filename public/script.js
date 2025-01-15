@@ -3,7 +3,14 @@ let sd;
 let blinkState = 0; 
 let blinkProgress = 0; 
 let nextBlinkTime = 0; 
-let lastBlinkTime = 0; 
+let lastBlinkTime = 0;
+
+let eyeOffsetX = 0; 
+let eyeOffsetY = 0; 
+let targetEyeOffsetX = 0; 
+let targetEyeOffsetY = 0; 
+let nextShiftTime = 0; 
+let shiftDuration = 2000; 
 
 function preload(){
   sd = loadSound('https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/test.m4a?v=1735554953863');
@@ -18,6 +25,7 @@ function setup() {
   socket.on("connection_name", receive);
   
   nextBlinkTime = millis() + random(2000, 5000);
+  nextShiftTime = millis() + random(3000, 7000); 
 }
 
 function draw() {
@@ -51,12 +59,21 @@ function draw() {
   // Adjust eye height during blink transition
   eyeHeight = lerp(60, 10, blinkProgress);
 
-  // Draw the eyes
-  ellipse(width / 2 - 100, height / 2, eyeWidth, eyeHeight);
-  ellipse(width / 2 + 100, height / 2, eyeWidth, eyeHeight);
+  if (millis() > nextShiftTime) {
+    nextShiftTime = millis() + random(3000, 7000); // Randomize next shift
+    targetEyeOffsetX = random(-50, 50); // Random target X offset
+    targetEyeOffsetY = random(-50, 50); // Random target Y offset
+  }
+
+  // Gradually move toward target offsets
+  eyeOffsetX = lerp(eyeOffsetX, targetEyeOffsetX, 0.05); // Adjust speed here
+  eyeOffsetY = lerp(eyeOffsetY, targetEyeOffsetY, 0.05); // Adjust speed here
+
+  // Draw the eyes with offsets
+  ellipse(width / 2 - 100 + eyeOffsetX, height / 2 + eyeOffsetY, eyeWidth, eyeHeight);
+  ellipse(width / 2 + 100 + eyeOffsetX, height / 2 + eyeOffsetY, eyeWidth, eyeHeight);
 }
   
-  //
 
 function mouseClicked(){
   if(dist(mouseX, mouseY, width / 2, height / 2) < 100){
