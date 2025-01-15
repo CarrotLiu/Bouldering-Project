@@ -16,6 +16,71 @@ let shiftDuration = 2000;
 
 let stage = 0;
 
+// 自定义词汇列表
+    const detectWords = ["challenge", "give", "climbing", "fun", "game", "interesting"];
+
+    // 页面元素
+    const statusElement = document.getElementById("status");
+    const detectedWordsElement = document.getElementById("detectedWords");
+    const startButton = document.getElementById("startButton");
+    const stopButton = document.getElementById("stopButton");
+
+    // Web Speech API 初始化
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const recognition = new SpeechRecognition();
+
+    recognition.lang = "en-US"; // 设置语言
+    recognition.continuous = true; // 连续监听
+    recognition.interimResults = false; // 仅返回完整结果
+
+    let detected = []; // 存储检测到的词汇
+
+    startButton.addEventListener("click", () => {
+      detected = []; // 清空检测列表
+      detectedWordsElement.textContent = "";
+      statusElement.textContent = "Listening for speech...";
+      recognition.start();
+      startButton.disabled = true;
+      stopButton.disabled = false;
+    });
+
+    // 停止监听
+    stopButton.addEventListener("click", () => {
+      recognition.stop();
+      statusElement.textContent = "Stopped listening.";
+      startButton.disabled = false;
+      stopButton.disabled = true;
+    });
+
+    // 处理语音结果
+    recognition.onresult = (event) => {
+      const transcript = event.results[event.results.length - 1][0].transcript.toLowerCase();
+      console.log("Recognized:", transcript);
+
+      // 匹配检测词汇
+      detectWords.forEach(word => {
+        if (transcript.includes(word) && !detected.includes(word)) {
+          detected.push(word);
+        }
+      });
+
+      // 更新页面
+      detectedWordsElement.textContent = detected.join(", ");
+    };
+
+    // 错误处理
+    recognition.onerror = (event) => {
+      console.error("Speech recognition error:", event.error);
+      statusElement.textContent = "Error occurred. Please try again.";
+    };
+
+    // 停止监听事件
+    recognition.onend = () => {
+      if (!stopButton.disabled) {
+        statusElement.textContent = "Listening paused. Click 'Start' to resume.";
+      }
+    };
+
 function preload(){
   sd = loadSound('https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/test.m4a?v=1735554953863');
 }
