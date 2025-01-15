@@ -36,40 +36,40 @@ function draw() {
   let eyeWidth = 60;
   let eyeHeight = 60;
 
-  // Handle blinking state
+
   if (millis() > nextBlinkTime) {
     lastBlinkTime = millis();
-    nextBlinkTime = millis() + random(1000, 6000); // Next blink in 2 to 5 seconds
-    blinkState = 1; // Start blinking
+    nextBlinkTime = millis() + random(1000, 6000); 
+    blinkState = 1; 
   }
 
   if (blinkState === 1) {
-    blinkProgress += 0.1; // Adjust the speed of the transition here
+    blinkProgress += 0.1;
     if (blinkProgress >= 1) {
-      blinkState = 2; // Transition back to circle
+      blinkState = 2; 
     }
   } else if (blinkState === 2) {
-    blinkProgress -= 0.1; // Adjust the speed of the transition here
+    blinkProgress -= 0.1;
     if (blinkProgress <= 0) {
-      blinkState = 0; // Back to normal state
+      blinkState = 0; 
       blinkProgress = 0;
     }
   }
 
-  // Adjust eye height during blink transition
+  
   eyeHeight = lerp(60, 10, blinkProgress);
 
   if (millis() > nextShiftTime) {
-    nextShiftTime = millis() + random(3000, 7000); // Randomize next shift
-    targetEyeOffsetX = random(-50, 50); // Random target X offset
-    targetEyeOffsetY = random(-50, 50); // Random target Y offset
+    nextShiftTime = millis() + random(3000, 7000); 
+    targetEyeOffsetX = random(-50, 50); 
+    targetEyeOffsetY = random(-50, 50);
   }
 
-  // Gradually move toward target offsets
-  eyeOffsetX = lerp(eyeOffsetX, targetEyeOffsetX, 0.05); // Adjust speed here
-  eyeOffsetY = lerp(eyeOffsetY, targetEyeOffsetY, 0.05); // Adjust speed here
 
-  // Draw the eyes with offsets
+  eyeOffsetX = lerp(eyeOffsetX, targetEyeOffsetX, 0.05);
+  eyeOffsetY = lerp(eyeOffsetY, targetEyeOffsetY, 0.05);
+
+  
   ellipse(width / 2 - 100 + eyeOffsetX, height / 2 + eyeOffsetY, eyeWidth, eyeHeight);
   ellipse(width / 2 + 100 + eyeOffsetX, height / 2 + eyeOffsetY, eyeWidth, eyeHeight);
 }
@@ -104,6 +104,10 @@ function receive(data) {
   // noStroke();
   // fill(255, 0, 255);
   // ellipse(data.x, data.y, 10, 10);
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
 }
 
 /* global
