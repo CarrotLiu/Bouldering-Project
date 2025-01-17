@@ -22,7 +22,7 @@ let mouthOpenWidth = 35;
 let stage = 2;
 let scene;
 
-const challenges=[["Climb with one hand on"]];
+const challenges=[["Climb with left hand only", "climb with right hand only", "climb without hands", "grab every boulder with both hands"],["climb with one hand only"],["climb with"],["climb while keeping your back towards the wall all the time"] ];
 const challengeColor=["#007944", "#FFE31A", "#F35588", "#80C4E9"];
 const challengeW = ["challenge", "climbing", "fun", "game", "interesting"];
 const friendW = ["friend","buddy", "partner"];
@@ -266,9 +266,9 @@ function challenging(){
     translate(width / 2, height / 2 -180);
     fill(challengeColor[0]);
     textSize(25);
-    text("Go to the", 0, 0);
+    text("Go to the " + challenges[scene][int(random(0, challenges.length))][0], 0, 0);
     textSize(18);
-    text(challenges[scene][int(random(0, challenges.length))], 0, -50);
+    text(challenges[scene][int(random(0, challenges.length))][1], 0, -50);
     pop();
   }else{
     push();
