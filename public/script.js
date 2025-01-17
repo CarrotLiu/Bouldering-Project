@@ -16,6 +16,7 @@ let shiftDuration = 2000;
 let openMouth = false; // State of the mouth
 let mouthTimer = 0;    // Timer to track when to change mouth state
 let nextMouthChange;   // Random interval for mouth state change
+let mouthOpenAngle = 0; // Angle increment for smooth opening
 
 let stage = 0;
 const challengeW = ["challenge", "climbing", "fun", "game", "interesting"];
@@ -122,7 +123,13 @@ function draw() {
   if(stage == 0){
     if (millis() > nextMouthChange) {
     openMouth = !openMouth; // Toggle mouth state
+    mouthOpenAngle = 0; // Reset opening angle
     nextMouthChange = millis() + random(2000, 5000); // Set next random interval
+    }
+    if (openMouth) {
+    mouthOpenAngle = lerp(mouthOpenAngle, 35, 0); // Gradually open
+  } else {
+    mouthOpenAngle = lerp(mouthOpenAngle, 0, 35); // Gradually close
   }
     idling();
   } else if(stage == 1){
@@ -199,10 +206,12 @@ function idling(){
   translate(eyeOffsetX, eyeOffsetY);
   ellipse(width / 2 - 100, height / 2, eyeWidth, eyeHeight);
   ellipse(width / 2 + 100, height / 2, eyeWidth, eyeHeight);
+  
   push();
   noFill();
   stroke(255);
   strokeWeight(4);
+  arc(width / 2 + eyeOffsetX * 0.35, height / 2 + 20 + eyeOffsetX * 0.05, 35, mouthOpenAngle, 0, PI); 
   arc(width / 2 + eyeOffsetX * 0.35, height / 2 + 20 + eyeOffsetX * 0.05, 35, 35, 0, PI); 
   pop();
 }
