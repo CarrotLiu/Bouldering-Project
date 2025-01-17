@@ -188,9 +188,10 @@ function idling(){
   }
   eyeOffsetX = lerp(eyeOffsetX, targetEyeOffsetX, 0.05);
   eyeOffsetY = lerp(eyeOffsetY, targetEyeOffsetY, 0.05);
+  translate(eyeOffsetX, eyeOffsetY);
+  ellipse(width / 2 - 100, height / 2, eyeWidth, eyeHeight);
+  ellipse(width / 2 + 100, height / 2, eyeWidth, eyeHeight);
   
-  ellipse(width / 2 - 100 + eyeOffsetX, height / 2 + eyeOffsetY, eyeWidth, eyeHeight);
-  ellipse(width / 2 + 100 + eyeOffsetX, height / 2 + eyeOffsetY, eyeWidth, eyeHeight);
 }
 
 
@@ -199,9 +200,9 @@ function focusing(){
   
   eyeOffsetX = lerp(eyeOffsetX, 0, 0.05);
   eyeOffsetY = lerp(eyeOffsetY, 0, 0.05);
-  
-  ellipse(width / 2 - 100 + eyeOffsetX, height / 2 + eyeOffsetY, eyeWidth, eyeHeight);
-  ellipse(width / 2 + 100 + eyeOffsetX, height / 2 + eyeOffsetY, eyeWidth, eyeHeight);
+  translate(eyeOffsetX, eyeOffsetY);
+  ellipse(width / 2 - 100, height / 2, eyeWidth, eyeHeight);
+  ellipse(width / 2 + 100, height / 2, eyeWidth, eyeHeight);
 }
 
 function challenging(){
