@@ -243,17 +243,35 @@ function focusing(){
 }
 
 function challenging(){
+  textAlign(CENTER, CENTER);
   push();
-  translate(width / 2, height / 2 -200);
+  translate(width / 2, height / 2 -180);
   fill("#007944");
   noStroke();
-  circle(-90, -50, 60);
+  circle(-130, 50, 60);
+  fill(255);
+  textAlign(CENTER, CENTER);
+  textSize(20);
+  text("2", -130, 50);
   fill("#FFE31A");
-  circle(-30, 0, 60);
+  circle(-50, 0, 60);
+  fill(0);
+  text("3", -50, 0);
   fill("#F35588");
-  circle(30, 0, 60);
+  circle(50, 0, 60);
+  fill(255);
+  text("4", 50, 0);
   fill("#80C4E9");
-  circle(90, -50, 60);
+  circle(130, 50, 60);
+  fill(0);
+  text("5-", 130, 50);
+  pop();
+  push();
+  translate(width / 2, height / 2 + 200);
+  fill(255);
+  textSize(30);
+  text("Choose a Color for Your Challenge!", 0, 0);
+  
   pop();
 }
 
