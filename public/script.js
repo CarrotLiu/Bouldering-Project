@@ -19,7 +19,9 @@ let nextMouthChange;
 let mouthOpenHeight = 0; 
 let mouthOpenWidth = 35;
 
-let stage = 0;
+let challengeColor = "";
+
+let stage = 2;
 
 const challengeW = ["challenge", "climbing", "fun", "game", "interesting"];
 const friendW = ["friend","buddy", "partner"];
@@ -61,7 +63,13 @@ recognition.onresult = (event) => {
   const transcript = event.results[event.results.length - 1][0].transcript.toLowerCase();
   console.log("Recognized:", transcript);
 
-
+  if(stage == 2){
+    if(transcript.includes("green") || ){
+      challengeColor = "green"
+    }else if(transcript.includes("yellow")){
+      challengeColor = "yellow"
+    }
+  }
   challengeW.forEach(word => {
     if (transcript.includes(word) && !detected.includes(word)) {
       detected.push(word);
@@ -114,7 +122,9 @@ function setup() {
   
   nextBlinkTime = millis() + random(2000, 5000);
   nextShiftTime = millis() + random(3000, 7000); 
-  nextMouthChange = millis() + random(2000, 5000); // 2 to 5 seconds
+  nextMouthChange = millis() + random(2000, 5000); 
+  
+  textFont("Titillium Web");
 }
 
 function draw() {
@@ -124,8 +134,8 @@ function draw() {
   if(stage == 0){
     if (millis() > nextMouthChange) {
       openMouth = !openMouth; 
-      // mouthOpenHeight = 0; // Reset opening angle
-      nextMouthChange = millis() + random(2000, 5000); // Set next random interval
+      // mouthOpenHeight = 0; 
+      nextMouthChange = millis() + random(2000, 5000); 
     }
     if (openMouth) {
       mouthOpenHeight = lerp(mouthOpenHeight, 0, 0.1); 
@@ -269,7 +279,6 @@ function challenging(){
   push();
   translate(width / 2, height / 2 + 130);
   fill(255);
-  textFont("Titillium Web");
   textSize(25);
   text("Choose a Color for Your Challenge!", 0, -20);
   textSize(16);
