@@ -19,6 +19,7 @@ let nextMouthChange;   // Random interval for mouth state change
 let mouthOpenAngle = 0; // Angle increment for smooth opening
 
 let stage = 0;
+
 const challengeW = ["challenge", "climbing", "fun", "game", "interesting"];
 const friendW = ["friend","buddy", "partner"];
 const photoW = ["photo", "camera", "picture"];
@@ -31,73 +32,72 @@ const stopButton = document.getElementById("stopButton");
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 const recognition = new SpeechRecognition();
 
-    recognition.lang = "en-US";
-    recognition.continuous = true;
-    recognition.interimResults = false;
+recognition.lang = "en-US";
+recognition.continuous = true;
+recognition.interimResults = false;
 
-    let detected = []; 
+let detected = []; 
 
-    
-    startButton.addEventListener("click", () => {
-      detected = []; 
-      matchedWords.textContent = "";
-      statusElement.textContent = "Listening for speech...";
-      recognition.start();
-      startButton.disabled = true;
-      stopButton.disabled = false;
-    });
-
-   
-    stopButton.addEventListener("click", () => {
-      recognition.stop();
-      statusElement.textContent = "Stopped listening.";
-      startButton.disabled = false;
-      stopButton.disabled = true;
-    });
+startButton.addEventListener("click", () => {
+  detected = []; 
+  matchedWords.textContent = "";
+  statusElement.textContent = "Listening for speech...";
+  recognition.start();
+  startButton.disabled = true;
+  stopButton.disabled = false;
+});
 
 
-    recognition.onresult = (event) => {
-      const transcript = event.results[event.results.length - 1][0].transcript.toLowerCase();
-      console.log("Recognized:", transcript);
-      
-
-      challengeW.forEach(word => {
-        if (transcript.includes(word) && !detected.includes(word)) {
-          detected.push(word);
-          stage = 2;
-        }
-      });
-
-      
-      friendW.forEach(word => {
-        if (transcript.includes(word) && !detected.includes(word)) {
-          detected.push(word);
-          stage = 3;
-        }
-      });
-      photoW.forEach(word => {
-        if (transcript.includes(word) && !detected.includes(word)) {
-          detected.push(word);
-          stage = 4;
-        }
-      });
-
-      matchedWords.textContent = detected.join(", ");
-      // console.log(matchedWords);
-    };
+stopButton.addEventListener("click", () => {
+  recognition.stop();
+  statusElement.textContent = "Stopped listening.";
+  startButton.disabled = false;
+  stopButton.disabled = true;
+});
 
 
-    recognition.onerror = (event) => {
-      console.error("Speech recognition error:", event.error);
-      statusElement.textContent = "Error occurred. Please try again.";
-    };
+recognition.onresult = (event) => {
+  const transcript = event.results[event.results.length - 1][0].transcript.toLowerCase();
+  console.log("Recognized:", transcript);
 
-  
-    recognition.onend = () => {
-      if (!stopButton.disabled) {
-        statusElement.textContent = "Listening paused. Click 'Start' to resume.";
-      }
-    };
+
+  challengeW.forEach(word => {
+    if (transcript.includes(word) && !detected.includes(word)) {
+      detected.push(word);
+      stage = 2;
+    }
+  });
+
+
+  friendW.forEach(word => {
+    if (transcript.includes(word) && !detected.includes(word)) {
+      detected.push(word);
+      stage = 3;
+    }
+  });
+  photoW.forEach(word => {
+    if (transcript.includes(word) && !detected.includes(word)) {
+      detected.push(word);
+      stage = 4;
+    }
+  });
+
+  matchedWords.textContent = detected.join(", ");
+  // console.log(matchedWords);
+};
+
+
+recognition.onerror = (event) => {
+  console.error("Speech recognition error:", event.error);
+  statusElement.textContent = "Error occurred. Please try again.";
+};
+
+
+recognition.onend = () => {
+  if (!stopButton.disabled) {
+    statusElement.textContent = "Listening paused. Click 'Start' to resume.";
+  }
+};
 
 function preload(){
   sd = loadSound('https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/test.m4a?v=1735554953863');
@@ -122,15 +122,16 @@ function draw() {
   noStroke();
   if(stage == 0){
     if (millis() > nextMouthChange) {
-    openMouth = !openMouth; // Toggle mouth state
-    mouthOpenAngle = 0; // Reset opening angle
-    nextMouthChange = millis() + random(2000, 5000); // Set next random interval
+      openMouth = !openMouth; // Toggle mouth state
+      // mouthOpenAngle = 0; // Reset opening angle
+      nextMouthChange = millis() + random(2000, 5000); // Set next random interval
     }
     if (openMouth) {
-    mouthOpenAngle = lerp(mouthOpenAngle, 35, 0); // Gradually open
-  } else {
-    mouthOpenAngle = lerp(mouthOpenAngle, 0, 35); // Gradually close
-  }
+      console.log("hiii");
+      mouthOpenAngle = lerp(mouthOpenAngle, 35, 0.1); // Gradually open
+    } else {
+      mouthOpenAngle = lerp(mouthOpenAngle, 0, 0.1); // Gradually close
+    }
     idling();
   } else if(stage == 1){
     focusing();
@@ -213,6 +214,7 @@ function idling(){
   strokeWeight(4);
   arc(width / 2 + eyeOffsetX * 0.35, height / 2 + 20 + eyeOffsetX * 0.05, 35, mouthOpenAngle, 0, PI); 
   arc(width / 2 + eyeOffsetX * 0.35, height / 2 + 20 + eyeOffsetX * 0.05, 35, 35, 0, PI); 
+  console.log(mouthOpenAngle);
   pop();
 }
 
