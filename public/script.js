@@ -22,7 +22,9 @@ let mouthOpenWidth = 35;
 let challengeColor = "";
 
 let stage = 2;
+let scene = 0;
 
+const challenges=[["Climb with one hand on"]];
 const challengeW = ["challenge", "climbing", "fun", "game", "interesting"];
 const friendW = ["friend","buddy", "partner"];
 const photoW = ["photo", "camera", "picture"];
@@ -64,10 +66,16 @@ recognition.onresult = (event) => {
   console.log("Recognized:", transcript);
 
   if(stage == 2){
-    if(transcript.includes("green") || ){
-      challengeColor = "green"
-    }else if(transcript.includes("yellow")){
-      challengeColor = "yellow"
+    if(transcript.includes("green") || transcript.includes("dark green") || transcript.includes("two")){
+      // challengeColor = "green"
+      scene = 1;
+    }else if(transcript.includes("yellow") || transcript.includes("lemon") || transcript.includes("three")){
+      // challengeColor = "yellow"
+      scene = 2;
+    }else if(transcript.includes("pink") || transcript.includes("four")){
+      scene = 3;
+    }else if(transcript.includes("blue") || transcript.includes("sky blue") || transcript.includes("five") || transcript.includes("five minus")){
+      scene = 4;
     }
   }
   challengeW.forEach(word => {
