@@ -265,8 +265,10 @@ function challenging(){
     push();
     translate(width / 2, height / 2 -180);
     fill(challengeColor[0]);
-    text(challenges[scene], 130, 50);
-    text()
+    textSize(25);
+    text("Go to the", 0, 0);
+    textSize(18);
+    text(challenges[scene][int(random(0, challenges.length))], 0, -50);
     pop();
   }else{
     push();
@@ -297,8 +299,8 @@ function challenging(){
     textSize(25);
     text("Choose a Color for Your Challenge!", 0, -20);
     textSize(16);
-    text("The color indicates difficulty of the bouldering line,", 0, 35);
-    text("with the green being the easiest and the sky blue the hardest.", 0, 60);
+    text("The color indicates difficulty of the bouldering line", 0, 35);
+    text("green: the easiest => blue: the hardest", 0, 60);
     pop();
   }
   
