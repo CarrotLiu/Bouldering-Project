@@ -212,7 +212,7 @@ function drawFace(){
   strokeWeight(4);
   arc(width / 2 + eyeOffsetX * 0.35, height / 2 + 20 + eyeOffsetX * 0.05, mouthOpenWidth, mouthOpenHeight, 0, PI); 
   arc(width / 2 + eyeOffsetX * 0.35, height / 2 + 20 + eyeOffsetX * 0.05, mouthOpenWidth, 35 - 0.8 * (mouthOpenHeight - 35), 0, PI); 
-  console.log(mouthOpenHeight);
+  // console.log(mouthOpenHeight);
   pop();
   pop();
 }
@@ -267,11 +267,14 @@ function challenging(){
   text("5-", 130, 50);
   pop();
   push();
-  translate(width / 2, height / 2 + 200);
+  translate(width / 2, height / 2 + 130);
   fill(255);
-  textSize(30);
-  text("Choose a Color for Your Challenge!", 0, 0);
-  
+  textFont("Titillium Web");
+  textSize(25);
+  text("Choose a Color for Your Challenge!", 0, -20);
+  textSize(16);
+  text("The color indicates difficulty of the bouldering line,", 0, 35);
+  text("with the green being the easiest and the sky blue the hardest.", 0, 60);
   pop();
 }
 
