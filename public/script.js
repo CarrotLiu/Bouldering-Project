@@ -139,6 +139,7 @@ function draw() {
     focusing();
   } else if(stage == 2){
     challenging();
+    focusing();
   }
   
 }
@@ -233,9 +234,16 @@ function focusing(){
 
 function challenging(){
   push();
-  fill("#FFD65A");
+  translate(0, -100);
+  fill("#007944");
   noStroke();
-  circle();
+  circle(-90, -50, 60);
+  fill("#FFE31A");
+  circle(-30, 0, 60);
+  fill("#F35588");
+  circle(30, 0, 60);
+  fill("#80C4E9");
+  circle(90, -50, 60);
   pop();
 }
 
