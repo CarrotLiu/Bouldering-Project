@@ -66,10 +66,8 @@ recognition.onresult = (event) => {
 
   if(stage == 2){
     if(transcript.includes("green") || transcript.includes("dark green") || transcript.includes("two")){
-
       scene = 0;
     }else if(transcript.includes("yellow") || transcript.includes("lemon") || transcript.includes("three")){
-    
       scene = 1;
     }else if(transcript.includes("pink") || transcript.includes("four")){
       scene = 2;
