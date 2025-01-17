@@ -13,10 +13,11 @@ let targetEyeOffsetX = 0;
 let targetEyeOffsetY = 0; 
 let nextShiftTime = 0; 
 let shiftDuration = 2000; 
-let openMouth = false; // State of the mouth
-let mouthTimer = 0;    // Timer to track when to change mouth state
-let nextMouthChange;   // Random interval for mouth state change
-let mouthOpenAngle = 0; // Angle increment for smooth opening
+let openMouth = false; 
+let mouthTimer = 0;   
+let nextMouthChange;   
+let mouthOpenHeight = 0; 
+let mouthOpenWidth = 35;
 
 let stage = 0;
 
@@ -122,15 +123,16 @@ function draw() {
   noStroke();
   if(stage == 0){
     if (millis() > nextMouthChange) {
-      openMouth = !openMouth; // Toggle mouth state
-      // mouthOpenAngle = 0; // Reset opening angle
+      openMouth = !openMouth; 
+      // mouthOpenHeight = 0; // Reset opening angle
       nextMouthChange = millis() + random(2000, 5000); // Set next random interval
     }
     if (openMouth) {
-      console.log("hiii");
-      mouthOpenAngle = lerp(mouthOpenAngle, 35, 0.1); // Gradually open
+      mouthOpenHeight = lerp(mouthOpenHeight, 0, 0.1); 
+      mouthOpenWidth = lerp(mouthOpenWidth, 25, 0.1);
     } else {
-      mouthOpenAngle = lerp(mouthOpenAngle, 0, 0.1); // Gradually close
+      mouthOpenHeight = lerp(mouthOpenHeight, 35, 0.1); 
+      mouthOpenWidth = lerp(mouthOpenWidth, 35, 0.1);
     }
     idling();
   } else if(stage == 1){
@@ -212,9 +214,9 @@ function idling(){
   noFill();
   stroke(255);
   strokeWeight(4);
-  arc(width / 2 + eyeOffsetX * 0.35, height / 2 + 20 + eyeOffsetX * 0.05, 35, mouthOpenAngle, 0, PI); 
-  arc(width / 2 + eyeOffsetX * 0.35, height / 2 + 20 + eyeOffsetX * 0.05, 35, 35, 0, PI); 
-  console.log(mouthOpenAngle);
+  arc(width / 2 + eyeOffsetX * 0.35, height / 2 + 20 + eyeOffsetX * 0.05, mouthOpenWidth, mouthOpenHeight, 0, PI); 
+  arc(width / 2 + eyeOffsetX * 0.35, height / 2 + 20 + eyeOffsetX * 0.05, mouthOpenWidth, 35 - 0.8 * (mouthOpenHeight - 35), 0, PI); 
+  console.log(mouthOpenHeight);
   pop();
 }
 
@@ -230,7 +232,11 @@ function focusing(){
 }
 
 function challenging(){
-  text();
+  push();
+  fill("#FFD65A");
+  noStroke();
+  circle();
+  pop();
 }
 
 function socializing(){
