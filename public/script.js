@@ -19,12 +19,11 @@ let nextMouthChange;
 let mouthOpenHeight = 0; 
 let mouthOpenWidth = 35;
 
-let challengeColor = "";
-
 let stage = 2;
-let scene = 0;
+let scene;
 
 const challenges=[["Climb with one hand on"]];
+const challengeColor=["#007944", "#FFE31A", "#F35588", "#80C4E9"];
 const challengeW = ["challenge", "climbing", "fun", "game", "interesting"];
 const friendW = ["friend","buddy", "partner"];
 const photoW = ["photo", "camera", "picture"];
@@ -67,15 +66,15 @@ recognition.onresult = (event) => {
 
   if(stage == 2){
     if(transcript.includes("green") || transcript.includes("dark green") || transcript.includes("two")){
-      // challengeColor = "green"
-      scene = 1;
+
+      scene = 0;
     }else if(transcript.includes("yellow") || transcript.includes("lemon") || transcript.includes("three")){
-      // challengeColor = "yellow"
-      scene = 2;
+    
+      scene = 1;
     }else if(transcript.includes("pink") || transcript.includes("four")){
-      scene = 3;
+      scene = 2;
     }else if(transcript.includes("blue") || transcript.includes("sky blue") || transcript.includes("five") || transcript.includes("five minus")){
-      scene = 4;
+      scene = 3;
     }
   }
   challengeW.forEach(word => {
@@ -262,37 +261,47 @@ function focusing(){
 
 function challenging(){
   textAlign(CENTER, CENTER);
-  push();
-  translate(width / 2, height / 2 -180);
-  fill("#007944");
-  noStroke();
-  circle(-130, 50, 60);
-  fill(255);
-  textAlign(CENTER, CENTER);
-  textSize(20);
-  text("2", -130, 50);
-  fill("#FFE31A");
-  circle(-50, 0, 60);
-  fill(0);
-  text("3", -50, 0);
-  fill("#F35588");
-  circle(50, 0, 60);
-  fill(255);
-  text("4", 50, 0);
-  fill("#80C4E9");
-  circle(130, 50, 60);
-  fill(0);
-  text("5-", 130, 50);
-  pop();
-  push();
-  translate(width / 2, height / 2 + 130);
-  fill(255);
-  textSize(25);
-  text("Choose a Color for Your Challenge!", 0, -20);
-  textSize(16);
-  text("The color indicates difficulty of the bouldering line,", 0, 35);
-  text("with the green being the easiest and the sky blue the hardest.", 0, 60);
-  pop();
+  if(scene != null){
+    push();
+    translate(width / 2, height / 2 -180);
+    fill(challengeColor[0]);
+    text(challenges[scene], 130, 50);
+    text()
+    pop();
+  }else{
+    push();
+    translate(width / 2, height / 2 -180);
+    fill(challengeColor[0]);
+    noStroke();
+    circle(-130, 50, 60);
+    fill(255);
+    textAlign(CENTER, CENTER);
+    textSize(20);
+    text("2", -130, 50);
+    fill(challengeColor[1]);
+    circle(-50, 0, 60);
+    fill(0);
+    text("3", -50, 0);
+    fill(challengeColor[2]);
+    circle(50, 0, 60);
+    fill(255);
+    text("4", 50, 0);
+    fill(challengeColor[3]);
+    circle(130, 50, 60);
+    fill(0);
+    text("5-", 130, 50);
+    pop();
+    push();
+    translate(width / 2, height / 2 + 130);
+    fill(255);
+    textSize(25);
+    text("Choose a Color for Your Challenge!", 0, -20);
+    textSize(16);
+    text("The color indicates difficulty of the bouldering line,", 0, 35);
+    text("with the green being the easiest and the sky blue the hardest.", 0, 60);
+    pop();
+  }
+  
 }
 
 function socializing(){
