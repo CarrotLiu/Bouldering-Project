@@ -135,11 +135,14 @@ function draw() {
       mouthOpenWidth = lerp(mouthOpenWidth, 35, 0.1);
     }
     idling();
-  } else if(stage == 1){
+  } else if(stage == 1){//intro stage
+    
     focusing();
-  } else if(stage == 2){
+  } else if(stage == 2){//challenge stage
     challenging();
     focusing();
+  } else if(stage == 3){//find friend
+    
   }
   
 }
@@ -197,16 +200,8 @@ function blinkControl(){
   eyeHeight = lerp(60, 10, blinkProgress);
 }
 
-function idling(){
-  blinkControl();
-  
-  if (millis() > nextShiftTime) {
-    nextShiftTime = millis() + random(3000, 7000); 
-    targetEyeOffsetX = random(-50, 50); 
-    targetEyeOffsetY = random(-50, 50);
-  }
-  eyeOffsetX = lerp(eyeOffsetX, targetEyeOffsetX, 0.05);
-  eyeOffsetY = lerp(eyeOffsetY, targetEyeOffsetY, 0.05);
+function drawFace(){
+  push();
   translate(eyeOffsetX, eyeOffsetY);
   ellipse(width / 2 - 100, height / 2, eyeWidth, eyeHeight);
   ellipse(width / 2 + 100, height / 2, eyeWidth, eyeHeight);
@@ -219,22 +214,37 @@ function idling(){
   arc(width / 2 + eyeOffsetX * 0.35, height / 2 + 20 + eyeOffsetX * 0.05, mouthOpenWidth, 35 - 0.8 * (mouthOpenHeight - 35), 0, PI); 
   console.log(mouthOpenHeight);
   pop();
+  pop();
+}
+
+function idling(){
+  blinkControl();
+  
+  if (millis() > nextShiftTime) {
+    nextShiftTime = millis() + random(3000, 7000); 
+    targetEyeOffsetX = random(-50, 50); 
+    targetEyeOffsetY = random(-50, 50);
+  }
+  eyeOffsetX = lerp(eyeOffsetX, targetEyeOffsetX, 0.05);
+  eyeOffsetY = lerp(eyeOffsetY, targetEyeOffsetY, 0.05);
+  drawFace();
 }
 
 
 function focusing(){
+  push();
   blinkControl();
   
   eyeOffsetX = lerp(eyeOffsetX, 0, 0.05);
   eyeOffsetY = lerp(eyeOffsetY, 0, 0.05);
-  translate(eyeOffsetX, eyeOffsetY);
-  ellipse(width / 2 - 100, height / 2, eyeWidth, eyeHeight);
-  ellipse(width / 2 + 100, height / 2, eyeWidth, eyeHeight);
+  
+  drawFace();
+  pop();
 }
 
 function challenging(){
   push();
-  translate(0, -100);
+  translate(width / 2, height / 2 -200);
   fill("#007944");
   noStroke();
   circle(-90, -50, 60);
@@ -255,6 +265,16 @@ function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
 }
 
+function keyPressed() {
+  if (key === 'c') {
+    if(stage < 4){
+      stage ++;
+    }else{
+      stage = 0;
+    }
+  }
+
+}
 /* global
 
 io
