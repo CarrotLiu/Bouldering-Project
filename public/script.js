@@ -13,19 +13,22 @@ let targetEyeOffsetX = 0;
 let targetEyeOffsetY = 0; 
 let nextShiftTime = 0; 
 let shiftDuration = 2000; 
+let openMouth = false; // State of the mouth
+let mouthTimer = 0;    // Timer to track when to change mouth state
+let nextMouthChange;   // Random interval for mouth state change
 
 let stage = 0;
 const challengeW = ["challenge", "climbing", "fun", "game", "interesting"];
-    const friendW = ["friend","buddy", "partner"];
-    const photoW = ["photo", "camera", "picture"];
+const friendW = ["friend","buddy", "partner"];
+const photoW = ["photo", "camera", "picture"];
 
-    const statusElement = document.getElementById("status");
-    const matchedWords = document.getElementById("detectedWords");
-    const startButton = document.getElementById("startButton");
-    const stopButton = document.getElementById("stopButton");
+const statusElement = document.getElementById("status");
+const matchedWords = document.getElementById("detectedWords");
+const startButton = document.getElementById("startButton");
+const stopButton = document.getElementById("stopButton");
 
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    const recognition = new SpeechRecognition();
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+const recognition = new SpeechRecognition();
 
     recognition.lang = "en-US";
     recognition.continuous = true;
@@ -109,6 +112,7 @@ function setup() {
   
   nextBlinkTime = millis() + random(2000, 5000);
   nextShiftTime = millis() + random(3000, 7000); 
+  nextMouthChange = millis() + random(2000, 5000); // 2 to 5 seconds
 }
 
 function draw() {
@@ -116,6 +120,10 @@ function draw() {
   fill(255);
   noStroke();
   if(stage == 0){
+    if (millis() > nextMouthChange) {
+    openMouth = !openMouth; // Toggle mouth state
+    nextMouthChange = millis() + random(2000, 5000); // Set next random interval
+  }
     idling();
   } else if(stage == 1){
     focusing();
@@ -191,7 +199,12 @@ function idling(){
   translate(eyeOffsetX, eyeOffsetY);
   ellipse(width / 2 - 100, height / 2, eyeWidth, eyeHeight);
   ellipse(width / 2 + 100, height / 2, eyeWidth, eyeHeight);
-  
+  push();
+  noFill();
+  stroke(255);
+  strokeWeight(4);
+  arc(width / 2 + eyeOffsetX * 0.35, height / 2 + 20 + eyeOffsetX * 0.05, 35, 35, 0, PI); 
+  pop();
 }
 
 
