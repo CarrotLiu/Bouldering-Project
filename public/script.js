@@ -14,7 +14,6 @@ let targetEyeOffsetY = 0;
 let nextShiftTime = 0; 
 let shiftDuration = 2000; 
 let openMouth = false;
-let openSpd;
 let isSpeaking = false;
 let mouthTimer = 0;   
 let nextMouthChange;   
@@ -139,26 +138,24 @@ function draw() {
   fill(255);
   noStroke();
   if(stage == 0){
-    if (millis() > nextMouthChange) {
-      openMouth = !openMouth; 
-      openSpd=random(0.1, 0.5);
-      // mouthOpenHeight = 0; 
-      nextMouthChange = millis() + random(100, 800); 
+    if(isSpeaking){
+      focusing();
+    }else{
+      idling();
     }
-    if (openMouth) {
-      mouthOpenHeight = lerp(mouthOpenHeight, 0, 0.2); 
-      mouthOpenWidth = lerp(mouthOpenWidth, 25, 0.2);
-    } else {
-      mouthOpenHeight = lerp(mouthOpenHeight, 35, 0.2); 
-      mouthOpenWidth = lerp(mouthOpenWidth, 35, 0.2);
-    }
-    idling();
   } else if(stage == 1){//intro stage
-    
-    focusing();
+    if(isSpeaking){
+      focusing();
+    }else{
+      idling();
+    }
   } else if(stage == 2){//challenge stage
     challenging();
-    focusing();
+    if(isSpeaking){
+      focusing();
+    }else{
+      idling();
+    }
   } else if(stage == 3){//find friend
     
   }
@@ -227,13 +224,30 @@ function drawFace(){
   translate(eyeOffsetX, eyeOffsetY);
   ellipse(width / 2 - 100, height / 2, eyeWidth, eyeHeight);
   ellipse(width / 2 + 100, height / 2, eyeWidth, eyeHeight);
+  
+  if (millis() > nextMouthChange && isSpeaking) {
+    openMouth = !openMouth; 
+    // mouthOpenHeight = 0; 
+    nextMouthChange = millis() + random(100, 800); 
+  }
+  if (openMouth) {
+    mouthOpenHeight = lerp(mouthOpenHeight, 0, 0.2); 
+    mouthOpenWidth = lerp(mouthOpenWidth, 25, 0.2);
+  } else {
+    mouthOpenHeight = lerp(mouthOpenHeight, 35, 0.2); 
+    mouthOpenWidth = lerp(mouthOpenWidth, 35, 0.2);
+  }
   push();
   noFill();
   stroke(255);
   strokeWeight(4);
-  
-  arc(width / 2 + eyeOffsetX * 0.35, height / 2 + 20 + eyeOffsetX * 0.05, mouthOpenWidth, mouthOpenHeight, 0, PI); 
+  if(isSpeaking){
+    arc(width / 2 + eyeOffsetX * 0.35, height / 2 + 20 + eyeOffsetX * 0.05, mouthOpenWidth, mouthOpenHeight, 0, PI); 
   arc(width / 2 + eyeOffsetX * 0.35, height / 2 + 20 + eyeOffsetX * 0.05, mouthOpenWidth, 35 - 0.8 * (mouthOpenHeight - 35), 0, PI); 
+  }else{
+    arc(width / 2 + eyeOffsetX * 0.35, height / 2 + 20 + eyeOffsetX * 0.05, 35, 35, 0, PI);
+  }
+  
 pop();
   pop();
 }
@@ -325,6 +339,9 @@ function keyPressed() {
     }else{
       stage = 0;
     }
+  }
+  if(key === 't'){
+    isSpeaking = !isSpeaking;
   }
 
 }
