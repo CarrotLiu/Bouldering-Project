@@ -215,20 +215,24 @@ function blinkControl(){
   eyeHeight = lerp(60, 10, blinkProgress);
 }
 
+
+
 function drawFace(){
   push();
+  fill(255);
+  noStroke();
+  
   translate(eyeOffsetX, eyeOffsetY);
   ellipse(width / 2 - 100, height / 2, eyeWidth, eyeHeight);
   ellipse(width / 2 + 100, height / 2, eyeWidth, eyeHeight);
   
-  push();
   noFill();
   stroke(255);
   strokeWeight(4);
+  
   arc(width / 2 + eyeOffsetX * 0.35, height / 2 + 20 + eyeOffsetX * 0.05, mouthOpenWidth, mouthOpenHeight, 0, PI); 
   arc(width / 2 + eyeOffsetX * 0.35, height / 2 + 20 + eyeOffsetX * 0.05, mouthOpenWidth, 35 - 0.8 * (mouthOpenHeight - 35), 0, PI); 
-  // console.log(mouthOpenHeight);
-  pop();
+
   pop();
 }
 
