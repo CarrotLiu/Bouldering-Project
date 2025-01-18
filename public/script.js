@@ -13,13 +13,15 @@ let targetEyeOffsetX = 0;
 let targetEyeOffsetY = 0; 
 let nextShiftTime = 0; 
 let shiftDuration = 2000; 
-let openMouth = false; 
+let openMouth = false;
+let openSpd;
+let isSpeaking = false;
 let mouthTimer = 0;   
 let nextMouthChange;   
 let mouthOpenHeight = 0; 
 let mouthOpenWidth = 35;
 
-let stage = 2;
+let stage = 0;
 let scene;
 
 const challenges=[["Climb with left hand only", "climb with right hand only", "climb without hands", "grab every boulder with both hands"],["climb with one hand only"],["climb with"],["climb while keeping your back towards the wall all the time"] ];
@@ -139,15 +141,16 @@ function draw() {
   if(stage == 0){
     if (millis() > nextMouthChange) {
       openMouth = !openMouth; 
+      openSpd=random(0.1, 0.5);
       // mouthOpenHeight = 0; 
-      nextMouthChange = millis() + random(2000, 5000); 
+      nextMouthChange = millis() + random(100, 800); 
     }
     if (openMouth) {
-      mouthOpenHeight = lerp(mouthOpenHeight, 0, 0.1); 
-      mouthOpenWidth = lerp(mouthOpenWidth, 25, 0.1);
+      mouthOpenHeight = lerp(mouthOpenHeight, 0, 0.2); 
+      mouthOpenWidth = lerp(mouthOpenWidth, 25, 0.2);
     } else {
-      mouthOpenHeight = lerp(mouthOpenHeight, 35, 0.1); 
-      mouthOpenWidth = lerp(mouthOpenWidth, 35, 0.1);
+      mouthOpenHeight = lerp(mouthOpenHeight, 35, 0.2); 
+      mouthOpenWidth = lerp(mouthOpenWidth, 35, 0.2);
     }
     idling();
   } else if(stage == 1){//intro stage
@@ -219,20 +222,19 @@ function blinkControl(){
 
 function drawFace(){
   push();
-  fill(255);
-  noStroke();
+  
   
   translate(eyeOffsetX, eyeOffsetY);
   ellipse(width / 2 - 100, height / 2, eyeWidth, eyeHeight);
   ellipse(width / 2 + 100, height / 2, eyeWidth, eyeHeight);
-  
+  push();
   noFill();
   stroke(255);
   strokeWeight(4);
   
   arc(width / 2 + eyeOffsetX * 0.35, height / 2 + 20 + eyeOffsetX * 0.05, mouthOpenWidth, mouthOpenHeight, 0, PI); 
   arc(width / 2 + eyeOffsetX * 0.35, height / 2 + 20 + eyeOffsetX * 0.05, mouthOpenWidth, 35 - 0.8 * (mouthOpenHeight - 35), 0, PI); 
-
+pop();
   pop();
 }
 
