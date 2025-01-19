@@ -134,6 +134,8 @@ function setup() {
   nextMouthChange = millis() + random(2000, 5000); 
   
   textFont("Titillium Web");
+  
+  intro.play();
 }
 
 function draw() {
@@ -143,6 +145,7 @@ function draw() {
   if(stage == 0){
     if(intro.isPlaying){
       isSpeaking = true;
+      // console.log(intro.isPlaying);
     }else{
       isSpeaking = false;
     }
@@ -195,7 +198,7 @@ function mouseDragged() {
 function receive(data) {
   console.log(data);
   if(data.s){
-    sd.play();
+    intro.play();
   }
   // noStroke();
   // fill(255, 0, 255);
