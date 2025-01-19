@@ -143,7 +143,7 @@ function draw() {
   fill(255);
   noStroke();
   if(stage == 0){
-    if(intro.isPlaying){
+    if(intro.isPlaying()){
       isSpeaking = true;
       // console.log(intro.isPlaying);
     }else{
