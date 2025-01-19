@@ -1,5 +1,6 @@
 let socket;
 
+let amplitude;
 let intro;
 let introDone = false;
 
@@ -136,6 +137,8 @@ function setup() {
   textFont("Titillium Web");
   
   intro.play();
+  amplitude = new p5.Amplitude();
+  amplitude.setInput(intro);
 }
 
 function draw() {
@@ -145,7 +148,7 @@ function draw() {
   if(stage == 0){
     if(intro.isPlaying()){
       isSpeaking = true;
-      console.log(intro.getLevel());
+      // console.log(amplitude.getLevel() * 10);
       // console.log(intro.isPlaying);
     }else{
       isSpeaking = false;
@@ -236,18 +239,23 @@ function drawFace(){
   translate(eyeOffsetX, eyeOffsetY);
   ellipse(width / 2 - 100, height / 2, eyeWidth, eyeHeight);
   ellipse(width / 2 + 100, height / 2, eyeWidth, eyeHeight);
-  
-  if (millis() > nextMouthChange && isSpeaking) {
-    openMouth = !openMouth; 
-    // mouthOpenHeight = 0; 
-    nextMouthChange = millis() + random(100, 800); 
-  }
-  if (openMouth) {
-    mouthOpenHeight = lerp(mouthOpenHeight, 0, 0.2); 
-    mouthOpenWidth = lerp(mouthOpenWidth, 25, 0.2);
-  } else {
-    mouthOpenHeight = lerp(mouthOpenHeight, 35, 0.2); 
-    mouthOpenWidth = lerp(mouthOpenWidth, 35, 0.2);
+  if(!isSpeaking){
+    if (millis() > nextMouthChange && isSpeaking) {
+      openMouth = !openMouth; 
+      // mouthOpenHeight = 0; 
+      nextMouthChange = millis() + random(1000, 3000); 
+    }
+    if (openMouth) {
+      mouthOpenHeight = lerp(mouthOpenHeight, 0, 0.2); 
+      mouthOpenWidth = lerp(mouthOpenWidth, 25, 0.2);
+    } else {
+      mouthOpenHeight = lerp(mouthOpenHeight, 35, 0.2); 
+      mouthOpenWidth = lerp(mouthOpenWidth, 35, 0.2);
+    }
+  }else{
+    mouthOpenHeight = lerp(mouthOpenHeight, amplitude.getLevel() * 200, 0.3); 
+    mouthOpenWidth = lerp(mouthOpenWidth, 25 + amplitude.getLevel() * 50, 0.3);
+    amplitude.getLevel() * 10
   }
   push();
   noFill();
