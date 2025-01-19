@@ -146,6 +146,7 @@ function draw() {
   fill(255);
   noStroke();
   if(stage == 0){
+    scene = null;
     if(intro.isPlaying()){
       isSpeaking = true;
       // console.log(amplitude.getLevel() * 10);
@@ -159,6 +160,7 @@ function draw() {
       idling();
     }
   } else if(stage == 1){//intro stage
+    scene = null;
     if(isSpeaking){
       focusing();
     }else{
@@ -172,6 +174,7 @@ function draw() {
       idling();
     }
   } else if(stage == 3){//find friend
+    scene = null;
     
   }
   
@@ -180,14 +183,14 @@ function draw() {
 
 function mouseClicked(){
   if(dist(mouseX, mouseY, width / 2, height / 2) < 100){
-    let data = {}; // JS Object
+    let data = {};
     data.s = true;
     socket.emit("connection_name", data);
   }
 }
 
 function mouseDragged() {
-  // let data = {}; // JS Object
+  // let data = {}; 
   // data.x = mouseX;
   // data.y = mouseY;
   
@@ -234,8 +237,6 @@ function blinkControl(){
 
 function drawFace(){
   push();
-  
-  
   translate(eyeOffsetX, eyeOffsetY);
   ellipse(width / 2 - 100, height / 2, eyeWidth, eyeHeight);
   ellipse(width / 2 + 100, height / 2, eyeWidth, eyeHeight);
@@ -271,7 +272,6 @@ function drawFace(){
   }else{
     arc(width / 2 + eyeOffsetX * 0.35, height / 2 + 20 + eyeOffsetX * 0.05, 35, 35, 0, PI); 
   }
-  
   pop();
 }
 
