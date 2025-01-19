@@ -239,36 +239,42 @@ function drawFace(){
   translate(eyeOffsetX, eyeOffsetY);
   ellipse(width / 2 - 100, height / 2, eyeWidth, eyeHeight);
   ellipse(width / 2 + 100, height / 2, eyeWidth, eyeHeight);
-  if(!isSpeaking){
-    if (millis() > nextMouthChange && isSpeaking) {
-      openMouth = !openMouth; 
-      // mouthOpenHeight = 0; 
-      nextMouthChange = millis() + random(1000, 3000); 
-    }
-    if (openMouth) {
-      mouthOpenHeight = lerp(mouthOpenHeight, 0, 0.2); 
-      mouthOpenWidth = lerp(mouthOpenWidth, 25, 0.2);
-    } else {
-      mouthOpenHeight = lerp(mouthOpenHeight, 35, 0.2); 
-      mouthOpenWidth = lerp(mouthOpenWidth, 35, 0.2);
-    }
-  }else{
+  if(isSpeaking){
+    // if (millis() > nextMouthChange) {
+    //   openMouth = !openMouth; 
+    //   // mouthOpenHeight = 0; 
+    //   nextMouthChange = millis() + random(3000, 10000); 
+    // }
+    // if (openMouth) {
+    //   mouthOpenHeight = lerp(mouthOpenHeight, 0, 0.2); 
+    //   mouthOpenWidth = lerp(mouthOpenWidth, 25, 0.2);
+    // } else {
+    //   mouthOpenHeight = lerp(mouthOpenHeight, 35, 0.2); 
+    //   mouthOpenWidth = lerp(mouthOpenWidth, 35, 0.2);
+    // }
+  // }else{
     mouthOpenHeight = lerp(mouthOpenHeight, amplitude.getLevel() * 200, 0.3); 
-    mouthOpenWidth = lerp(mouthOpenWidth, 25 + amplitude.getLevel() * 50, 0.3);
+    mouthOpenWidth = lerp(mouthOpenWidth, 35 - amplitude.getLevel() * 200, 0.3);
     amplitude.getLevel() * 10
-  }
-  push();
+    push();
   noFill();
   stroke(255);
   strokeWeight(4);
-  if(isSpeaking){
-    arc(width / 2 + eyeOffsetX * 0.35, height / 2 + 20 + eyeOffsetX * 0.05, mouthOpenWidth, mouthOpenHeight, 0, PI); 
-  arc(width / 2 + eyeOffsetX * 0.35, height / 2 + 20 + eyeOffsetX * 0.05, mouthOpenWidth, 35 - 0.8 * (mouthOpenHeight - 35), 0, PI); 
-  }else{
-    arc(width / 2 + eyeOffsetX * 0.35, height / 2 + 20 + eyeOffsetX * 0.05, 35, 35, 0, PI);
-  }
+  
+  arc(width / 2 + eyeOffsetX * 0.35, height / 2 + 20 + eyeOffsetX * 0.05, mouthOpenWidth, mouthOpenHeight, 0, PI); 
+  arc(width / 2 + eyeOffsetX * 0.35, height / 2 + 20 + eyeOffsetX * 0.05, mouthOpenWidth, 35 - 0.5 * (mouthOpenHeight - 35), 0, PI); 
+
   
 pop();
+  }else{
+    push();
+    noFill();
+  stroke(255);
+  strokeWeight(4);
+    arc(width / 2 + eyeOffsetX * 0.35, height / 2 + 20 + eyeOffsetX * 0.05, 35, 35, 0, PI); 
+  pop();
+  }
+  
   pop();
 }
 
