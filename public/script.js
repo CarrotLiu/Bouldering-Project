@@ -1,5 +1,8 @@
 let socket;
-let sd;
+
+let intro;
+let introDone = false;
+
 let blinkState = 0; 
 let blinkProgress = 0; 
 let nextBlinkTime = 0; 
@@ -115,7 +118,7 @@ recognition.onend = () => {
 };
 
 function preload(){
-  sd = loadSound('https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/test.m4a?v=1735554953863');
+  intro = loadSound('https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/introtest.m4a?v=1737277207094');
 }
 
 function setup() {
@@ -138,6 +141,11 @@ function draw() {
   fill(255);
   noStroke();
   if(stage == 0){
+    if(intro.isPlaying){
+      isSpeaking = true;
+    }else{
+      isSpeaking = false;
+    }
     if(isSpeaking){
       focusing();
     }else{
