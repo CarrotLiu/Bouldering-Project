@@ -145,6 +145,7 @@ function draw() {
   if(stage == 0){
     if(intro.isPlaying()){
       isSpeaking = true;
+      console.log(intro.getLevel());
       // console.log(intro.isPlaying);
     }else{
       isSpeaking = false;
