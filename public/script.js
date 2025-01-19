@@ -17,8 +17,11 @@ let targetEyeOffsetX = 0;
 let targetEyeOffsetY = 0; 
 let nextShiftTime = 0; 
 let shiftDuration = 2000; 
-let openMouth = false;
+
 let isSpeaking = false;
+let isListening = false;
+
+let openMouth = false;
 let mouthTimer = 0;   
 let nextMouthChange;   
 let mouthOpenHeight = 0; 
@@ -338,10 +341,10 @@ function challenging(){
     translate(width / 2, height / 2 + 130);
     fill(255);
     textSize(25);
-    text("Choose a Color for Your Challenge!", 0, -20);
+    text("Choose a Route Color Code", 0, -20);
     textSize(16);
-    text("The color indicates difficulty of the bouldering line", 0, 35);
-    text("green: the easiest => blue: the hardest", 0, 60);
+    text("The color code indicates the route's difficulty", 0, 35);
+    text("Challenges available for levels below the sky blue color", 0, 60);
     pop();
   }
   
