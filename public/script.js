@@ -153,33 +153,21 @@ function draw() {
     scene = null;
     if(intro.isPlaying()){
       isSpeaking = true;
-      // console.log(amplitude.getLevel() * 10);
-      // console.log(intro.isPlaying);
     }else{
       isSpeaking = false;
     }
-    if(isSpeaking){
-      focusing();
-    }else{
-      idling();
-    }
   } else if(stage == 1){//intro stage
     scene = null;
-    if(isSpeaking){
-      focusing();
-    }else{
-      idling();
-    }
   } else if(stage == 2){//challenge stage
     challenging();
-    if(isSpeaking){
-      focusing();
-    }else{
-      idling();
-    }
   } else if(stage == 3){//find friend
     scene = null;
     
+  }
+  if(isSpeaking){
+    focusing();
+  }else{
+    idling();
   }
   
 }
@@ -279,9 +267,6 @@ function assembleFace(){
   pop();
 }
 
-function drawFace(){
-  
-}
 
 function idling(){
   blinkControl();
