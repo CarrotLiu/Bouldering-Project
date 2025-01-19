@@ -254,34 +254,22 @@ function drawFace(){
     // }
   // }else{
     let level = amplitude.getLevel();
-    push();
-  noFill();
-  stroke(255);
-  strokeWeight(4);
-  
-  
+    
+    noFill();
+    stroke(255);
+    strokeWeight(4);
+    
     if(level != 0){
       mouthOpenHeight = lerp(mouthOpenHeight, 35 - level * 360, 0.3); 
       mouthOpenWidth = lerp(mouthOpenWidth, 35 - level * 200, 0.3);
-      
     }else{
       mouthOpenHeight = lerp(mouthOpenHeight, 35, 0.1); 
       mouthOpenWidth = lerp(mouthOpenWidth, 35, 0.1);
-      
     }
     arc(width / 2 + eyeOffsetX * 0.35, height / 2 + 20 + eyeOffsetX * 0.05, mouthOpenWidth, mouthOpenHeight, 0, PI); 
     arc(width / 2 + eyeOffsetX * 0.35, height / 2 + 20 + eyeOffsetX * 0.05, mouthOpenWidth, 35 + level * 100, 0, PI); 
-  
-
-  
-    pop();
   }else{
-    push();
-    noFill();
-  stroke(255);
-  strokeWeight(4);
     arc(width / 2 + eyeOffsetX * 0.35, height / 2 + 20 + eyeOffsetX * 0.05, 35, 35, 0, PI); 
-  pop();
   }
   
   pop();
