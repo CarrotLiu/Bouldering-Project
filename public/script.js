@@ -164,11 +164,13 @@ function draw() {
     scene = null;
     
   }
+  push();
   if(isSpeaking){
     focusing();
   }else{
     idling();
   }
+  pop();
   
 }
   
@@ -232,6 +234,9 @@ function assembleFace(){
   translate(eyeOffsetX, eyeOffsetY);
   ellipse(width / 2 - 100, height / 2, eyeWidth, eyeHeight);
   ellipse(width / 2 + 100, height / 2, eyeWidth, eyeHeight);
+  noFill();
+  stroke(255);
+  strokeWeight(4);
   if(isSpeaking){
     // if (millis() > nextMouthChange) {
     //   openMouth = !openMouth; 
@@ -247,11 +252,6 @@ function assembleFace(){
     // }
   // }else{
     let level = amplitude.getLevel();
-    
-    noFill();
-    stroke(255);
-    strokeWeight(4);
-    
     if(level != 0){
       mouthOpenHeight = lerp(mouthOpenHeight, 35 - level * 360, 0.3); 
       mouthOpenWidth = lerp(mouthOpenWidth, 35 - level * 200, 0.3);
