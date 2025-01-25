@@ -1,5 +1,6 @@
 let socket;
 
+let micLevel = 0; 
 let amplitude;
 let intro;
 let introDone = false;
@@ -67,10 +68,11 @@ stopButton.addEventListener("click", () => {
   stopButton.disabled = true;
 });
 
-var audio = document.getElementById("audio");
+var introduction = document.getElementById("introduction");
+var hi = document.getElementById("hi");
 document.ontouchend = function() {
   if(!introDone){
-    audio.play();
+    introduction.play();
     introDone = true;
   }   
 }
@@ -208,8 +210,8 @@ function mouseDragged() {
 socket.on('playIntro', function (data){
   console.log(data);
   if(data.s){
-    audio.load();
-    audio.play();
+    hi.load();
+    hi.play();
   }
 })
 
