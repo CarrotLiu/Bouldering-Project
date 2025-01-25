@@ -167,9 +167,11 @@ function draw() {
   } else if(stage == 1){//intro stage
     scene = null;
   } else if(stage == 2){//challenge stage
-    
+    if (!hi.currentTime > 0 && !hi.ended) {
+      console.log("hi");
     hi.load();
     hi.play();
+    }
     challenging();
   } else if(stage == 3){//find friend
     scene = null;
