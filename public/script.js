@@ -167,6 +167,9 @@ function draw() {
   } else if(stage == 1){//intro stage
     scene = null;
   } else if(stage == 2){//challenge stage
+    
+    hi.load();
+    hi.play();
     challenging();
   } else if(stage == 3){//find friend
     scene = null;
@@ -208,15 +211,7 @@ function mouseDragged() {
 
 
 socket.on('playIntro', function (data){
-  let audioContext = new (window.AudioContext || window.webkitAudioContext)();
-let decodeAudioData = audioContext.decodeAudioData(event.data, function(buffer) {
- let source = audioContext.createBufferSource(); 
- source.buffer = buffer;
- source.connect(audioContext.destination);
- source.start(0);
-}, function (err) {
- console.log(err);
-});
+
   // console.log(data);
   if(data.s){
     hi.load();
