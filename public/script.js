@@ -123,7 +123,7 @@ recognition.onend = () => {
 };
 
 function preload(){
-  intro = loadSound('https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/introtest.m4a?v=1737277207094');
+  intro = loadSound('https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/introtest.mp3?v=1737791074421');
 }
 
 function setup() {
@@ -141,6 +141,8 @@ function setup() {
   textFont("Titillium Web");
   
   intro.play();
+  console.log(intro);
+  console.log(intro.isPlaying());
   amplitude = new p5.Amplitude();
   amplitude.setInput(intro);
 }
