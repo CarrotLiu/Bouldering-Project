@@ -31,7 +31,7 @@ let mouthOpenWidth = 35;
 let stage = 0;
 let scene;
 
-const challenges=[["Climb with left hand only", "Climb with right hand only", "Climb without hands", "Climb without feet", "Grab every boulder with both hands","Skip three holds of your choice."],["climb with one hand only", "skip two holds of your choice"],["climb with", "skip one hold of your choice"],["climb while keeping your back towards the wall all the time"] ];
+const challenges=[["Climb with left hand only", "Climb with right hand only", "Climb without hands", "Climb without feet", "Grab every boulder with both hands","Skip three holds of your choice."],["climb with one hand only", "skip two holds of your choice"],["skip one hold of your choice"],["climb while keeping your back towards the wall all the time"] ];
 const challengeColor=["#007944", "#FFE31A", "#F35588", "#80C4E9"];
 const challengeW = ["challenge", "climbing", "fun", "game", "interesting"];
 const routeW = ["random", "randomize", "route", "new", "which"];
