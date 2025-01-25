@@ -66,7 +66,10 @@ stopButton.addEventListener("click", () => {
   startButton.disabled = false;
   stopButton.disabled = true;
 });
-
+var audio = document.getElementById("audio");
+document.ontouchend = function() {
+    audio.play();
+}
 
 recognition.onresult = (event) => {
   const transcript = event.results[event.results.length - 1][0].transcript.toLowerCase();
@@ -125,7 +128,6 @@ function preload(){
   intro = loadSound('https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/introtest.mp3?v=1737791074421');
 }
 
-document.addEventListener("touchstart", unlockAudioOnInteraction, { once: true });
 function unlockAudioOnInteraction() {
   // 创建一个静音的音频实例
   const audioContext = new (window.AudioContext || window.webkitAudioContext)();
@@ -143,9 +145,11 @@ function unlockAudioOnInteraction() {
   silentAudioSource.onended = () => {
     console.log("Audio context unlocked.");
     document.removeEventListener("click", unlockAudioOnInteraction);
-    document.removeEventListener("touchstart", unlockAudioOnInteraction);
+    document.removeEventListener("touchend", unlockAudioOnInteraction);
   };
 }
+document.addEventListener("click", unlockAudioOnInteraction, { once: true });
+document.addEventListener("touchend", unlockAudioOnInteraction, { once: true });
   // console.log(socket);
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -159,7 +163,7 @@ function setup() {
   
   textFont("Titillium Web");
   
-  intro.play();
+  // intro.play();
   // console.log(intro);
   // console.log(intro.isPlaying());
   amplitude = new p5.Amplitude();
@@ -223,7 +227,7 @@ function mouseDragged() {
 socket.on('playIntro', function (data){
   console.log(data);
   if(data.s){
-    intro.play();
+    audio.play();
   }
 })
 
