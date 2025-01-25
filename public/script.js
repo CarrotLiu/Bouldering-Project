@@ -131,7 +131,7 @@ function setup() {
   background(0);
 
   socket = io.connect();
-  console.log(socket);
+  // console.log(socket);
   socket.on("connection_name", receive);
   
   nextBlinkTime = millis() + random(2000, 5000);
@@ -141,8 +141,8 @@ function setup() {
   textFont("Titillium Web");
   
   intro.play();
-  console.log(intro);
-  console.log(intro.isPlaying());
+  // console.log(intro);
+  // console.log(intro.isPlaying());
   amplitude = new p5.Amplitude();
   amplitude.setInput(intro);
 }
@@ -178,7 +178,7 @@ function draw() {
   
 
 function mouseClicked(){
-  if(dist(mouseX, mouseY, width / 2, height / 2) < 100){
+  if(dist(mouseX, mouseY, width / 2, height / 2) < 200){
     let data = {};
     data.s = true;
     socket.emit("connection_name", data);
