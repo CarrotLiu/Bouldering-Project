@@ -67,9 +67,70 @@ stopButton.addEventListener("click", () => {
   stopButton.disabled = true;
 });
 var audio = document.getElementById("audio");
-document.ontouchend = function() {
-    audio.play();
+// document.ontouchend = function() {
+//     audio.play();
+// }
+// 创建音频上下文
+    let audioContext = null;
+    let audioBuffer = null;
+
+    // 预加载音频文件
+async function loadAudio(url) {
+  try {
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const arrayBuffer = await response.arrayBuffer();
+    return await audioContext.decodeAudioData(arrayBuffer);
+  } catch (error) {
+    console.error("Failed to load audio:", error);
+    throw error;
+  }
 }
+
+    // 播放音频
+    function playAudio() {
+      if (audioBuffer && audioContext) {
+        const source = audioContext.createBufferSource();
+        source.buffer = audioBuffer;
+        source.connect(audioContext.destination);
+        source.start(0);
+      }
+    }
+
+
+    // 解锁音频上下文
+    function unlockAudioContext() {
+      if (!audioContext) {
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        console.log("Audio context unlocked");
+
+        // 预加载音频文件
+        loadAudio("https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/introtest.mp3?v=1737791074421") // 替换为你的音频文件 URL
+          .then((buffer) => {
+            audioBuffer = buffer;
+            console.log("Audio loaded successfully");
+          })
+          .catch((err) => console.error("Failed to load audio:", err));
+      }
+
+      // 移除事件监听器
+      document.removeEventListener("click", unlockAudioContext);
+      document.removeEventListener("touchstart", unlockAudioContext);
+    }
+
+    // 监听用户交互事件以解锁音频上下文
+    document.addEventListener("click", unlockAudioContext, { once: true });
+    document.addEventListener("touchstart", unlockAudioContext, { once: true });
+
+    // 通过 Socket 监听事件触发音频播放
+    socket.on("play_audio", () => {
+      console.log("Received play_audio event");
+      playAudio(); // 播放音频
+    });
 
 recognition.onresult = (event) => {
   const transcript = event.results[event.results.length - 1][0].transcript.toLowerCase();
@@ -224,12 +285,12 @@ function mouseDragged() {
 
 
 
-socket.on('playIntro', function (data){
-  console.log(data);
-  if(data.s){
-    audio.play();
-  }
-})
+// socket.on('playIntro', function (data){
+//   console.log(data);
+//   if(data.s){
+//     audio.play();
+//   }
+// })
 
 function blinkControl(){
   if (millis() > nextBlinkTime) {
