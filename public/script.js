@@ -72,6 +72,7 @@ var introduction = document.getElementById("introduction");
 var hi = document.getElementById("hi");
 document.ontouchend = function() {
   if(!introDone){
+    console.log("introPlaying");
     introduction.play();
     introDone = true;
   }   
