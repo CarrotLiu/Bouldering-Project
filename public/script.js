@@ -66,6 +66,7 @@ stopButton.addEventListener("click", () => {
   startButton.disabled = false;
   stopButton.disabled = true;
 });
+
 var audio = document.getElementById("audio");
 document.ontouchend = function() {
   if(!introDone){
@@ -130,29 +131,6 @@ recognition.onend = () => {
 function preload(){
   intro = loadSound('https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/introtest.mp3?v=1737791074421');
 }
-
-function unlockAudioOnInteraction() {
-  // 创建一个静音的音频实例
-  const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-  const silentAudioBuffer = audioContext.createBuffer(1, 1, 22050); // 创建一个静音的音频缓冲
-
-  const silentAudioSource = audioContext.createBufferSource();
-  silentAudioSource.buffer = silentAudioBuffer;
-
-  silentAudioSource.connect(audioContext.destination); // 连接到输出设备
-
-  // 播放静音音频
-  silentAudioSource.start(0);
-
-  // 解锁后立即暂停并释放资源
-  silentAudioSource.onended = () => {
-    console.log("Audio context unlocked.");
-    document.removeEventListener("click", unlockAudioOnInteraction);
-    document.removeEventListener("touchend", unlockAudioOnInteraction);
-  };
-}
-document.addEventListener("click", unlockAudioOnInteraction, { once: true });
-document.addEventListener("touchend", unlockAudioOnInteraction, { once: true });
   // console.log(socket);
 function setup() {
   createCanvas(windowWidth, windowHeight);
