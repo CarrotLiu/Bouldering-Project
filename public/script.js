@@ -50,7 +50,7 @@ recognition.continuous = true;
 recognition.interimResults = false;
 
 let detected = []; 
-
+socket = io.connect();
 startButton.addEventListener("click", () => {
   detected = []; 
   matchedWords.textContent = "";
@@ -126,13 +126,12 @@ function preload(){
   intro = loadSound('https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/introtest.mp3?v=1737791074421');
 }
 
+  // console.log(socket);
 function setup() {
   createCanvas(windowWidth, windowHeight);
   background(0);
 
-  socket = io.connect();
-  // console.log(socket);
-  socket.on("connection_name", receive);
+  
   
   nextBlinkTime = millis() + random(2000, 5000);
   nextShiftTime = millis() + random(3000, 7000); 
@@ -181,7 +180,8 @@ function mouseClicked(){
   if(dist(mouseX, mouseY, width / 2, height / 2) < 200){
     let data = {};
     data.s = true;
-    socket.emit("connection_name", data);
+    socket.emit("playIntro", data);
+    console.log(data.s);
   }
 }
 
@@ -198,15 +198,14 @@ function mouseDragged() {
   // socket.emit("connection_name", data);
 }
 
-function receive(data) {
+
+
+socket.on('playIntro', function (data){
   console.log(data);
   if(data.s){
     intro.play();
   }
-  // noStroke();
-  // fill(255, 0, 255);
-  // ellipse(data.x, data.y, 10, 10);
-}
+})
 
 function blinkControl(){
   if (millis() > nextBlinkTime) {

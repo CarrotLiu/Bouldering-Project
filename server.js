@@ -25,10 +25,10 @@ const io = socket(server);
 io.on("connection", newConnection);
 function newConnection(sck) {
   console.log("New Connection - ID: " + sck.id);
-  sck.on("connection_name", receive);
+  sck.on("playIntro", receive);
   function receive(data) {
     console.log(data);
     //https://socket.io/docs/v3/emit-cheatsheet/index.html
-    sck.broadcast.emit("connection_name", data);
+    sck.broadcast.emit("playIntro", data);
   }
 }
