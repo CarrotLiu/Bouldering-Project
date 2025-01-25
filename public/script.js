@@ -68,7 +68,10 @@ stopButton.addEventListener("click", () => {
 });
 var audio = document.getElementById("audio");
 document.ontouchend = function() {
-    audio.play()
+  if(!introDone){
+    audio.play();
+    introDone = true;
+  }   
 }
 
 recognition.onresult = (event) => {
