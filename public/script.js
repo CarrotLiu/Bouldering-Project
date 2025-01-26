@@ -194,19 +194,6 @@ function mouseClicked(){
   }
 }
 
-function mouseDragged() {
-  // let data = {}; 
-  // data.x = mouseX;
-  // data.y = mouseY;
-  
-
-  // noStroke();
-  // fill(0, 255, 0);
-  // ellipse(data.x, data.y, 10, 10);
-
-  // socket.emit("connection_name", data);
-}
-
 
 
 socket.on('playIntro', function (data){
