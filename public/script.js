@@ -41,6 +41,8 @@ let nextMouthChange;
 let mouthOpenHeight = 0; 
 let mouthOpenWidth = 35;
 
+let totalTime = 180;
+
 let stage = 0;
 let scene;
 
@@ -115,7 +117,13 @@ recognition.onresult = (event) => {
     if (transcript.includes(word) && !detected.includes(word)) {
       detected.push(word);
       currentSpeak = success;
-      stage = 3;
+      totalTime = 180;
+      setInterval(() => {
+    if (totalTime > 0) {
+      totalTime--;
+    }
+  }, 1000); 
+      stage = 5;
     }
   });
   
@@ -235,7 +243,7 @@ function draw() {
   }else if(stage == 4){//random route
     
   }else if(stage == 5){//rest timer
-    
+    timer();
   }else if(stage == 6){//find help
     
   }else if(stage == 7){//hurt
@@ -417,6 +425,23 @@ function crying(){
 
 function laughing(){
   
+}
+
+function timer(){
+  push();
+  textAlign(CENTER, CENTER);
+  textSize(30);
+  fill(255);
+  noStroke();
+  let minutes = floor(totalTime / 60);
+  let seconds = totalTime % 60;
+
+  // Format the time display as XX:XX
+  let timeString = nf(minutes, 2) + ":" + nf(seconds, 2);
+
+  // Display the timer in the center of the screen
+  text(timeString, width / 2, height / 2);
+  pop();
 }
 
 function windowResized() {
