@@ -8,10 +8,11 @@ let nicetry, sticktoolong, offyougo;
 let notsure, askhelp, agreetohelp, hesitatehelp, findother, rejecthelp;
 let findfriend, agreejoin, hesitatejoin, rejectjoin;
 let icebreakintro, definerule, highfive, teamup, swaptip, mentor, footwork;
-let success, wait, timerend;
+let success, takerest, wait, timerend;
+let alright, brainburn;
 let c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13;
 let thief, leavemealone, rude;
-let wanthug, yay;
+let wanthug, yay, yournice;
 let urgent, ruok;
 let choosechallenge, chooseroute;
 let bye, forgetstuff;
@@ -96,6 +97,7 @@ recognition.onresult = (event) => {
     challengeW.forEach(word => {
       if (transcript.includes(word) && !detected.includes(word)) {
         detected.push(word);
+        currentSpeak = choosechallenge;
         stage = 2;
       }
     });
@@ -104,6 +106,7 @@ recognition.onresult = (event) => {
   routeW.forEach(word => {
     if (transcript.includes(word) && !detected.includes(word)) {
       detected.push(word);
+      currentSpeak = chooseroute;
       stage = 3;
     }
   });
@@ -111,6 +114,7 @@ recognition.onresult = (event) => {
   restW.forEach(word => {
     if (transcript.includes(word) && !detected.includes(word)) {
       detected.push(word);
+      currentSpeak = success;
       stage = 3;
     }
   });
@@ -163,6 +167,7 @@ function preload(){
   mentor = loadSound("https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/yourementor.mp3?v=1737825053502"); 
   footwork = loadSound("https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/footwork.mp3?v=1737825061811");
   success = loadSound("https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/success.mp3?v=1737842818250"); 
+  takerest = loadSound("https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/takerest.mp3?v=1737882991630");
   wait = loadSound("https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/wait.mp3?v=1737842827446"); 
   timerend = loadSound("https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/timerend.mp3?v=1737842847551");
   thief = loadSound("https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/thief.mp3?v=1737842836359");
@@ -189,6 +194,9 @@ function preload(){
   rude = loadSound("https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/rude.mp3?v=1737881808274");
   ruok = loadSound("https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/ruok.mp3?v=1737881850323");
   urgent = loadSound("https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/urgent.mp3?v=1737881854655");
+  yournice = loadSound("https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/youarenice.mp3?v=1737881800612");
+  alright = loadSound("https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/alright.mp3?v=1737881792221");
+  brainburn = loadSound("https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/brainburn.mp3?v=1737881815592");
 }
 
 function setup() {
@@ -202,11 +210,8 @@ function setup() {
   textFont("Titillium Web");
   
   intro.play();
-  // console.log(intro);
-  // console.log(intro.isPlaying());
   amplitude = new p5.Amplitude();
   currentSpeak = intro;
-  
 }
 
 function draw() {
@@ -234,6 +239,8 @@ function draw() {
   }else if(stage == 6){//find help
     
   }else if(stage == 7){//hurt
+    
+  }else if(stage == 8){//bye
     
   }
   
