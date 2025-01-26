@@ -48,9 +48,11 @@ const recognition = new SpeechRecognition();
 recognition.lang = "en-US";
 recognition.continuous = true;
 recognition.interimResults = false;
-
 let detected = []; 
+
 socket = io.connect();
+
+
 startButton.addEventListener("click", () => {
   detected = []; 
   matchedWords.textContent = "";
