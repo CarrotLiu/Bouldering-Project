@@ -2,6 +2,7 @@ let socket;
 
 let micLevel = 0; 
 let amplitude;
+let currentSpeak;
 let intro;
 let nicetry, sticktoolong, offyougo;
 let notsure, askhelp, agreetohelp, hesitatehelp, findother, rejecthelp;
@@ -75,15 +76,6 @@ function stopRecording(){
   isListening = false;
 }
 
-var introduction = document.getElementById("introduction");
-var hi = document.getElementById("hi");
-document.ontouchend = function() {
-  if(!introDone){
-    console.log("introPlaying");
-    introduction.play();
-    introDone = true;
-  }   
-}
 
 recognition.onresult = (event) => {
   const transcript = event.results[event.results.length - 1][0].transcript.toLowerCase();
@@ -199,11 +191,12 @@ function setup() {
   
   textFont("Titillium Web");
   
-  // intro.play();
+  intro.play();
   // console.log(intro);
   // console.log(intro.isPlaying());
   amplitude = new p5.Amplitude();
-  amplitude.setInput(intro);
+  currentSpeak = intro;
+  
 }
 
 function draw() {
@@ -240,6 +233,7 @@ function draw() {
     if(isListening){
       stopRecording();
     }
+    amplitude.setInput(currentSpeak);
     focusing();
   }else{
     if(!isListening){
@@ -256,6 +250,7 @@ function mouseClicked(){
   if(dist(mouseX, mouseY, width / 2, height / 2) < 200){
     let data = {};
     data.s = true;
+    data.a = amplitude;
     socket.emit("playIntro", data);
     console.log(data.s);
   }
@@ -265,8 +260,7 @@ function mouseClicked(){
 
 socket.on('playIntro', function (data){
   // console.log(data);
-    hi.load();
-    hi.play();
+    
 })
 
 function blinkControl(){
@@ -289,8 +283,6 @@ function blinkControl(){
   }
   eyeHeight = lerp(60, 10, blinkProgress);
 }
-
-
 
 function assembleFace(){
   push();
