@@ -249,18 +249,25 @@ function draw() {
 function mouseClicked(){
   if(dist(mouseX, mouseY, width / 2, height / 2) < 200){
     let data = {};
-    data.s = true;
+    data.s = isSpeaking;
     data.a = amplitude;
-    socket.emit("playIntro", data);
+    socket.emit("speak", data);
     console.log(data.s);
   }
 }
 
 
 
-socket.on('playIntro', function (data){
+socket.on('speak', function (data){
   // console.log(data);
-    
+  amplitude = data.a;
+  isSpeaking = data.s;
+})
+
+socket.on('listen', function (data){
+  // console.log(data);
+  amplitude = data.a;
+  isSpeaking = data.s;
 })
 
 function blinkControl(){
