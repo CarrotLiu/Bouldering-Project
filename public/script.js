@@ -35,40 +35,37 @@ const challenges=[["Climb with left hand only", "Climb with right hand only", "C
 const challengeColor=["#007944", "#FFE31A", "#F35588", "#80C4E9"];
 const challengeW = ["challenge", "climbing", "fun", "game", "interesting"];
 const routeW = ["random", "randomize", "route", "new", "which"];
+const restW = ["rest", "tired", "finish", "sent", "congrats"];
 const friendW = ["friend","buddy", "partner"];
 const photoW = ["photo", "camera", "picture"];
+const byeW = ["bye", "goodbye", "see you", "done with today", ""];
 
-const statusElement = document.getElementById("status");
-const matchedWords = document.getElementById("detectedWords");
-const startButton = document.getElementById("startButton");
-const stopButton = document.getElementById("stopButton");
+let detected = []; 
+// const statusElement = document.getElementById("status");
+// const matchedWords = document.getElementById("detectedWords");
+// const startButton = document.getElementById("startButton");
+// const stopButton = document.getElementById("stopButton");
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 const recognition = new SpeechRecognition();
-
 recognition.lang = "en-US";
 recognition.continuous = true;
 recognition.interimResults = false;
-let detected = []; 
 
 socket = io.connect();
 
 
-startButton.addEventListener("click", () => {
+function startRecording(){
   detected = []; 
-  matchedWords.textContent = "";
-  statusElement.textContent = "Listening for speech...";
+  console.log("Listening for speech...");
   recognition.start();
-  startButton.disabled = true;
-  stopButton.disabled = false;
-});
+  isListening = true;
+}
 
-
-stopButton.addEventListener("click", () => {
+function stopRecording(){
   recognition.stop();
-  statusElement.textContent = "Stopped listening.";
-  startButton.disabled = false;
-  stopButton.disabled = true;
-});
+  console.log("Stopped listening.");
+  isListening = false;
+}
 
 var introduction = document.getElementById("introduction");
 var hi = document.getElementById("hi");
@@ -95,6 +92,7 @@ recognition.onresult = (event) => {
       scene = 3;
     }
   }
+  
   challengeW.forEach(word => {
     if (transcript.includes(word) && !detected.includes(word)) {
       detected.push(word);
@@ -116,27 +114,22 @@ recognition.onresult = (event) => {
     }
   });
 
-  matchedWords.textContent = detected.join(", ");
-  // console.log(matchedWords);
+  console.log(detected);
 };
-
 
 recognition.onerror = (event) => {
   console.error("Speech recognition error:", event.error);
-  statusElement.textContent = "Error occurred. Please try again.";
 };
 
-
 recognition.onend = () => {
-  if (!stopButton.disabled) {
-    statusElement.textContent = "Listening paused. Click 'Start' to resume.";
-  }
+  console.log("stop recording");
 };
 
 function preload(){
   intro = loadSound('https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/intro.mp3?v=1737823113686');
+  
 }
-  // console.log(socket);
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
   background(0);
