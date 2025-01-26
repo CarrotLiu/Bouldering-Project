@@ -430,7 +430,7 @@ function laughing(){
 function timer(){
   push();
   textAlign(CENTER, CENTER);
-  textSize(30);
+  textSize(60);
   fill(255);
   noStroke();
   let minutes = floor(totalTime / 60);
@@ -440,7 +440,7 @@ function timer(){
   let timeString = nf(minutes, 2) + ":" + nf(seconds, 2);
 
   // Display the timer in the center of the screen
-  text(timeString, width / 2, height / 2);
+  text(timeString, width / 2, height / 2 - 150);
   pop();
 }
 
@@ -459,6 +459,7 @@ function keyPressed() {
   if(key === 't'){
     isSpeaking = !isSpeaking;
   }
+  
 
 }
 /* global
