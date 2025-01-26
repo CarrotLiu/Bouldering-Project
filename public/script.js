@@ -2,7 +2,14 @@ let socket;
 
 let micLevel = 0; 
 let amplitude;
-let intro, nicetry;
+let intro;
+let nicetry, sticktoolong, offyougo;
+let notsure, askhelp, agreetohelp, hesitatehelp, findother, rejecthelp;
+let findfriend, agreejoin, hesitatejoin, rejectjoin;
+let icebreakintro, definerule, highfive, teamup, swaptip, mentor, footwork;
+let success, wait, timerend;
+let c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13;
+let thief, leavemealone;
 let introDone = false;
 
 let blinkState = 0; 
@@ -142,7 +149,19 @@ recognition.onend = () => {
 
 function preload(){
   intro = loadSound('https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/intro.mp3?v=1737823113686');
-  
+  nicetry= loadSound("https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/nicetry.mp3?v=1737823549674"); 
+  sticktoolong = loadSound("https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/dontsticktooneline.mp3?v=1737823541455"); 
+  offyougo = loadSound("https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/offyougo.mp3?v=1737823551137");
+  notsure = loadSound("https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/notsure.mp3?v=1737824198082");
+  askhelp = loadSound("https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/askhelp.mp3?v=1737824201716"); 
+  agreetohelp = loadSound("https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/agreetohelp.mp3?v=1737824210524"); 
+  hesitatehelp = loadSound("https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/hesitatetohelp.mp3?v=1737824223299");
+  findother = loadSound("https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/findother.mp3?v=1737824232384");
+  rejecthelp = loadSound("https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/rejecthelping..mp3?v=1737824245623");
+  findfriend = loadSound("https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/findcfriend.mp3?v=1737824265036"); 
+  agreejoin = loadSound("https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/agreetojoin.mp3?v=1737824274306"); 
+  hesitatejoin = loadSound("https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/hesitatetojoin.mp3?v=1737824286241"); 
+  rejectjoin
 }
 
 function setup() {
