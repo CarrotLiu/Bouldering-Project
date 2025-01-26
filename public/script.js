@@ -213,7 +213,6 @@ function draw() {
   } else if(stage == 1){//intro stage
     scene = null;
   } else if(stage == 2){//challenge stage
-    
     challenging();
   } else if(stage == 3){//find friend
     scene = null;
@@ -246,14 +245,12 @@ function draw() {
 }
   
 
-function mouseClicked(){
-  if(dist(mouseX, mouseY, width / 2, height / 2) < 200){
-    let data = {};
+function sendSpeakDt(){
+  let data = {};
     data.s = isSpeaking;
     data.a = amplitude;
     socket.emit("speak", data);
-    console.log(data.s);
-  }
+    // console.log(data.s);
 }
 
 
