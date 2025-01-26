@@ -10,7 +10,11 @@ let findfriend, agreejoin, hesitatejoin, rejectjoin;
 let icebreakintro, definerule, highfive, teamup, swaptip, mentor, footwork;
 let success, wait, timerend;
 let c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13;
-let thief, leavemealone;
+let thief, leavemealone, rude;
+let wanthug, yay;
+let urgent, ruok;
+let choosechallenge, chooseroute;
+let bye, forgetstuff;
 let introDone = false;
 
 let blinkState = 0; 
@@ -171,11 +175,20 @@ function preload(){
   c6 = loadSound("https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/c6_withoutfeet.mp3?v=1737842932209");
   c7 = loadSound("https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/c7_bothhands.mp3?v=1737842934789");
   c8 = loadSound("https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/c8_skip3.mp3?v=1737842938580");
-  c9 = loadSound("https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/c10_skip1.mp3?v=1737842957541");
+  c9 = loadSound("https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/c9_skip2.mp3?v=1737842946786");
   c10 = loadSound("https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/c10_skip1.mp3?v=1737842957541");
   c11 = loadSound("https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/c11_reverse.mp3?v=1737842966083");
   c12 = loadSound("https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/c12_starttop.mp3?v=1737842975346");
   c13 = loadSound("https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/c13_backfacewall.mp3?v=1737842982584");
+  choosechallenge = loadSound("https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/choosechallenge.mp3?v=1737881822822");
+  chooseroute = loadSound("https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/chooseroute.mp3?v=1737881830698");
+  wanthug = loadSound("https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/wanthug.mp3?v=1737881778158");
+  yay = loadSound("https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/yay.mp3?v=1737881785133");
+  bye = loadSound("https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/bye.mp3?v=1737881865717");
+  forgetstuff = loadSound("https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/forgetstuff.mp3?v=1737881903161");
+  rude = loadSound("https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/rude.mp3?v=1737881808274");
+  ruok = loadSound("https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/ruok.mp3?v=1737881850323");
+  urgent = loadSound("https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/urgent.mp3?v=1737881854655");
 }
 
 function setup() {
