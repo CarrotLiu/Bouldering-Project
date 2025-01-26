@@ -2,7 +2,7 @@ let socket;
 
 let micLevel = 0; 
 let amplitude;
-let intro;
+let intro, nicetry;
 let introDone = false;
 
 let blinkState = 0; 
@@ -38,7 +38,8 @@ const routeW = ["random", "randomize", "route", "new", "which"];
 const restW = ["rest", "tired", "finish", "sent", "congrats"];
 const friendW = ["friend","buddy", "partner"];
 const photoW = ["photo", "camera", "picture"];
-const byeW = ["bye", "goodbye", "see you", "done with today", ""];
+const byeW = ["bye", "goodbye", "see you", "done with today", "home"];
+const helpW = ["help","stuck",""]
 
 let detected = []; 
 // const statusElement = document.getElementById("status");
@@ -91,22 +92,36 @@ recognition.onresult = (event) => {
     }else if(transcript.includes("blue") || transcript.includes("sky blue") || transcript.includes("five") || transcript.includes("five minus")){
       scene = 3;
     }
+  }else{
+    challengeW.forEach(word => {
+      if (transcript.includes(word) && !detected.includes(word)) {
+        detected.push(word);
+        stage = 2;
+      }
+    });
   }
-  
-  challengeW.forEach(word => {
+
+  routeW.forEach(word => {
     if (transcript.includes(word) && !detected.includes(word)) {
       detected.push(word);
-      stage = 2;
+      stage = 3;
     }
   });
-
-
+  
+  restW.forEach(word => {
+    if (transcript.includes(word) && !detected.includes(word)) {
+      detected.push(word);
+      stage = 3;
+    }
+  });
+  
   friendW.forEach(word => {
     if (transcript.includes(word) && !detected.includes(word)) {
       detected.push(word);
       stage = 3;
     }
   });
+  
   photoW.forEach(word => {
     if (transcript.includes(word) && !detected.includes(word)) {
       detected.push(word);
@@ -168,11 +183,26 @@ function draw() {
   } else if(stage == 3){//find friend
     scene = null;
     
+  }else if(stage == 4){//random route
+    
+  }else if(stage == 5){//rest timer
+    
+  }else if(stage == 6){//find help
+    
+  }else if(stage == 7){//hurt
+    
   }
+  
   push();
   if(isSpeaking){
+    if(isListening){
+      stopRecording();
+    }
     focusing();
   }else{
+    if(!isListening){
+      startRecording();
+    }
     idling();
   }
   pop();
