@@ -3,6 +3,7 @@ let canvas;
 let mic, amplitude;
 let level = 0;
 let currentSpeak;
+let tearY1, tearY2;
 
 let intro;
 let nicetry, sticktoolong, offyougo;
@@ -465,6 +466,8 @@ function setup() {
   if(windowWidth > 1000 ){
   document.querySelector("#btns").style.visibility = "visible";
   }
+  tearY1 = height / 2 - 10;
+tearY2 = height / 2 - 10;
   mic = new p5.AudioIn();
 }
 
@@ -736,8 +739,7 @@ function randomizer(){
   }
   
 }
-let tearY1 = height / 2 - 10;
-let tearY2 = height / 2 - 10;
+
 let eyeBounce = 0;
 let mouthFloat = 0;
 let floatSpeed = 1.5;
@@ -745,7 +747,7 @@ let floatAmount = 5;
 let tearSpeed = 2;
 let time = 0;
 let mouthWidth = 60;
-  let mouthHeight = 50;
+let mouthHeight = 50;
 function crying(){
   time += 0.1;
 
@@ -765,26 +767,35 @@ function crying(){
   noFill();
 
   // Left Eye: "O"
-  ellipse(width / 2 - 120, height / 2 - 10 + eyeBounce, 50, 80);
+  circle(width / 2 - 110, height / 2 - 10 + eyeBounce, 55);
 
   // Right Eye: "O"
-  ellipse(width / 2 + 120, height / 2 - 10 + eyeBounce, 50, 80);
+  circle(width / 2 + 110, height / 2 - 10 + eyeBounce, 55);
 
   // Tears (Falling down)
   fill("#00BFFF"); // Light blue color for tears
   noStroke();
-  ellipse(width / 2 - 130, tearY1, 15, 25); // Left tear
-  ellipse(width / 2 + 130, tearY2, 15, 25); // Right tear
+  ellipse(width / 2 - 130, 10 + tearY1, 20, 25); // Left tear
+  ellipse(width / 2 + 130, 10 + tearY2, 20, 25); // Right tear
 
   // Big Crying Mouth "口"
   stroke(255);
-  strokeWeight(8);
+  strokeWeight(6);
   noFill();
   
-  let mouthY = height / 2 + 20 + mouthFloat; // Floating up/down effect
+  let mouthY = height / 2 + 30 + mouthFloat; // Floating up/down effect
 
-  rectMode(CENTER);
-  rect(width / 2, mouthY, mouthWidth, mouthHeight, 10); // Rounded rectangle
+  // Upside-Down Triangle Mouth
+
+  let mouthSize = 60; // Size of the triangle
+
+  let curveAmount = 60; // How much the corners are rounded
+
+  beginShape();
+  vertex(width / 2, mouthY - curveAmount); // Top point slightly rounded
+  vertex(width / 2 - mouthSize / 2 + curveAmount, mouthY + mouthSize - curveAmount); // Bottom left, curved inward
+  vertex(width / 2 + mouthSize / 2 - curveAmount, mouthY + mouthSize - curveAmount); // Bottom right, curved inward
+  endShape(CLOSE);
 
   pop();
 }
@@ -839,9 +850,43 @@ let mouthY = height / 2 + 15 + mouthFloat; // Mouth moves up & down
 }
 
 function angry(){
+  time += 0.1;
+
+  // Floating effect for face parts
+  mouthFloat = sin(time * floatSpeed) * floatAmount; // Subtle up & down motion
+  eyeBounce = sin(time) * 2; // Eyes move slightly up & down
+
   push();
-  eyeOffsetX = lerp(eyeOffsetX, 0, 0.05);
-  eyeOffsetY = lerp(eyeOffsetY, 0, 0.05);
+  stroke(255);
+  strokeWeight(8);
+  noFill();
+
+  // Angry Eyebrows: "\" and "/"
+  line(width / 2 - 120, height / 2 - 70 + eyeBounce, width / 2 - 50, height / 2 - 100 + eyeBounce); // Left eyebrow
+  line(width / 2 + 120, height / 2 - 70 + eyeBounce, width / 2 + 50, height / 2 - 100 + eyeBounce); // Right eyebrow
+
+  // Left Eye: NoFill Circle
+  ellipse(width / 2 - 120, height / 2 + eyeBounce, 50, 80);  
+
+  // Right Eye: NoFill Circle
+  ellipse(width / 2 + 120, height / 2 + eyeBounce, 50, 80);  
+
+  // Trapezoid Mouth
+  fill(255);
+  stroke(255);
+  strokeWeight(8);
+  let mouthY = height / 2 + 100 + mouthFloat; // Floating motion
+  let topWidth = 100; // Top line width
+  let bottomWidth = 150; // Bottom line width
+  let heightMouth = 60; // Height of the trapezoid
+
+  beginShape();
+  vertex(width / 2 - topWidth / 2, mouthY); // Left top corner
+  vertex(width / 2 + topWidth / 2, mouthY); // Right top corner
+  vertex(width / 2 + bottomWidth / 2, mouthY + heightMouth); // Right bottom corner
+  vertex(width / 2 - bottomWidth / 2, mouthY + heightMouth); // Left bottom corner
+  endShape(CLOSE);
+
   pop();
 }
 
