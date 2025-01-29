@@ -313,7 +313,15 @@ takerest_btn.addEventListener('click', ()=>{
   if(!isSpeaking){
   currentSpeak = takerest;
   currentSpeak.play();
+    
   }
+  setInterval(() => {
+    if (totalTime > 0) {
+      totalTime--;
+    }else{
+      toTal
+    }
+  }, 1000);
 })
 let wait_btn = document.querySelector("#wait");
 wait_btn.addEventListener('click', ()=>{
@@ -328,6 +336,8 @@ timerend_btn.addEventListener('click', ()=>{
   currentSpeak = timerend;
   currentSpeak.play();
   }
+  stage = 0;
+  sendSceneDt();
 })
 
 let alright_btn = document.querySelector("#alright");
@@ -387,6 +397,8 @@ choosechallenge_btn.addEventListener('click', ()=>{
   currentSpeak = choosechallenge;
   currentSpeak.play();
   }
+  stage = 2;
+  sendSceneDt();
 })
 
 let chooseroute_btn = document.querySelector("#chooseroute");
@@ -395,6 +407,8 @@ chooseroute_btn.addEventListener('click', ()=>{
   currentSpeak = chooseroute;
   currentSpeak.play();
   }
+  stage = 1;
+  sendSceneDt();
 })
 
 let bye_btn = document.querySelector("#bye");
@@ -418,17 +432,17 @@ stg1_btn.addEventListener('click', ()=>{
   sendSceneDt();
 })
 
-let stg2_btn = document.querySelector("#stage2");
-stg2_btn.addEventListener('click', ()=>{
-  stage = 1;
-  sendSceneDt();
-})
+// let stg2_btn = document.querySelector("#stage2");
+// stg2_btn.addEventListener('click', ()=>{
+//   stage = 1;
+//   sendSceneDt();
+// })
 
-let stg3_btn = document.querySelector("#stage3");
-stg3_btn.addEventListener('click', ()=>{
-  stage = 2;
-  sendSceneDt();
-})
+// let stg3_btn = document.querySelector("#stage3");
+// stg3_btn.addEventListener('click', ()=>{
+//   stage = 2;
+//   sendSceneDt();
+// })
 
 let stg4_btn = document.querySelector("#stage4");
 stg4_btn.addEventListener('click', ()=>{
@@ -455,12 +469,12 @@ stg7_btn.addEventListener('click', ()=>{
 })
 
 socket.on('speak', function (data){
-  isSpeaking = spkdata.s;
+  isSpeaking = data.s;
 })
 socket.on('scene', function (data){
   stage=data.stage;
   scene=data.scene;
-  console.log(scene, stage);
+  // console.log(scene, stage);
 })
 
 
@@ -894,6 +908,7 @@ noFill();
 }
 
 function timer(){
+  
   push();
   textAlign(CENTER, CENTER);
   textSize(60);

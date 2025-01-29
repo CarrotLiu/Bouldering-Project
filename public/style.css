@@ -21,7 +21,10 @@ body {
   padding: 10px;
   border: none;
 }
-
+#chooseroute{
+  color: #000000;
+  background: #E17564;
+}
 .btn-randomize{
   margin: 10px;
   color: #000000;
