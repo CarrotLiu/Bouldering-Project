@@ -580,7 +580,7 @@ function assembleFace(){
   ellipse(width / 2 + 100, height / 2, eyeWidth, eyeHeight);
   noFill();
   stroke(255);
-  strokeWeight(4);
+  strokeWeight(5);
   if(isSpeaking){
     
     if(level != 0){
@@ -736,19 +736,63 @@ function randomizer(){
   }
   
 }
-
+let tearY1 = height / 2 - 10;
+let tearY2 = height / 2 - 10;
+let eyeBounce = 0;
+let mouthFloat = 0;
+let floatSpeed = 1.5;
+let floatAmount = 5;
+let tearSpeed = 2;
+let time = 0;
+let mouthWidth = 60;
+  let mouthHeight = 50;
 function crying(){
+  time += 0.1;
+
+  // Floating face animation
+  mouthFloat = sin(time * floatSpeed) * floatAmount; // Subtle up & down movement
+  eyeBounce = sin(time) * 2; // Eyes move slightly up & down
+
+  // Reset tears when they fall off
+  tearY1 += tearSpeed;
+  tearY2 += tearSpeed;
+  if (tearY1 > height / 2 + 50){tearY1 = height / 2 - 10;} 
+  if (tearY2 > height / 2 + 50) {tearY2 = height / 2 - 10;}
+
   push();
-  eyeOffsetX = lerp(eyeOffsetX, 0, 0.05);
-  eyeOffsetY = lerp(eyeOffsetY, 0, 0.05);
+  stroke(255);
+  strokeWeight(8);
+  noFill();
+
+  // Left Eye: "O"
+  ellipse(width / 2 - 120, height / 2 - 10 + eyeBounce, 50, 80);
+
+  // Right Eye: "O"
+  ellipse(width / 2 + 120, height / 2 - 10 + eyeBounce, 50, 80);
+
+  // Tears (Falling down)
+  fill("#00BFFF"); // Light blue color for tears
+  noStroke();
+  ellipse(width / 2 - 130, tearY1, 15, 25); // Left tear
+  ellipse(width / 2 + 130, tearY2, 15, 25); // Right tear
+
+  // Big Crying Mouth "口"
+  stroke(255);
+  strokeWeight(8);
+  noFill();
+  
+  let mouthY = height / 2 + 20 + mouthFloat; // Floating up/down effect
+
+  rectMode(CENTER);
+  rect(width / 2, mouthY, mouthWidth, mouthHeight, 10); // Rounded rectangle
+
   pop();
 }
-let eyeBounce = 0;
+
 let mouthSize = 100;
 let cheekShake = 0;
 let laughSpeed = 0.1;
 let laughAmount = 3;
-let time = 0;
 function laughing(){
   background(0);
   time += laughSpeed; // Controls animation speed
@@ -756,6 +800,7 @@ function laughing(){
   // Animate eye bounce and cheek shake
   eyeBounce = sin(time) * laughAmount; // Up-down movement
   cheekShake = cos(time) * laughAmount; // Side-to-side shake
+  mouthFloat = sin(time) * floatAmount; // Up & down animation
 
   push();
   stroke(255);
@@ -773,15 +818,15 @@ function laughing(){
   // Laughing Mouth (Squashes & Stretches)
   let mouthOpen = abs(sin(time * 2)) * 20 + 60;
   let mouthHeight = abs(sin(time * 2)) * 20 + 50;
-let mouthY = height / 2 + 15;
+let mouthY = height / 2 + 15 + mouthFloat; // Mouth moves up & down
   let mouthX1 = width / 2 - mouthWidth / 2; // Left endpoint
   let mouthX2 = width / 2 + mouthWidth / 2; // Right endpoint
-
+  strokeWeight(6);
   // Dynamic line that follows arc endpoints
   line(mouthX1, mouthY, mouthX2, mouthY);
   arc(width / 2, mouthY, mouthWidth, mouthHeight, 0, PI);
   
-
+  
   // Shaking Cheeks
   push();
   fill("#D84040");
