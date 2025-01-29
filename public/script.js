@@ -301,28 +301,42 @@ footwork_btn.addEventListener('click', ()=>{
   currentSpeak.play();
   }
 })
+
 let success_btn = document.querySelector("#success");
 success_btn.addEventListener('click', ()=>{
   if(!isSpeaking){
   currentSpeak = success;
   currentSpeak.play();
   }
+  
+  totalTime = 180;
+  stage = 3;
+  sendSceneDt();
+setInterval(() => {
+    if (totalTime > 0) {
+      totalTime--;
+    }else{
+      stTime = false;
+      stage = 0;
+      sendSceneDt();
+    }
+  }, 1000);
+  
 })
+
 let takerest_btn = document.querySelector("#takerest");
 takerest_btn.addEventListener('click', ()=>{
   if(!isSpeaking){
   currentSpeak = takerest;
   currentSpeak.play();
-    
   }
-  setInterval(() => {
-    if (totalTime > 0) {
-      totalTime--;
-    }else{
-      toTal
-    }
-  }, 1000);
+  totalTime = 180;
+  stage = 3;
+  sendSceneDt();
+  
 })
+
+
 let wait_btn = document.querySelector("#wait");
 wait_btn.addEventListener('click', ()=>{
   if(!isSpeaking){
@@ -446,8 +460,18 @@ stg1_btn.addEventListener('click', ()=>{
 
 let stg4_btn = document.querySelector("#stage4");
 stg4_btn.addEventListener('click', ()=>{
+  totalTime = 180;
   stage = 3;
   sendSceneDt();
+  setInterval(() => {
+    if (totalTime > 0) {
+      totalTime--;
+    }else{
+      stTime = false;
+      stage = 0;
+      sendSceneDt();
+    }
+  }, 1000);
 })
 
 let stg5_btn = document.querySelector("#stage5");
@@ -474,6 +498,7 @@ socket.on('speak', function (data){
 socket.on('scene', function (data){
   stage=data.stage;
   scene=data.scene;
+  totalTime = data.totalTime;
   // console.log(scene, stage);
 })
 
@@ -578,6 +603,7 @@ function sendSpeakDt(){
 function sendSceneDt(){
   scndata.stage = stage;
   scndata.scene = scene;
+  scndata.totalTime = totalTime;
   socket.emit("scene", scndata);
   console.log(scndata);
 }
