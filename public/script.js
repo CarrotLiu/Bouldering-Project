@@ -46,12 +46,14 @@ let totalTime = 180;
 let stage = 0;
 let scene;
 
+const challenges=[["Climb with left hand only", "Climb with right hand only", "Climb without hands", "Climb without feet", "Grab every boulder with both hands","Skip three holds of your choice."],["climb with one hand only", "skip two holds of your choice"],["skip one hold of your choice"],["climb while keeping your back towards the wall all the time"] ];
+const challengeColor=["#007944", "#FFE31A", "#F35588", "#80C4E9"];
+
 
 
 let detected = []; 
 socket = io.connect();
-// const challenges=[["Climb with left hand only", "Climb with right hand only", "Climb without hands", "Climb without feet", "Grab every boulder with both hands","Skip three holds of your choice."],["climb with one hand only", "skip two holds of your choice"],["skip one hold of your choice"],["climb while keeping your back towards the wall all the time"] ];
-const challengeColor=["#007944", "#FFE31A", "#F35588", "#80C4E9"];
+
 // const challengeW = ["challenge", "climbing", "fun", "game", "interesting"];
 // const routeW = ["random", "randomize", "route", "new", "which"];
 // const restW = ["rest", "tired", "finish", "sent", "congrats"];
@@ -133,34 +135,38 @@ function preload(){
   brainburn = loadSound("https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/brainburn.mp3?v=1737881815592");
 }
 
-const wanthug_btn = document.querySelector("#wanthug");
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   background(0);
-  
   nextBlinkTime = millis() + random(2000, 5000);
   nextShiftTime = millis() + random(3000, 7000); 
   nextMouthChange = millis() + random(2000, 5000); 
-  
   textFont("Titillium Web");
-  
   intro.play();
   amplitude = new p5.Amplitude();
   currentSpeak = intro;
 }
 
+
+const wanthug_btn = document.querySelector("#wanthug");
+wanthug_btn.addEventListener('click', ()=>{
+  currentSpeak = wanthug;
+  wanthug.play();
+})
+
 function draw() {
   background(0);
   fill(255);
   noStroke();
-  if(stage == 0){
-    scene = null;
-    if(intro.isPlaying()){
+  if(currentSpeak.isPlaying()){
       isSpeaking = true;
     }else{
       isSpeaking = false;
     }
+  if(stage == 0){
+    scene = null;
+    
   } else if(stage == 1){//intro stage
     scene = null;
   } else if(stage == 2){//challenge stage
@@ -182,20 +188,19 @@ function draw() {
   
   push();
   if(isSpeaking){ //speaking
-    if(isListening){
+    // if(isListening){
       // stopRecording();
-    }
+    // }
     amplitude.setInput(currentSpeak);
     sendSpeakDt();
     focusing();
   }else{ // listening
-    if(!isListening){
+    // if(!isListening){
       // startRecording();
-      isListening=true;
-      
-    }
+      // isListening=true;
+    // }
     idling();
-    sendListenDt();
+    // sendListenDt();
   }
   pop();
 }
@@ -203,7 +208,7 @@ function draw() {
 function sendSpeakDt(){
   let data = {};
     data.s = isSpeaking;
-    data.l = isListening;
+    // data.l = isListening;
     data.a = amplitude;
     socket.emit("speak", data);
     // console.log(data.s);

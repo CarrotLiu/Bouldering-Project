@@ -10,13 +10,14 @@ body {
 }
 
 .btn-hug{
+  position: absolute;
   box-sizing: border-box;
   font-family: "Titillium Web", serif;
 /*   font-weight: 700; */
   font-style: normal;
 /*   letter-spacing: 2px; */
-  font-size: 20px;
-  width: 360px;
+  font-size: 15px;
+/*   width: 200px; */
   padding: 16px;
   border: none;
 }
