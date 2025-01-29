@@ -746,33 +746,28 @@ function crying(){
 
 function laughing(){
   push();
-  translate(eyeOffsetX, eyeOffsetY);
   stroke(255);
-  strokeWeight(4);
+  strokeWeight(8);
   noFill();
 
   // Left Eye: ">"
-  line(width / 2 - 120, height / 2 - 10, width / 2 - 100, height / 2);
-  line(width / 2 - 100, height / 2, width / 2 - 120, height / 2 + 10);
+  line(width / 2 - 120, height / 2 - 35, width / 2 - 70, height / 2 -10);
+  line(width / 2 - 70, height / 2 + 10, width / 2 - 120, height / 2 + 15);
   
   // Right Eye: "<"
-  line(width / 2 + 120, height / 2 - 10, width / 2 + 100, height / 2);
-  line(width / 2 + 100, height / 2, width / 2 + 120, height / 2 + 10);
+  line(width / 2 + 120, height / 2 - 35, width / 2 + 70, height / 2-10);
+  line(width / 2 + 70, height / 2 - 10, width / 2 + 120, height / 2 + 15);
 
   // Laughing Mouth
-  if (isSpeaking) {
-    if (level != 0) {
-      mouthOpenHeight = lerp(mouthOpenHeight, 40 + level * 50, 0.3); 
-      mouthOpenWidth = lerp(mouthOpenWidth, 80 + level * 20, 0.3);
-    } else {
-      mouthOpenHeight = lerp(mouthOpenHeight, 40, 0.1); 
-      mouthOpenWidth = lerp(mouthOpenWidth, 80, 0.1);
-    }
-
-    arc(width / 2, height / 2 + 40, mouthOpenWidth, mouthOpenHeight, 0, PI);
-  } else {
-    arc(width / 2, height / 2 + 40, 80, 40, 0, PI); // Default laugh shape
-  }
+ 
+    line(width / 2 - 50, height / 2 + 50, width / 2 + 50, height / 2 + 50);
+    arc(width / 2, height / 2 - 50, 100, 100, 0, PI); // Default laugh shape
+  push();
+  fill("#D84040");
+  noStroke();
+  circle(width / 2 - 150, height / 2 + 35, 50);
+  circle(width / 2 + 150, height / 2 + 35, 50);
+  pop();
   pop();
 }
 
