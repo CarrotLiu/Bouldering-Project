@@ -8,7 +8,52 @@ body {
 
 .btn-intro{
   color: #000000;
-  background: #98D8EF;
+  background: #77B254;
+/*   position: absolute; */
+  box-sizing: border-box;
+  font-family: "Titillium Web", serif;
+/*   font-weight: 700; */
+  font-style: normal;
+/*   letter-spacing: 2px; */
+  font-size: 15px;
+/*   width: 200px; */
+  padding: 10px;
+  border: none;
+}
+
+.btn-randomize{
+  color: #000000;
+  background: #FFC785;
+/*   position: absolute; */
+  box-sizing: border-box;
+  font-family: "Titillium Web", serif;
+/*   font-weight: 700; */
+  font-style: normal;
+/*   letter-spacing: 2px; */
+  font-size: 15px;
+/*   width: 200px; */
+  padding: 10px;
+  border: none;
+}
+
+.btn-timer{
+  color: #000000;
+  background: #E8F9FF;
+/*   position: absolute; */
+  box-sizing: border-box;
+  font-family: "Titillium Web", serif;
+/*   font-weight: 700; */
+  font-style: normal;
+/*   letter-spacing: 2px; */
+  font-size: 15px;
+/*   width: 200px; */
+  padding: 10px;
+  border: none;
+}
+
+.btn-challenge{
+  color: #000000;
+  background: #E17564;
 /*   position: absolute; */
   box-sizing: border-box;
   font-family: "Titillium Web", serif;
@@ -24,6 +69,81 @@ body {
 .btn-hug{
   color: #000000;
   background: #FFA09B;
+/*   position: absolute; */
+  box-sizing: border-box;
+  font-family: "Titillium Web", serif;
+/*   font-weight: 700; */
+  font-style: normal;
+/*   letter-spacing: 2px; */
+  font-size: 15px;
+/*   width: 200px; */
+  padding: 10px;
+  border: none;
+}
+
+.btn-thief{
+  color: #FFFFFF;
+  background: #2A3335;
+/*   position: absolute; */
+  box-sizing: border-box;
+  font-family: "Titillium Web", serif;
+/*   font-weight: 700; */
+  font-style: normal;
+/*   letter-spacing: 2px; */
+  font-size: 15px;
+/*   width: 200px; */
+  padding: 10px;
+  border: none;
+}
+
+.btn-hurt{
+  color: #FFFFFF;
+  background: #872341;
+/*   position: absolute; */
+  box-sizing: border-box;
+  font-family: "Titillium Web", serif;
+/*   font-weight: 700; */
+  font-style: normal;
+/*   letter-spacing: 2px; */
+  font-size: 15px;
+/*   width: 200px; */
+  padding: 10px;
+  border: none;
+}
+
+.btn-help{
+  color: #FFFFFF;
+  background: #2E5077;
+/*   position: absolute; */
+  box-sizing: border-box;
+  font-family: "Titillium Web", serif;
+/*   font-weight: 700; */
+  font-style: normal;
+/*   letter-spacing: 2px; */
+  font-size: 15px;
+/*   width: 200px; */
+  padding: 10px;
+  border: none;
+}
+
+.btn-friend{
+  color: #000000;
+  background: #E5D9F2;
+/*   position: absolute; */
+  box-sizing: border-box;
+  font-family: "Titillium Web", serif;
+/*   font-weight: 700; */
+  font-style: normal;
+/*   letter-spacing: 2px; */
+  font-size: 15px;
+/*   width: 200px; */
+  padding: 10px;
+  border: none;
+}
+
+.btn-together{
+  color: #000000;
+  background: #FCC737;
 /*   position: absolute; */
   box-sizing: border-box;
   font-family: "Titillium Web", serif;

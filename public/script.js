@@ -262,7 +262,7 @@ hesitatejoin_btn.addEventListener('click', ()=>{
   currentSpeak.play();
   }
 })
-let rejectjoin_btn = document.querySelector("#rejecthelp");
+let rejectjoin_btn = document.querySelector("#rejectjoin");
 rejectjoin_btn.addEventListener('click', ()=>{
   if(!isSpeaking){
   currentSpeak = rejectjoin;
@@ -373,14 +373,14 @@ thief_btn.addEventListener('click', ()=>{
 let leavemealone_btn = document.querySelector("#leavemealone");
 leavemealone_btn.addEventListener('click', ()=>{
   if(!isSpeaking){
-  currentSpeak = leavemealone_btn;
+  currentSpeak = leavemealone;
   currentSpeak.play();
   }
 })
 let rude_btn = document.querySelector("#rude");
 rude_btn.addEventListener('click', ()=>{
   if(!isSpeaking){
-  currentSpeak = rude_btn;
+  currentSpeak = rude;
   currentSpeak.play();
   }
 })
