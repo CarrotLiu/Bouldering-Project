@@ -64,6 +64,12 @@ socket = io.connect();
 // recognition.continuous = true;
 // recognition.interimResults = false;
 
+socket.on('speak', function (data){
+  console.log(data);
+  level = data.a;
+  isSpeaking = data.s;
+})
+
 function preload(){
   intro = loadSound('https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/intro.mp3?v=1737823113686');
   nicetry= loadSound("https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/nicetry.mp3?v=1737823549674"); 
@@ -143,7 +149,6 @@ let intro_btn = document.querySelector("#intro");
 intro_btn.addEventListener('click', ()=>{
   if(!isSpeaking){
     currentSpeak = intro;
-    
     currentSpeak.play();
   }
 })
@@ -432,12 +437,34 @@ function draw() {
   background(0);
   fill(255);
   noStroke();
-  if(currentSpeak && currentSpeak.isPlaying()){
+  if(windowWidth > 1000){
+    if(currentSpeak && currentSpeak.isPlaying()){
       isSpeaking = true;
       sendSpeakDt();
     }else{
       isSpeaking = false;
     }
+    
+  }
+  push();
+  if(isSpeaking){ //speaking
+    // if(isListening){
+      // stopRecording();
+    // }
+    amplitude.setInput(currentSpeak);
+    level = amplitude.getLevel();
+    console.log(level)
+    sendSpeakDt();
+    focusing();
+  }else{ // listening
+    // if(!isListening){
+      // startRecording();
+      // isListening=true;
+    // }
+    idling();
+    // sendListenDt();
+  }
+  pop();
   if(stage == 0){
     scene = null;
     
@@ -460,24 +487,7 @@ function draw() {
     
   }
   
-  push();
-  if(isSpeaking){ //speaking
-    // if(isListening){
-      // stopRecording();
-    // }
-    amplitude.setInput(currentSpeak);
-    level = amplitude.getLevel();
-    sendSpeakDt();
-    focusing();
-  }else{ // listening
-    // if(!isListening){
-      // startRecording();
-      // isListening=true;
-    // }
-    idling();
-    // sendListenDt();
-  }
-  pop();
+  
 }
 
 function sendSpeakDt(){
@@ -493,17 +503,12 @@ function sendListenDt(){
   let data = {};
   data.s = isSpeaking;
   data.l = isListening;
-  data.a = amplitude;
+  data.a = amplitude.getLevel();
   socket.emit("listen", data);
   // console.log(data.s);
 }
 
-socket.on('speak', function (data){
-  console.log(data);
-  amplitude = data.a;
-  level = amplitude.getLevel();
-  isSpeaking = data.s;
-})
+
 
 socket.on('listen', function (data){
   // console.log(data);
