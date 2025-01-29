@@ -4,6 +4,22 @@ body {
   overflow: hidden;
 }
 
+#wanthug{
+  color: #000000;
+  background: #FFA09B;
+}
+
+.btn-hug{
+  box-sizing: border-box;
+  font-family: "Titillium Web", serif;
+/*   font-weight: 700; */
+  font-style: normal;
+/*   letter-spacing: 2px; */
+  font-size: 20px;
+  width: 360px;
+  padding: 16px;
+  border: none;
+}
 /* .elements{
   margin: 0;
   position: absolute;

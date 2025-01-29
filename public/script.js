@@ -46,111 +46,37 @@ let totalTime = 180;
 let stage = 0;
 let scene;
 
-const challenges=[["Climb with left hand only", "Climb with right hand only", "Climb without hands", "Climb without feet", "Grab every boulder with both hands","Skip three holds of your choice."],["climb with one hand only", "skip two holds of your choice"],["skip one hold of your choice"],["climb while keeping your back towards the wall all the time"] ];
-const challengeColor=["#007944", "#FFE31A", "#F35588", "#80C4E9"];
-const challengeW = ["challenge", "climbing", "fun", "game", "interesting"];
-const routeW = ["random", "randomize", "route", "new", "which"];
-const restW = ["rest", "tired", "finish", "sent", "congrats"];
-const friendW = ["friend","buddy", "partner"];
-const photoW = ["photo", "camera", "picture"];
-const byeW = ["bye", "goodbye", "see you", "done with today", "home"];
-const helpW = ["help","stuck",""]
+
 
 let detected = []; 
-
-const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-const recognition = new SpeechRecognition();
-recognition.lang = "en-US";
-recognition.continuous = true;
-recognition.interimResults = false;
-
 socket = io.connect();
-
-
+// const challenges=[["Climb with left hand only", "Climb with right hand only", "Climb without hands", "Climb without feet", "Grab every boulder with both hands","Skip three holds of your choice."],["climb with one hand only", "skip two holds of your choice"],["skip one hold of your choice"],["climb while keeping your back towards the wall all the time"] ];
+const challengeColor=["#007944", "#FFE31A", "#F35588", "#80C4E9"];
+// const challengeW = ["challenge", "climbing", "fun", "game", "interesting"];
+// const routeW = ["random", "randomize", "route", "new", "which"];
+// const restW = ["rest", "tired", "finish", "sent", "congrats"];
+// const friendW = ["friend","buddy", "partner"];
+// const photoW = ["photo", "camera", "picture"];
+// const byeW = ["bye", "goodbye", "see you", "done with today", "home"];
+// const helpW = ["help","stuck",""]
+// const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+// const recognition = new SpeechRecognition();
+// recognition.lang = "en-US";
+// recognition.continuous = true;
+// recognition.interimResults = false;
 function startRecording(){
-  detected = []; 
-  console.log("Listening for speech...");
-  recognition.start();
-  isListening = true;
+  // detected = []; 
+  // console.log("Listening for speech...");
+  // recognition.start();
+  // isListening = true;
 }
-
 function stopRecording(){
-  recognition.stop();
-  console.log("Stopped listening.");
-  isListening = false;
+  // recognition.stop();
+  // console.log("Stopped listening.");
+  // isListening = false;
 }
 
 
-recognition.onresult = (event) => {
-  const transcript = event.results[event.results.length - 1][0].transcript.toLowerCase();
-  console.log("Recognized:", transcript);
-
-  if(stage == 2){
-    if(transcript.includes("green") || transcript.includes("dark green") || transcript.includes("two")){
-      scene = 0;
-    }else if(transcript.includes("yellow") || transcript.includes("lemon") || transcript.includes("three")){
-      scene = 1;
-    }else if(transcript.includes("pink") || transcript.includes("four")){
-      scene = 2;
-    }else if(transcript.includes("blue") || transcript.includes("sky blue") || transcript.includes("five") || transcript.includes("five minus")){
-      scene = 3;
-    }
-  }else{
-    challengeW.forEach(word => {
-      if (transcript.includes(word) && !detected.includes(word)) {
-        detected.push(word);
-        currentSpeak = choosechallenge;
-        stage = 2;
-      }
-    });
-  }
-
-  routeW.forEach(word => {
-    if (transcript.includes(word) && !detected.includes(word)) {
-      detected.push(word);
-      currentSpeak = chooseroute;
-      stage = 3;
-    }
-  });
-  
-  restW.forEach(word => {
-    if (transcript.includes(word) && !detected.includes(word)) {
-      detected.push(word);
-      currentSpeak = success;
-      totalTime = 180;
-      setInterval(() => {
-    if (totalTime > 0) {
-      totalTime--;
-    }
-  }, 1000); 
-      stage = 5;
-    }
-  });
-  
-  friendW.forEach(word => {
-    if (transcript.includes(word) && !detected.includes(word)) {
-      detected.push(word);
-      stage = 3;
-    }
-  });
-  
-  photoW.forEach(word => {
-    if (transcript.includes(word) && !detected.includes(word)) {
-      detected.push(word);
-      stage = 4;
-    }
-  });
-
-  console.log(detected);
-};
-
-recognition.onerror = (event) => {
-  console.error("Speech recognition error:", event.error);
-};
-
-recognition.onend = () => {
-  console.log("stop recording");
-};
 
 function preload(){
   intro = loadSound('https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/intro.mp3?v=1737823113686');
@@ -207,6 +133,8 @@ function preload(){
   brainburn = loadSound("https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/brainburn.mp3?v=1737881815592");
 }
 
+const wanthug_btn = document.querySelector("#wanthug");
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
   background(0);
@@ -255,14 +183,14 @@ function draw() {
   push();
   if(isSpeaking){ //speaking
     if(isListening){
-      stopRecording();
+      // stopRecording();
     }
     amplitude.setInput(currentSpeak);
     sendSpeakDt();
     focusing();
   }else{ // listening
     if(!isListening){
-      startRecording();
+      // startRecording();
       isListening=true;
       
     }
@@ -485,3 +413,75 @@ p5 ml5 Stats dat alpha blue brightness color green hue lerpColor lightness red s
     //   mouthOpenWidth = lerp(mouthOpenWidth, 35, 0.2);
     // }
   // }else{
+
+
+// recognition.onresult = (event) => {
+//   const transcript = event.results[event.results.length - 1][0].transcript.toLowerCase();
+//   console.log("Recognized:", transcript);
+
+//   if(stage == 2){
+//     if(transcript.includes("green") || transcript.includes("dark green") || transcript.includes("two")){
+//       scene = 0;
+//     }else if(transcript.includes("yellow") || transcript.includes("lemon") || transcript.includes("three")){
+//       scene = 1;
+//     }else if(transcript.includes("pink") || transcript.includes("four")){
+//       scene = 2;
+//     }else if(transcript.includes("blue") || transcript.includes("sky blue") || transcript.includes("five") || transcript.includes("five minus")){
+//       scene = 3;
+//     }
+//   }else{
+//     challengeW.forEach(word => {
+//       if (transcript.includes(word) && !detected.includes(word)) {
+//         detected.push(word);
+//         currentSpeak = choosechallenge;
+//         stage = 2;
+//       }
+//     });
+//   }
+
+//   routeW.forEach(word => {
+//     if (transcript.includes(word) && !detected.includes(word)) {
+//       detected.push(word);
+//       currentSpeak = chooseroute;
+//       stage = 3;
+//     }
+//   });
+  
+//   restW.forEach(word => {
+//     if (transcript.includes(word) && !detected.includes(word)) {
+//       detected.push(word);
+//       currentSpeak = success;
+//       totalTime = 180;
+//       setInterval(() => {
+//     if (totalTime > 0) {
+//       totalTime--;
+//     }
+//   }, 1000); 
+//       stage = 5;
+//     }
+//   });
+  
+//   friendW.forEach(word => {
+//     if (transcript.includes(word) && !detected.includes(word)) {
+//       detected.push(word);
+//       stage = 3;
+//     }
+//   });
+  
+//   photoW.forEach(word => {
+//     if (transcript.includes(word) && !detected.includes(word)) {
+//       detected.push(word);
+//       stage = 4;
+//     }
+//   });
+
+//   console.log(detected);
+// };
+
+// recognition.onerror = (event) => {
+//   console.error("Speech recognition error:", event.error);
+// };
+
+// recognition.onend = () => {
+//   console.log("stop recording");
+// };
