@@ -67,7 +67,7 @@ let data = {};
 
 socket.on('speak', function (data){
   // console.log(data);
-  // level = data.a;
+  level = data.a;
   isSpeaking = data.s;
 })
 
@@ -519,13 +519,6 @@ function sendListenDt(){
   // console.log(data.s);
 }
 
-
-
-socket.on('listen', function (data){
-  // console.log(data);
-  amplitude = data.a;
-  isSpeaking = data.s;
-})
 
 function blinkControl(){
   if (millis() > nextBlinkTime) {
