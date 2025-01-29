@@ -67,7 +67,7 @@ let data = {};
 
 socket.on('speak', function (data){
   // console.log(data);
-  level = data.a;
+  // level = data.a;
   isSpeaking = data.s;
 })
 
@@ -459,9 +459,11 @@ function draw() {
       amplitude.setInput(currentSpeak);
     level = amplitude.getLevel();
     }
-    
+    if(!data.s){
+      sendSpeakDt();
+    }
     // console.log(level)
-    sendSpeakDt();
+    
     focusing();
   }else{ // listening
     // if(!isListening){
@@ -469,7 +471,6 @@ function draw() {
       // isListening=true;
     // }
     if(data.s){
-      data.s = false;
       sendSpeakDt();
     }
     idling();
@@ -559,7 +560,7 @@ function assembleFace(){
       mouthOpenWidth = lerp(mouthOpenWidth, 35, 0.1);
     }
     arc(width / 2 + eyeOffsetX * 0.35, height / 2 + 20 + eyeOffsetX * 0.05, mouthOpenWidth, mouthOpenHeight, 0, PI); 
-    arc(width / 2 + eyeOffsetX * 0.35, height / 2 + 20 + eyeOffsetX * 0.05, mouthOpenWidth, 35 + level * 100, 0, PI); 
+    arc(width / 2 + eyeOffsetX * 0.35, height / 2 + 20 + eyeOffsetX * 0.05, mouthOpenWidth, 35 + level * 10, 0, PI); 
   }else{
     arc(width / 2 + eyeOffsetX * 0.35, height / 2 + 20 + eyeOffsetX * 0.05, 35, 35, 0, PI); 
   }
