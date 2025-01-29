@@ -316,8 +316,12 @@ setInterval(() => {
     if (totalTime > 0) {
       totalTime--;
     }else{
-      stTime = false;
+      
       stage = 0;
+      if(!isSpeaking){
+  currentSpeak = timerend;
+  currentSpeak.play();
+  }
       sendSceneDt();
     }
   }, 1000);
@@ -333,8 +337,21 @@ takerest_btn.addEventListener('click', ()=>{
   totalTime = 180;
   stage = 3;
   sendSceneDt();
+  setInterval(() => {
+    if (totalTime > 0) {
+      totalTime--;
+    }else{
+      stage = 0;
+      if(!isSpeaking){
+  currentSpeak = timerend;
+  currentSpeak.play();
+  }
+      sendSceneDt();
+    }
+  }, 1000);
   
 })
+
 
 
 let wait_btn = document.querySelector("#wait");
@@ -367,6 +384,8 @@ brainburn_btn.addEventListener('click', ()=>{
   currentSpeak = brainburn;
   currentSpeak.play();
   }
+  stage = 4;
+  sendSceneDt();
 })
 
 let thief_btn = document.querySelector("#thief");
@@ -374,6 +393,8 @@ thief_btn.addEventListener('click', ()=>{
   if(!isSpeaking){
   currentSpeak = thief;
   currentSpeak.play();
+    stage = 6;
+  sendSceneDt();
   }
 })
 let leavemealone_btn = document.querySelector("#leavemealone");
@@ -381,6 +402,8 @@ leavemealone_btn.addEventListener('click', ()=>{
   if(!isSpeaking){
   currentSpeak = leavemealone;
   currentSpeak.play();
+    stage = 6;
+  sendSceneDt();
   }
 })
 let rude_btn = document.querySelector("#rude");
@@ -388,6 +411,8 @@ rude_btn.addEventListener('click', ()=>{
   if(!isSpeaking){
   currentSpeak = rude;
   currentSpeak.play();
+    stage = 6;
+  sendSceneDt();
   }
 })
 
@@ -396,6 +421,8 @@ urgent_btn.addEventListener('click', ()=>{
   if(!isSpeaking){
   currentSpeak = urgent;
   currentSpeak.play();
+    stage = 4;
+  sendSceneDt();
   }
 })
 let ruok_btn = document.querySelector("#ruok");
@@ -467,8 +494,11 @@ stg4_btn.addEventListener('click', ()=>{
     if (totalTime > 0) {
       totalTime--;
     }else{
-      stTime = false;
       stage = 0;
+      if(!isSpeaking){
+  currentSpeak = timerend;
+  currentSpeak.play();
+  }
       sendSceneDt();
     }
   }, 1000);
@@ -499,6 +529,20 @@ socket.on('scene', function (data){
   stage=data.stage;
   scene=data.scene;
   totalTime = data.totalTime;
+  if(stage == 3){
+    setInterval(() => {
+    if (totalTime > 0) {
+      totalTime--;
+    }else{
+      stage = 0;
+      if(!isSpeaking){
+  currentSpeak = timerend;
+  currentSpeak.play();
+  }
+      sendSceneDt();
+    }
+  }, 1000);
+  }
   // console.log(scene, stage);
 })
 
