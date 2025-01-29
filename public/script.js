@@ -135,9 +135,12 @@ function preload(){
   brainburn = loadSound("https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/brainburn.mp3?v=1737881815592");
 }
 
-
+let canvas;
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+  canvas = createCanvas(windowWidth, windowHeight);
+  canvas.parent("container-p5")
+  canvas.position(0, 0);
+  canvas.style("z-index", "-1");
   background(0);
   nextBlinkTime = millis() + random(2000, 5000);
   nextShiftTime = millis() + random(3000, 7000); 
@@ -149,12 +152,12 @@ function setup() {
 }
 
 
-const wanthug_btn = document.querySelector("#wanthug");
+let wanthug_btn = document.querySelector("#wanthug");
 wanthug_btn.addEventListener('click', ()=>{
   currentSpeak = wanthug;
   wanthug.play();
 })
-const yay_btn = document.querySelector("#yay");
+let yay_btn = document.querySelector("#yay");
 yay_btn.addEventListener('click', ()=>{
   currentSpeak = yay;
   yay.play();
