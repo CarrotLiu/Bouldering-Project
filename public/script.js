@@ -48,7 +48,7 @@ let stage = 0;
 let scene;
 
 const challenges=[["Climb with left hand only", "Climb with right hand only", "Climb without hands", "Climb without feet", "Grab every boulder with both hands","Skip three holds of your choice."],["climb with one hand only", "skip two holds of your choice"],["skip one hold of your choice"],["climb while keeping your back towards the wall all the time"] ];
-const challengeColor=["#007944", "#FFE31A", "#F35588", "#80C4E9"];
+const challengeColor=["#007944", "#FFE31A", "#F35588", "#80C4E9", "#FF8000", "#C62300", "#3C3D37", "#8FD14F", "#024CAA", "#"];
 const routeColor=["#007944", "#FFE31A", "#F35588", "#80C4E9"];
 let detected = []; 
 
@@ -605,9 +605,76 @@ function challenging(){
     fill(255);
     textSize(25);
     text("Choose a Route Color Code", 0, -20);
-    textSize(16);
-    text("The color code indicates the route's difficulty", 0, 35);
-    text("Challenges available for levels below the sky blue color", 0, 60);
+    // textSize(16);
+    // text("The color code indicates the route's difficulty", 0, 35);
+    // text("Challenges available for levels below the sky blue color", 0, 60);
+    pop();
+  }
+  
+}
+
+function randomizer(){
+  textAlign(CENTER, CENTER);
+  if(scene != null){
+    push();
+    translate(width / 2, height / 2 -180);
+    fill(challengeColor[0]);
+    textSize(25);
+    text("Go to the " + challenges[scene][int(random(0, challenges.length))][0], 0, 0);
+    textSize(18);
+    text(challenges[scene][int(random(0, challenges.length))][1], 0, -50);
+    pop();
+  }else{
+    push();
+    translate(width / 2, height / 2 -180);
+    fill(challengeColor[0]);
+    noStroke();
+    circle(-130, 50, 60);
+    fill(255);
+    textAlign(CENTER, CENTER);
+    textSize(20);
+    text("2", -130, 50);
+    fill(challengeColor[1]);
+    circle(-50, 0, 60);
+    fill(0);
+    text("3", -50, 0);
+    fill(challengeColor[2]);
+    circle(50, 0, 60);
+    fill(255);
+    text("4", 50, 0);
+    fill(challengeColor[3]);
+    circle(130, 50, 60);
+    fill(0);
+    text("5-", 130, 50);
+    fill(challengeColor[3]);
+    circle(-130, -150, 60);
+    fill(0);
+    text("5+", 130, 50);
+    fill(challengeColor[3]);
+    circle(-50, -20, 60);
+    fill(0);
+    text("6a", 130, 50);
+    fill(challengeColor[3]);
+    circle(-50, -20, 60);
+    fill(0);
+    text("6b", 130, 50);
+    fill(challengeColor[3]);
+    circle(-50, -20, 60);
+    fill(0);
+    text("7a", 130, 50);
+    fill(challengeColor[3]);
+    circle(-50, -20, 60);
+    fill(0);
+    text("7b", 130, 50);
+    pop();
+    push();
+    translate(width / 2, height / 2 + 130);
+    fill(255);
+    textSize(25);
+    text("Choose a Route Color Code", 0, -20);
+    // textSize(16);
+    // text("The color code indicates the route's difficulty", 0, 35);
+    // text("Challenges available for levels below the sky blue color", 0, 60);
     pop();
   }
   
@@ -655,6 +722,9 @@ function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
 }
 function touchStarted() {
+  if(stage == 2){
+    
+  }
   let touchX = touches[0].x;
   let touchY = touches[0].y;
 
@@ -670,6 +740,7 @@ function touchStarted() {
     let d = dist(touchX, touchY, c.x, c.y);
     if (d < 30) { // If inside circle (radius = 30)
       scene = c.sceneValue;
+      sendSceneDt();
       console.log("Scene changed to:", scene);
       return false; // Prevents default scrolling on iPhone
     }
