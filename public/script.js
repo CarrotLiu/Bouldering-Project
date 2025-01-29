@@ -2,6 +2,7 @@ let socket;
 
 let micLevel = 0; 
 let amplitude;
+let level;
 let currentSpeak;
 let intro;
 let nicetry, sticktoolong, offyougo;
@@ -62,17 +63,7 @@ socket = io.connect();
 // recognition.lang = "en-US";
 // recognition.continuous = true;
 // recognition.interimResults = false;
-function startRecording(){
-  // detected = []; 
-  // console.log("Listening for speech...");
-  // recognition.start();
-  // isListening = true;
-}
-function stopRecording(){
-  // recognition.stop();
-  // console.log("Stopped listening.");
-  // isListening = false;
-}
+
 function preload(){
   intro = loadSound('https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/intro.mp3?v=1737823113686');
   nicetry= loadSound("https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/nicetry.mp3?v=1737823549674"); 
@@ -475,6 +466,7 @@ function draw() {
       // stopRecording();
     // }
     amplitude.setInput(currentSpeak);
+    level = amplitude.getLevel();
     sendSpeakDt();
     focusing();
   }else{ // listening
@@ -492,9 +484,9 @@ function sendSpeakDt(){
   let data = {};
     data.s = isSpeaking;
     // data.l = isListening;
-    data.a = amplitude;
+    data.a = amplitude.getLevel();
     socket.emit("speak", data);
-    // console.log(data.s);
+    console.log(data);
 }
 
 function sendListenDt(){
@@ -507,8 +499,9 @@ function sendListenDt(){
 }
 
 socket.on('speak', function (data){
-  // console.log(data);
+  console.log(data);
   amplitude = data.a;
+  level = amplitude.getLevel();
   isSpeaking = data.s;
 })
 
@@ -548,7 +541,7 @@ function assembleFace(){
   stroke(255);
   strokeWeight(4);
   if(isSpeaking){
-    let level = amplitude.getLevel();
+    
     if(level != 0){
       mouthOpenHeight = lerp(mouthOpenHeight, 35 - level * 360, 0.3); 
       mouthOpenWidth = lerp(mouthOpenWidth, 35 - level * 200, 0.3);
@@ -773,3 +766,14 @@ p5 ml5 Stats dat alpha blue brightness color green hue lerpColor lightness red s
 // recognition.onend = () => {
 //   console.log("stop recording");
 // };
+// function startRecording(){
+//   // detected = []; 
+//   // console.log("Listening for speech...");
+//   // recognition.start();
+//   // isListening = true;
+// }
+// function stopRecording(){
+//   // recognition.stop();
+//   // console.log("Stopped listening.");
+//   // isListening = false;
+// }
