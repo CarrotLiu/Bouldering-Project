@@ -48,7 +48,7 @@ let stage = 0;
 let scene;
 
 const challenges=[["Climb with left hand only", "Climb with right hand only", "Climb without hands", "Climb without feet", "Grab every boulder with both hands","Skip three holds of your choice."],["climb with one hand only", "skip two holds of your choice"],["skip one hold of your choice"],["climb while keeping your back towards the wall all the time"] ];
-const challengeColor=["#007944", "#FFE31A", "#F35588", "#80C4E9", "#FF8000", "#C62300", "#3C3D37", "#8FD14F", "#024CAA", "#"];
+const challengeColor=["#007944", "#FFE31A", "#F35588", "#80C4E9", "#FF8000", "#C62300", "#3C3D37", "#8FD14F", "#024CAA", "#4F1787"];
 const routeColor=["#007944", "#FFE31A", "#F35588", "#80C4E9"];
 let detected = []; 
 
@@ -426,6 +426,11 @@ forgetstuff_btn.addEventListener('click', ()=>{
   }
 })
 
+let stg1_btn = document.querySelector("#stage1");
+stg1_btn.addEventListener('click', ()=>{
+  send
+})
+
 
 function draw() {
   background(0);
@@ -468,19 +473,18 @@ function draw() {
       idling();
     }
   } else if(stage == 1){//random route
-    
-    scene = null;
+    randomizer();
   } else if(stage == 2){//challenge stage
     challenging();
   } else if(stage == 3){//rest timer
     scene = null;
     timer();
   }else if(stage == 4){//crying
-    
+    crying();
   }else if(stage == 5){//laughing
-    
-  }else if(stage == 6){
-    
+    laughing();
+  }else if(stage == 6){//angry
+    angry();
   }
 }
 
@@ -644,27 +648,29 @@ function randomizer(){
     text("4", 50, 0);
     fill(challengeColor[3]);
     circle(130, 50, 60);
-    fill(0);
+    fill(255);
     text("5-", 130, 50);
-    fill(challengeColor[3]);
+    
+    
+    fill(challengeColor[4]);
     circle(-130, -150, 60);
-    fill(0);
+    fill(255);
     text("5+", 130, 50);
-    fill(challengeColor[3]);
+    fill(challengeColor[5]);
     circle(-50, -20, 60);
-    fill(0);
+    fill(255);
     text("6a", 130, 50);
-    fill(challengeColor[3]);
+    fill(challengeColor[6]);
     circle(-50, -20, 60);
     fill(0);
     text("6b", 130, 50);
-    fill(challengeColor[3]);
+    fill(challengeColor[7]);
     circle(-50, -20, 60);
-    fill(0);
+    fill(255);
     text("7a", 130, 50);
-    fill(challengeColor[3]);
+    fill(challengeColor[8]);
     circle(-50, -20, 60);
-    fill(0);
+    fill(255);
     text("7b", 130, 50);
     pop();
     push();
@@ -722,33 +728,45 @@ function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
 }
 function touchStarted() {
-  if(stage == 2){
-    
-  }
+  
   let touchX = touches[0].x;
   let touchY = touches[0].y;
+  let circles
+  
 
-  // Circle positions relative to center
-  let circles = [
-    { x: width / 2 - 130, y: height / 2 - 130, sceneValue: 2 }, // Circle 1
-    { x: width / 2 - 50, y: height / 2 - 180, sceneValue: 3 },  // Circle 2
-    { x: width / 2 + 50, y: height / 2 - 180, sceneValue: 4 },  // Circle 3
-    { x: width / 2 + 130, y: height / 2 - 130, sceneValue: 5 }  // Circle 4
-  ];
-
-  for (let c of circles) {
-    let d = dist(touchX, touchY, c.x, c.y);
-    if (d < 30) { // If inside circle (radius = 30)
-      scene = c.sceneValue;
-      sendSceneDt();
-      console.log("Scene changed to:", scene);
-      return false; // Prevents default scrolling on iPhone
-    }
+  if(stage == 1){
+    circles = [
+      { x: width / 2 - 130, y: height / 2 - 130, sceneValue: 2 }, // Circle 1
+      { x: width / 2 - 50, y: height / 2 - 180, sceneValue: 3 },  // Circle 2
+      { x: width / 2 + 50, y: height / 2 - 180, sceneValue: 4 },  // Circle 3
+      { x: width / 2 + 130, y: height / 2 - 130, sceneValue: 5 },  // Circle 4
+      { x: width / 2 - 130, y: height / 2 + 130, sceneValue: 2 }, // Circle 1
+      { x: width / 2 - 50, y: height / 2 + 180, sceneValue: 3 },  // Circle 2
+      { x: width / 2 + 50, y: height / 2 + 180, sceneValue: 4 },  // Circle 3
+      { x: width / 2 + 130, y: height / 2 + 130, sceneValue: 5 }  // Circle 4
+    ];
+    
+  }else if(stage == 2){
+    circles = [
+      { x: width / 2 - 130, y: height / 2 - 130, sceneValue: 2 }, // Circle 1
+      { x: width / 2 - 50, y: height / 2 - 180, sceneValue: 3 },  // Circle 2
+      { x: width / 2 + 50, y: height / 2 - 180, sceneValue: 4 },  // Circle 3
+      { x: width / 2 + 130, y: height / 2 - 130, sceneValue: 5 }  // Circle 4
+    ];
+    
   }
+  for (let c of circles) {
+      let d = dist(touchX, touchY, c.x, c.y);
+      if (d < 30) { // If inside circle (radius = 30)
+        scene = c.sceneValue;
+        sendSceneDt();
+        console.log("Scene changed to:", scene);
+        return false; // Prevents default scrolling on iPhone
+      }
+    }
   
   return false;
 }
-
 
 
 function keyPressed() {
