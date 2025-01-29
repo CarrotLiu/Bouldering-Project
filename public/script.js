@@ -767,16 +767,16 @@ function crying(){
   noFill();
 
   // Left Eye: "O"
-  circle(width / 2 - 110, height / 2 - 10 + eyeBounce, 55);
+  circle(width / 2 - 100, height / 2 - 10 + eyeBounce, 60);
 
   // Right Eye: "O"
-  circle(width / 2 + 110, height / 2 - 10 + eyeBounce, 55);
+  circle(width / 2 + 100, height / 2 - 10 + eyeBounce, 60);
 
   // Tears (Falling down)
   fill("#00BFFF"); // Light blue color for tears
   noStroke();
-  ellipse(width / 2 - 130, 10 + tearY1, 20, 25); // Left tear
-  ellipse(width / 2 + 130, 10 + tearY2, 20, 25); // Right tear
+  ellipse(width / 2 - 120, 10 + tearY1, 20, 25); // Left tear
+  ellipse(width / 2 + 120, 10 + tearY2, 20, 25); // Right tear
 
   // Big Crying Mouth "口"
   stroke(255);
@@ -800,7 +800,7 @@ function crying(){
   pop();
 }
 
-let mouthSize = 100;
+let mouthSize = 200;
 let cheekShake = 0;
 let laughSpeed = 0.1;
 let laughAmount = 3;
@@ -819,12 +819,12 @@ function laughing(){
   noFill();
 
   // Left Eye: ">" (bounces up and down)
-  line(width / 2 - 120, height / 2 - 35 + eyeBounce, width / 2 - 70, height / 2 - 10 + eyeBounce);
-  line(width / 2 - 70, height / 2 - 10 + eyeBounce, width / 2 - 120, height / 2 + 15 + eyeBounce);
+  line(width / 2 - 110, height / 2 - 35 + eyeBounce, width / 2 - 60, height / 2 - 10 + eyeBounce);
+  line(width / 2 - 60, height / 2 - 10 + eyeBounce, width / 2 - 110, height / 2 + 15 + eyeBounce);
 
   // Right Eye: "<" (bounces up and down)
-  line(width / 2 + 120, height / 2 - 35 + eyeBounce, width / 2 + 70, height / 2 - 10 + eyeBounce);
-  line(width / 2 + 70, height / 2 - 10 + eyeBounce, width / 2 + 120, height / 2 + 15 + eyeBounce);
+  line(width / 2 + 110, height / 2 - 35 + eyeBounce, width / 2 + 60, height / 2 - 10 + eyeBounce);
+  line(width / 2 + 60, height / 2 - 10 + eyeBounce, width / 2 + 110, height / 2 + 15 + eyeBounce);
 
   // Laughing Mouth (Squashes & Stretches)
   let mouthOpen = abs(sin(time * 2)) * 20 + 60;
@@ -862,24 +862,25 @@ function angry(){
   noFill();
 
   // Angry Eyebrows: "\" and "/"
-  line(width / 2 - 120, height / 2 - 70 + eyeBounce, width / 2 - 50, height / 2 - 100 + eyeBounce); // Left eyebrow
-  line(width / 2 + 120, height / 2 - 70 + eyeBounce, width / 2 + 50, height / 2 - 100 + eyeBounce); // Right eyebrow
+  line(width / 2 - 120, height / 2 - 60 + eyeBounce, width / 2 - 50, height / 2 - 10  + eyeBounce); // Left eyebrow
+  line(width / 2 + 120, height / 2 - 60 + eyeBounce, width / 2 + 50, height / 2 - 10 + eyeBounce); // Right eyebrow
 
   // Left Eye: NoFill Circle
-  ellipse(width / 2 - 120, height / 2 + eyeBounce, 50, 80);  
+  circle(width / 2 - 100, height / 2 + eyeBounce, 60);  
 
   // Right Eye: NoFill Circle
-  ellipse(width / 2 + 120, height / 2 + eyeBounce, 50, 80);  
+  circle(width / 2 + 100, height / 2 + eyeBounce, 60);  
 
   // Trapezoid Mouth
   fill(255);
   stroke(255);
   strokeWeight(8);
-  let mouthY = height / 2 + 100 + mouthFloat; // Floating motion
-  let topWidth = 100; // Top line width
-  let bottomWidth = 150; // Bottom line width
+  let mouthY = height / 2 + mouthFloat; // Floating motion
+  let topWidth = 50; // Top line width
+  let bottomWidth = 80; // Bottom line width
   let heightMouth = 60; // Height of the trapezoid
-
+noFill();
+  // Drawing the triangle mouth
   beginShape();
   vertex(width / 2 - topWidth / 2, mouthY); // Left top corner
   vertex(width / 2 + topWidth / 2, mouthY); // Right top corner
