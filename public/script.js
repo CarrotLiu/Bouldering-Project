@@ -146,28 +146,40 @@ function setup() {
   nextShiftTime = millis() + random(3000, 7000); 
   nextMouthChange = millis() + random(2000, 5000); 
   textFont("Titillium Web");
-  intro.play();
+  // intro.play();
   amplitude = new p5.Amplitude();
-  currentSpeak = intro;
+  // currentSpeak = intro;
 }
 
+let intro_btn = document.querySelector("#intro");
+intro_btn.addEventListener('click', ()=>{
+  if(!isSpeaking){
+    currentSpeak = intro;
+    intro.play();
+  }
+  
+})
 
 let wanthug_btn = document.querySelector("#wanthug");
 wanthug_btn.addEventListener('click', ()=>{
-  currentSpeak = wanthug;
-  wanthug.play();
+  if(!isSpeaking){
+    currentSpeak = wanthug;
+    wanthug.play();
+  }
 })
 let yay_btn = document.querySelector("#yay");
 yay_btn.addEventListener('click', ()=>{
+  if(!isSpeaking){
   currentSpeak = yay;
   yay.play();
+  }
 })
 
 function draw() {
   background(0);
   fill(255);
   noStroke();
-  if(currentSpeak.isPlaying()){
+  if(currentSpeak && currentSpeak.isPlaying()){
       isSpeaking = true;
     }else{
       isSpeaking = false;

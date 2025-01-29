@@ -6,6 +6,20 @@ body {
 }
 
 
+.btn-intro{
+  color: #000000;
+  background: #98D8EF;
+/*   position: absolute; */
+  box-sizing: border-box;
+  font-family: "Titillium Web", serif;
+/*   font-weight: 700; */
+  font-style: normal;
+/*   letter-spacing: 2px; */
+  font-size: 15px;
+/*   width: 200px; */
+  padding: 10px;
+  border: none;
+}
 
 .btn-hug{
   color: #000000;
@@ -18,7 +32,7 @@ body {
 /*   letter-spacing: 2px; */
   font-size: 15px;
 /*   width: 200px; */
-  padding: 16px;
+  padding: 10px;
   border: none;
 }
 /* .elements{
