@@ -146,6 +146,7 @@ let intro_btn = document.querySelector("#intro");
 intro_btn.addEventListener('click', ()=>{
   if(!isSpeaking){
     currentSpeak = intro;
+    
     currentSpeak.play();
   }
 })
@@ -248,16 +249,131 @@ agreejoin_btn.addEventListener('click', ()=>{
   }
 })
 let hesitatejoin_btn = document.querySelector("#hesitatejoin");
-findfriend_btn.addEventListener('click', ()=>{
+hesitatejoin_btn.addEventListener('click', ()=>{
   if(!isSpeaking){
-  currentSpeak = findfriend;
+  currentSpeak = hesitatejoin;
   currentSpeak.play();
   }
 })
 let rejectjoin_btn = document.querySelector("#rejecthelp");
-findfriend_btn.addEventListener('click', ()=>{
+rejectjoin_btn.addEventListener('click', ()=>{
   if(!isSpeaking){
-  currentSpeak = findfriend;
+  currentSpeak = rejectjoin;
+  currentSpeak.play();
+  }
+})
+
+let icebreakintro_btn = document.querySelector("#icebreakintro"); 
+icebreakintro_btn.addEventListener('click', ()=>{
+  if(!isSpeaking){
+  currentSpeak = icebreakintro;
+  currentSpeak.play();
+  }
+})
+let definerule_btn = document.querySelector("#definerule");
+definerule_btn.addEventListener('click', ()=>{
+  if(!isSpeaking){
+  currentSpeak = definerule;
+  currentSpeak.play();
+  }
+})
+let highfive_btn = document.querySelector("#highfive");
+highfive_btn.addEventListener('click', ()=>{
+  if(!isSpeaking){
+  currentSpeak = highfive;
+  currentSpeak.play();
+  }
+})
+let teamup_btn = document.querySelector("#teamup");
+teamup_btn.addEventListener('click', ()=>{
+  if(!isSpeaking){
+  currentSpeak = teamup;
+  currentSpeak.play();
+  }
+})
+let swaptip_btn = document.querySelector("#swaptip"); 
+swaptip_btn.addEventListener('click', ()=>{
+  if(!isSpeaking){
+  currentSpeak = swaptip;
+  currentSpeak.play();
+  }
+})
+let mentor_btn = document.querySelector("#mentor");
+mentor_btn.addEventListener('click', ()=>{
+  if(!isSpeaking){
+  currentSpeak = mentor;
+  currentSpeak.play();
+  }
+})
+let footwork_btn = document.querySelector("#footwork");
+footwork_btn.addEventListener('click', ()=>{
+  if(!isSpeaking){
+  currentSpeak = footwork;
+  currentSpeak.play();
+  }
+})
+let success_btn = document.querySelector("#success");
+success_btn.addEventListener('click', ()=>{
+  if(!isSpeaking){
+  currentSpeak = success;
+  currentSpeak.play();
+  }
+})
+let takerest_btn = document.querySelector("#takerest");
+takerest_btn.addEventListener('click', ()=>{
+  if(!isSpeaking){
+  currentSpeak = takerest;
+  currentSpeak.play();
+  }
+})
+let wait_btn = document.querySelector("#wait");
+wait_btn.addEventListener('click', ()=>{
+  if(!isSpeaking){
+  currentSpeak = wait;
+  currentSpeak.play();
+  }
+})
+let timerend_btn = document.querySelector("#timerend");
+timerend_btn.addEventListener('click', ()=>{
+  if(!isSpeaking){
+  currentSpeak = timerend;
+  currentSpeak.play();
+  }
+})
+
+let alright_btn = document.querySelector("#alright");
+alright_btn.addEventListener('click', ()=>{
+  if(!isSpeaking){
+  currentSpeak = alright;
+  currentSpeak.play();
+  }
+})
+let brainburn_btn = document.querySelector("#brainburn");
+brainburn_btn.addEventListener('click', ()=>{
+  if(!isSpeaking){
+  currentSpeak = brainburn;
+  currentSpeak.play();
+  }
+})
+
+let thief_btn = document.querySelector("#thief");
+thief_btn.addEventListener('click', ()=>{
+  if(!isSpeaking){
+  currentSpeak = thief;
+  currentSpeak.play();
+  }
+})
+let leavemealone_btn = document.querySelector("#leavemealone");
+leavemealone_btn.addEventListener('click', ()=>{
+  if(!isSpeaking){
+  currentSpeak = leavemealone_btn;
+  currentSpeak.play();
+  }
+})
+let rude_btn = document.querySelector("#rude");;
+rude_btn.addEventListener('click', ()=>{
+  if(!isSpeaking){
+  currentSpeak = rude_btn;
   currentSpeak.play();
   }
 })
@@ -269,6 +385,7 @@ function draw() {
   noStroke();
   if(currentSpeak && currentSpeak.isPlaying()){
       isSpeaking = true;
+    sendSpeakDt()
     }else{
       isSpeaking = false;
     }
