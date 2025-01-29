@@ -1,9 +1,9 @@
 let socket;
-
-let mic; 
-let amplitude;
+let canvas;
+let mic, amplitude;
 let level = 0;
 let currentSpeak;
+
 let intro;
 let nicetry, sticktoolong, offyougo;
 let notsure, askhelp, agreetohelp, hesitatehelp, findother, rejecthelp;
@@ -17,8 +17,8 @@ let wanthug, yay, yournice;
 let urgent, ruok;
 let choosechallenge, chooseroute;
 let bye, forgetstuff;
-let introDone = false;
 
+let introDone = false;
 let blinkState = 0; 
 let blinkProgress = 0; 
 let nextBlinkTime = 0; 
@@ -56,12 +56,7 @@ socket = io.connect();
 let spkdata = {};
 let scndata={};
 
-socket.on('speak', function (data){
-  isSpeaking = spkdata.s;
-})
-socket.on('scene', function (data){
-  
-})
+
 
 function preload(){
   intro = loadSound('https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/intro.mp3?v=1737823113686');
@@ -117,27 +112,6 @@ function preload(){
   alright = loadSound("https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/alright.mp3?v=1737881792221");
   brainburn = loadSound("https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/brainburn.mp3?v=1737881815592");
 }
-
-let canvas;
-function setup() {
-  canvas = createCanvas(windowWidth, windowHeight);
-  console.log(windowWidth);
-  canvas.parent("container-p5")
-  canvas.position(0, 0);
-  canvas.style("z-index", "-1");
-  background(0);
-  nextBlinkTime = millis() + random(2000, 5000);
-  nextShiftTime = millis() + random(3000, 7000); 
-  nextMouthChange = millis() + random(2000, 5000); 
-  textFont("Titillium Web");
-  amplitude = new p5.Amplitude();
-  if(windowWidth > 1000 ){
-  document.querySelector("#btns").style.visibility = "visible";
-  }
-  mic = new p5.AudioIn();
-}
-
-
 
 let intro_btn = document.querySelector("#intro");
 intro_btn.addEventListener('click', ()=>{
@@ -428,9 +402,71 @@ forgetstuff_btn.addEventListener('click', ()=>{
 
 let stg1_btn = document.querySelector("#stage1");
 stg1_btn.addEventListener('click', ()=>{
-  send
+  stage = 1;
+  sendSceneDt();
 })
 
+let stg2_btn = document.querySelector("#stage2");
+stg2_btn.addEventListener('click', ()=>{
+  stage = 2;
+  sendSceneDt();
+})
+
+let stg3_btn = document.querySelector("#stage3");
+stg3_btn.addEventListener('click', ()=>{
+  stage = 3;
+  sendSceneDt();
+})
+
+let stg4_btn = document.querySelector("#stage4");
+stg3_btn.addEventListener('click', ()=>{
+  stage = 4;
+  sendSceneDt();
+})
+
+let stg5_btn = document.querySelector("#stage5");
+stg3_btn.addEventListener('click', ()=>{
+  stage = 5;
+  sendSceneDt();
+})
+
+let stg6_btn = document.querySelector("#stage6");
+stg3_btn.addEventListener('click', ()=>{
+  stage = 6;
+  sendSceneDt();
+})
+
+let stg7_btn = document.querySelector("#stage7");
+stg3_btn.addEventListener('click', ()=>{
+  stage = 7;
+  sendSceneDt();
+})
+
+socket.on('speak', function (data){
+  isSpeaking = spkdata.s;
+})
+socket.on('scene', function (data){
+  
+})
+
+
+function setup() {
+  canvas = createCanvas(windowWidth, windowHeight);
+  console.log(windowWidth);
+  canvas.parent("container-p5")
+  canvas.position(0, 0);
+  canvas.style("z-index", "-1");
+  background(0);
+  nextBlinkTime = millis() + random(2000, 5000);
+  nextShiftTime = millis() + random(3000, 7000); 
+  nextMouthChange = millis() + random(2000, 5000); 
+  textFont("Titillium Web");
+  amplitude = new p5.Amplitude();
+  if(windowWidth > 1000 ){
+  document.querySelector("#btns").style.visibility = "visible";
+  }
+  mic = new p5.AudioIn();
+}
 
 function draw() {
   background(0);
@@ -768,24 +804,44 @@ function touchStarted() {
   return false;
 }
 
-
 function keyPressed() {
-  if(key === 'r'){
-    stage = 1;
+  if(key === '1'){
+    scene = 0;
     sendSceneDt();
     
-  }else if (key === 'c') {
-    stage = 2;
+  }else if (key === '2') {
+    scene = 1;
+    sendSceneDt();
     // if(stage < 6){
     //   stage ++;
     // }else{
     //   stage = 0;
     // }
-  }else if(key === 't'){
-    stage = 3;
+  }else if(key === '3'){
+    scene = 2;
+    sendSceneDt();
+  }else if(key === '4'){
+    scene = 3;
+    sendSceneDt();
+  }else if(key === '5'){
+    scene = 4;
+    sendSceneDt();
+  }else if(key === '6'){
+    scene = 5;
+    sendSceneDt();
+  }else if(key === '7'){
+    scene = 6;
+    sendSceneDt();
+  }else if(key === '8'){
+    scene = 7;
+    sendSceneDt();
+  }else if(key === '9'){
+    scene = 8;
+    sendSceneDt();
+  }else if(key === '0'){
+    scene = 9;
+    sendSceneDt();
   }
-  
-
 }
 /* global
 

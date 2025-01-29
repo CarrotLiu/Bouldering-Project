@@ -181,7 +181,21 @@ body {
   padding: 10px;
   border: none;
 }
-
+.btn-stage{
+  margin: 10px;
+  color: #FFFFFF;
+  background: #49243E;
+/*   position: absolute; */
+  box-sizing: border-box;
+  font-family: "Titillium Web", serif;
+/*   font-weight: 700; */
+  font-style: normal;
+/*   letter-spacing: 2px; */
+  font-size: 15px;
+/*   width: 200px; */
+  padding: 10px;
+  border: none;
+}
 #btns{
   visibility: hidden;
 }
