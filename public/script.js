@@ -654,6 +654,31 @@ function timer(){
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
 }
+function touchStarted() {
+  let touchX = touches[0].x;
+  let touchY = touches[0].y;
+
+  // Circle positions relative to center
+  let circles = [
+    { x: width / 2 - 130, y: height / 2 - 130, sceneValue: 2 }, // Circle 1
+    { x: width / 2 - 50, y: height / 2 - 180, sceneValue: 3 },  // Circle 2
+    { x: width / 2 + 50, y: height / 2 - 180, sceneValue: 4 },  // Circle 3
+    { x: width / 2 + 130, y: height / 2 - 130, sceneValue: 5 }  // Circle 4
+  ];
+
+  for (let c of circles) {
+    let d = dist(touchX, touchY, c.x, c.y);
+    if (d < 30) { // If inside circle (radius = 30)
+      scene = c.sceneValue;
+      console.log("Scene changed to:", scene);
+      return false; // Prevents default scrolling on iPhone
+    }
+  }
+  
+  return false;
+}
+
+
 
 function keyPressed() {
   if(key === 'r'){
