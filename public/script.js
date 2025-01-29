@@ -48,12 +48,8 @@ let scene;
 
 const challenges=[["Climb with left hand only", "Climb with right hand only", "Climb without hands", "Climb without feet", "Grab every boulder with both hands","Skip three holds of your choice."],["climb with one hand only", "skip two holds of your choice"],["skip one hold of your choice"],["climb while keeping your back towards the wall all the time"] ];
 const challengeColor=["#007944", "#FFE31A", "#F35588", "#80C4E9"];
-
-
-
 let detected = []; 
 socket = io.connect();
-
 // const challengeW = ["challenge", "climbing", "fun", "game", "interesting"];
 // const routeW = ["random", "randomize", "route", "new", "which"];
 // const restW = ["rest", "tired", "finish", "sent", "congrats"];
@@ -77,9 +73,6 @@ function stopRecording(){
   // console.log("Stopped listening.");
   // isListening = false;
 }
-
-
-
 function preload(){
   intro = loadSound('https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/intro.mp3?v=1737823113686');
   nicetry= loadSound("https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/nicetry.mp3?v=1737823549674"); 
@@ -146,34 +139,129 @@ function setup() {
   nextShiftTime = millis() + random(3000, 7000); 
   nextMouthChange = millis() + random(2000, 5000); 
   textFont("Titillium Web");
-  // intro.play();
   amplitude = new p5.Amplitude();
-  // currentSpeak = intro;
 }
 
 let intro_btn = document.querySelector("#intro");
 intro_btn.addEventListener('click', ()=>{
   if(!isSpeaking){
     currentSpeak = intro;
-    intro.play();
+    currentSpeak.play();
   }
-  
+})
+
+let nicetry_btn = document.querySelector("#nicetry");
+nicetry_btn.addEventListener('click', ()=>{
+  if(!isSpeaking){
+    currentSpeak = nicetry;
+    currentSpeak.play();
+  }
+})
+
+let sticktoolong_btn = document.querySelector("#sticktoolong");
+sticktoolong_btn.addEventListener('click', ()=>{
+  if(!isSpeaking){
+    currentSpeak = sticktoolong;
+    currentSpeak.play();
+  }
+})
+
+let offyougo_btn = document.querySelector("#offyougo");;
+offyougo_btn.addEventListener('click', ()=>{
+  if(!isSpeaking){
+    currentSpeak = offyougo;
+    currentSpeak.play();
+  }
 })
 
 let wanthug_btn = document.querySelector("#wanthug");
 wanthug_btn.addEventListener('click', ()=>{
   if(!isSpeaking){
     currentSpeak = wanthug;
-    wanthug.play();
+    currentSpeak.play();
   }
 })
+
 let yay_btn = document.querySelector("#yay");
 yay_btn.addEventListener('click', ()=>{
   if(!isSpeaking){
   currentSpeak = yay;
-  yay.play();
+  currentSpeak.play();
   }
 })
+
+let notsure_btn = document.querySelector("#notsure");
+notsure_btn.addEventListener('click', ()=>{
+  if(!isSpeaking){
+  currentSpeak = notsure;
+  currentSpeak.play();
+  }
+})
+
+let askhelp_btn = document.querySelector("#askhelp");
+askhelp_btn.addEventListener('click', ()=>{
+  if(!isSpeaking){
+  currentSpeak = askhelp;
+  currentSpeak.play();
+  }
+})
+let agreetohelp_btn = document.querySelector("#agreetohelp");
+agreetohelp_btn.addEventListener('click', ()=>{
+  if(!isSpeaking){
+  currentSpeak = agreetohelp;
+  currentSpeak.play();
+  }
+})
+let hesitatehelp_btn = document.querySelector("#hesitatehelp");
+hesitatehelp_btn.addEventListener('click', ()=>{
+  if(!isSpeaking){
+  currentSpeak = hesitatehelp;
+  currentSpeak.play();
+  }
+})
+let findother_btn = document.querySelector("#findother");
+findother_btn.addEventListener('click', ()=>{
+  if(!isSpeaking){
+  currentSpeak = findother;
+  currentSpeak.play();
+  }
+})
+let rejecthelp_btn = document.querySelector("#rejecthelp");
+rejecthelp_btn.addEventListener('click', ()=>{
+  if(!isSpeaking){
+  currentSpeak = rejecthelp;
+  currentSpeak.play();
+  }
+})
+let findfriend_btn = document.querySelector("#findfriend");
+findfriend_btn.addEventListener('click', ()=>{
+  if(!isSpeaking){
+  currentSpeak = findfriend;
+  currentSpeak.play();
+  }
+})
+let agreejoin_btn = document.querySelector("#rejecthelp");
+agreejoin_btn.addEventListener('click', ()=>{
+  if(!isSpeaking){
+  currentSpeak = agreejoin;
+  currentSpeak.play();
+  }
+})
+let hesitatejoin_btn = document.querySelector("#hesitatejoin");
+findfriend_btn.addEventListener('click', ()=>{
+  if(!isSpeaking){
+  currentSpeak = findfriend;
+  currentSpeak.play();
+  }
+})
+let rejectjoin_btn = document.querySelector("#rejecthelp");
+findfriend_btn.addEventListener('click', ()=>{
+  if(!isSpeaking){
+  currentSpeak = findfriend;
+  currentSpeak.play();
+  }
+})
+
 
 function draw() {
   background(0);
