@@ -4,7 +4,18 @@ let mic, amplitude;
 let level = 0;
 let currentSpeak;
 let tearY1, tearY2;
-
+let eyeBounce = 0;
+let mouthFloat = 0;
+let floatSpeed = 1.5;
+let floatAmount = 5;
+let tearSpeed = 2;
+let time = 0;
+let mouthWidth = 60;
+let mouthHeight = 50;
+let mouthSize = 200;
+let cheekShake = 0;
+let laughSpeed = 0.1;
+let laughAmount = 3;
 let intro;
 let nicetry, sticktoolong, offyougo;
 let notsure, askhelp, agreetohelp, hesitatehelp, findother, rejecthelp;
@@ -447,7 +458,9 @@ socket.on('speak', function (data){
   isSpeaking = spkdata.s;
 })
 socket.on('scene', function (data){
-  
+  stage=data.stage;
+  scene=data.scene;
+  console.log(scene, stage);
 })
 
 
@@ -740,14 +753,7 @@ function randomizer(){
   
 }
 
-let eyeBounce = 0;
-let mouthFloat = 0;
-let floatSpeed = 1.5;
-let floatAmount = 5;
-let tearSpeed = 2;
-let time = 0;
-let mouthWidth = 60;
-let mouthHeight = 50;
+
 function crying(){
   time += 0.1;
 
@@ -800,12 +806,8 @@ function crying(){
   pop();
 }
 
-let mouthSize = 200;
-let cheekShake = 0;
-let laughSpeed = 0.1;
-let laughAmount = 3;
+
 function laughing(){
-  background(0);
   time += laughSpeed; // Controls animation speed
 
   // Animate eye bounce and cheek shake
@@ -817,7 +819,7 @@ function laughing(){
   stroke(255);
   strokeWeight(8);
   noFill();
-
+// translate(eyeOffsetX, eyeOffsetY);
   // Left Eye: ">" (bounces up and down)
   line(width / 2 - 110, height / 2 - 35 + eyeBounce, width / 2 - 60, height / 2 - 10 + eyeBounce);
   line(width / 2 - 60, height / 2 - 10 + eyeBounce, width / 2 - 110, height / 2 + 15 + eyeBounce);
