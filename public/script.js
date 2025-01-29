@@ -190,6 +190,13 @@ yay_btn.addEventListener('click', ()=>{
   currentSpeak.play();
   }
 })
+let yournice_btn = document.querySelector("#yournice");
+yournice_btn.addEventListener('click', ()=>{
+  if(!isSpeaking){
+  currentSpeak = yournice;
+  currentSpeak.play();
+  }
+})
 
 let notsure_btn = document.querySelector("#notsure");
 notsure_btn.addEventListener('click', ()=>{
@@ -370,10 +377,53 @@ leavemealone_btn.addEventListener('click', ()=>{
   currentSpeak.play();
   }
 })
-let rude_btn = document.querySelector("#rude");;
+let rude_btn = document.querySelector("#rude");
 rude_btn.addEventListener('click', ()=>{
   if(!isSpeaking){
   currentSpeak = rude_btn;
+  currentSpeak.play();
+  }
+})
+
+let urgent_btn = document.querySelector("#urgent");
+urgent_btn.addEventListener('click', ()=>{
+  if(!isSpeaking){
+  currentSpeak = urgent;
+  currentSpeak.play();
+  }
+})
+let ruok_btn = document.querySelector("#ruok");
+ruok_btn.addEventListener('click', ()=>{
+  if(!isSpeaking){
+  currentSpeak = ruok;
+  currentSpeak.play();
+  }
+})
+let choosechallenge_btn = document.querySelector("#choosechallenge");
+choosechallenge_btn.addEventListener('click', ()=>{
+  if(!isSpeaking){
+  currentSpeak = choosechallenge;
+  currentSpeak.play();
+  }
+})
+let chooseroute_btn = document.querySelector("#chooseroute");
+chooseroute_btn.addEventListener('click', ()=>{
+  if(!isSpeaking){
+  currentSpeak = chooseroute;
+  currentSpeak.play();
+  }
+})
+let bye_btn = document.querySelector("#bye_btn");
+bye_btn.addEventListener('click', ()=>{
+  if(!isSpeaking){
+  currentSpeak = bye;
+  currentSpeak.play();
+  }
+})
+let forgetstuff_btn = document.querySelector("#forgetstuff");
+forgetstuff_btn.addEventListener('click', ()=>{
+  if(!isSpeaking){
+  currentSpeak = forgetstuff;
   currentSpeak.play();
   }
 })
@@ -385,7 +435,7 @@ function draw() {
   noStroke();
   if(currentSpeak && currentSpeak.isPlaying()){
       isSpeaking = true;
-    sendSpeakDt()
+      sendSpeakDt();
     }else{
       isSpeaking = false;
     }
