@@ -743,31 +743,53 @@ function crying(){
   eyeOffsetY = lerp(eyeOffsetY, 0, 0.05);
   pop();
 }
-
+let eyeBounce = 0;
+let mouthSize = 100;
+let cheekShake = 0;
+let laughSpeed = 0.1;
+let laughAmount = 3;
+let time = 0;
 function laughing(){
+  background(0);
+  time += laughSpeed; // Controls animation speed
+
+  // Animate eye bounce and cheek shake
+  eyeBounce = sin(time) * laughAmount; // Up-down movement
+  cheekShake = cos(time) * laughAmount; // Side-to-side shake
+
   push();
   stroke(255);
   strokeWeight(8);
   noFill();
 
-  // Left Eye: ">"
-  line(width / 2 - 120, height / 2 - 35, width / 2 - 70, height / 2 -10);
-  line(width / 2 - 70, height / 2 + 10, width / 2 - 120, height / 2 + 15);
-  
-  // Right Eye: "<"
-  line(width / 2 + 120, height / 2 - 35, width / 2 + 70, height / 2-10);
-  line(width / 2 + 70, height / 2 - 10, width / 2 + 120, height / 2 + 15);
+  // Left Eye: ">" (bounces up and down)
+  line(width / 2 - 120, height / 2 - 35 + eyeBounce, width / 2 - 70, height / 2 - 10 + eyeBounce);
+  line(width / 2 - 70, height / 2 - 10 + eyeBounce, width / 2 - 120, height / 2 + 15 + eyeBounce);
 
-  // Laughing Mouth
- 
-    line(width / 2 - 50, height / 2 + 50, width / 2 + 50, height / 2 + 50);
-    arc(width / 2, height / 2 - 50, 100, 100, 0, PI); // Default laugh shape
+  // Right Eye: "<" (bounces up and down)
+  line(width / 2 + 120, height / 2 - 35 + eyeBounce, width / 2 + 70, height / 2 - 10 + eyeBounce);
+  line(width / 2 + 70, height / 2 - 10 + eyeBounce, width / 2 + 120, height / 2 + 15 + eyeBounce);
+
+  // Laughing Mouth (Squashes & Stretches)
+  let mouthOpen = abs(sin(time * 2)) * 20 + 60;
+  let mouthHeight = abs(sin(time * 2)) * 20 + 50;
+let mouthY = height / 2 + 15;
+  let mouthX1 = width / 2 - mouthWidth / 2; // Left endpoint
+  let mouthX2 = width / 2 + mouthWidth / 2; // Right endpoint
+
+  // Dynamic line that follows arc endpoints
+  line(mouthX1, mouthY, mouthX2, mouthY);
+  arc(width / 2, mouthY, mouthWidth, mouthHeight, 0, PI);
+  
+
+  // Shaking Cheeks
   push();
   fill("#D84040");
   noStroke();
-  circle(width / 2 - 150, height / 2 + 35, 50);
-  circle(width / 2 + 150, height / 2 + 35, 50);
+  circle(width / 2 - 150 + cheekShake, height / 2 + 35, 50);
+  circle(width / 2 + 150 - cheekShake, height / 2 + 35, 50);
   pop();
+
   pop();
 }
 
