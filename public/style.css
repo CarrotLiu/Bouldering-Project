@@ -3,14 +3,18 @@ body {
   padding: 0;
   overflow: hidden;
 }
-
+canvas{
+  z-index: -1;
+  top: 0;
+  left: 0;
+}
 #wanthug{
   color: #000000;
   background: #FFA09B;
 }
 
 .btn-hug{
-  position: absolute;
+/*   position: absolute; */
   box-sizing: border-box;
   font-family: "Titillium Web", serif;
 /*   font-weight: 700; */

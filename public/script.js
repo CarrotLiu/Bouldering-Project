@@ -154,6 +154,11 @@ wanthug_btn.addEventListener('click', ()=>{
   currentSpeak = wanthug;
   wanthug.play();
 })
+const yay_btn = document.querySelector("#yay");
+yay_btn.addEventListener('click', ()=>{
+  currentSpeak = yay;
+  yay.play();
+})
 
 function draw() {
   background(0);
