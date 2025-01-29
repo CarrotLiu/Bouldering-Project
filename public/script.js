@@ -1,8 +1,8 @@
 let socket;
 
-let micLevel = 0; 
+let mic; 
 let amplitude;
-let level;
+let level = 0;
 let currentSpeak;
 let intro;
 let nicetry, sticktoolong, offyougo;
@@ -51,6 +51,7 @@ const challenges=[["Climb with left hand only", "Climb with right hand only", "C
 const challengeColor=["#007944", "#FFE31A", "#F35588", "#80C4E9"];
 let detected = []; 
 socket = io.connect();
+let data = {};
 // const challengeW = ["challenge", "climbing", "fun", "game", "interesting"];
 // const routeW = ["random", "randomize", "route", "new", "which"];
 // const restW = ["rest", "tired", "finish", "sent", "congrats"];
@@ -65,8 +66,8 @@ socket = io.connect();
 // recognition.interimResults = false;
 
 socket.on('speak', function (data){
-  console.log(data);
-  level = data.a;
+  // console.log(data);
+  // level = data.a;
   isSpeaking = data.s;
 })
 
@@ -140,7 +141,8 @@ function setup() {
   amplitude = new p5.Amplitude();
   if(windowWidth > 1000 ){
   document.querySelector("#btns").style.visibility = "visible";
-}
+  }
+  mic = new p5.AudioIn();
 }
 
 
@@ -440,7 +442,6 @@ function draw() {
   if(windowWidth > 1000){
     if(currentSpeak && currentSpeak.isPlaying()){
       isSpeaking = true;
-      sendSpeakDt();
     }else{
       isSpeaking = false;
     }
@@ -451,9 +452,15 @@ function draw() {
     // if(isListening){
       // stopRecording();
     // }
-    amplitude.setInput(currentSpeak);
+    if(windowWidth < 1000){
+      mic.start(); // Start mic only when speaking
+      level = mic.getLevel(); // Get microphone input level
+    }else{
+      amplitude.setInput(currentSpeak);
     level = amplitude.getLevel();
-    console.log(level)
+    }
+    
+    // console.log(level)
     sendSpeakDt();
     focusing();
   }else{ // listening
@@ -461,6 +468,10 @@ function draw() {
       // startRecording();
       // isListening=true;
     // }
+    if(data.s){
+      data.s = false;
+      sendSpeakDt();
+    }
     idling();
     // sendListenDt();
   }
@@ -491,7 +502,7 @@ function draw() {
 }
 
 function sendSpeakDt(){
-  let data = {};
+  
     data.s = isSpeaking;
     // data.l = isListening;
     data.a = amplitude.getLevel();
