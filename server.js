@@ -26,9 +26,15 @@ io.on("connection", newConnection);
 function newConnection(sck) {
   console.log("New Connection - ID: " + sck.id);
   sck.on("speak", receive);
+  sck.on("scene", rcvscene);
+  
   function receive(data) {
     console.log(data);
     //https://socket.io/docs/v3/emit-cheatsheet/index.html
     sck.broadcast.emit("speak", data);
+  }
+  
+  function rcvscene(data){
+    sck.broadcast.emit("scene", data);
   }
 }

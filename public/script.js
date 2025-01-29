@@ -467,39 +467,35 @@ function draw() {
     }else{
       idling();
     }
-  } else if(stage == 1){
+  } else if(stage == 1){//random route
     
     scene = null;
   } else if(stage == 2){//challenge stage
     challenging();
-  } else if(stage == 3){//find friend
+  } else if(stage == 3){//rest timer
     scene = null;
-  }else if(stage == 4){//random route
-    
-  }else if(stage == 5){//rest timer
     timer();
-  }else if(stage == 6){//find help
+  }else if(stage == 4){//crying
     
-  }else if(stage == 7){//hurt
+  }else if(stage == 5){//laughing
     
-  }else if(stage == 8){//bye
+  }else if(stage == 6){
     
   }
 }
 
 function sendSpeakDt(){
-  
     spkdata.s = isSpeaking;
     spkdata.a = amplitude.getLevel();
     socket.emit("speak", spkdata);
-    console.log(spkdata);
 }
 
 function sendSceneDt(){
-  scndata.s = isSpeaking;
-  scndata.l = isListening;
+  scndata.stage = stage;
+  scndata.scene = scene;
+  socket.emit("scene", scndata);
+  console.log(scndata);
 }
-
 
 function blinkControl(){
   if (millis() > nextBlinkTime) {
@@ -549,7 +545,6 @@ function assembleFace(){
 
 function idling(){
   blinkControl();
-  
   if (millis() > nextShiftTime) {
     nextShiftTime = millis() + random(3000, 7000); 
     targetEyeOffsetX = random(-50, 50); 
@@ -619,11 +614,24 @@ function challenging(){
 }
 
 function crying(){
-  
+  push();
+  eyeOffsetX = lerp(eyeOffsetX, 0, 0.05);
+  eyeOffsetY = lerp(eyeOffsetY, 0, 0.05);
+  pop();
 }
 
 function laughing(){
-  
+  push();
+  eyeOffsetX = lerp(eyeOffsetX, 0, 0.05);
+  eyeOffsetY = lerp(eyeOffsetY, 0, 0.05);
+  pop();
+}
+
+function angry(){
+  push();
+  eyeOffsetX = lerp(eyeOffsetX, 0, 0.05);
+  eyeOffsetY = lerp(eyeOffsetY, 0, 0.05);
+  pop();
 }
 
 function timer(){
@@ -648,15 +656,19 @@ function windowResized() {
 }
 
 function keyPressed() {
-  if (key === 'c') {
-    if(stage < 4){
-      stage ++;
-    }else{
-      stage = 0;
-    }
-  }
-  if(key === 't'){
-    isSpeaking = !isSpeaking;
+  if(key === 'r'){
+    stage = 1;
+    sendSceneDt();
+    
+  }else if (key === 'c') {
+    stage = 2;
+    // if(stage < 6){
+    //   stage ++;
+    // }else{
+    //   stage = 0;
+    // }
+  }else if(key === 't'){
+    stage = 3;
   }
   
 
