@@ -131,6 +131,7 @@ function preload(){
 let canvas;
 function setup() {
   canvas = createCanvas(windowWidth, windowHeight);
+  console.log(windowWidth);
   canvas.parent("container-p5")
   canvas.position(0, 0);
   canvas.style("z-index", "-1");
@@ -140,7 +141,12 @@ function setup() {
   nextMouthChange = millis() + random(2000, 5000); 
   textFont("Titillium Web");
   amplitude = new p5.Amplitude();
+  if(windowWidth > 1000 ){
+  document.querySelector("#btns").style.visibility = "visible";
 }
+}
+
+
 
 let intro_btn = document.querySelector("#intro");
 intro_btn.addEventListener('click', ()=>{
@@ -248,7 +254,7 @@ findfriend_btn.addEventListener('click', ()=>{
   currentSpeak.play();
   }
 })
-let agreejoin_btn = document.querySelector("#rejecthelp");
+let agreejoin_btn = document.querySelector("#agreejoin");
 agreejoin_btn.addEventListener('click', ()=>{
   if(!isSpeaking){
   currentSpeak = agreejoin;
@@ -406,6 +412,7 @@ choosechallenge_btn.addEventListener('click', ()=>{
   currentSpeak.play();
   }
 })
+
 let chooseroute_btn = document.querySelector("#chooseroute");
 chooseroute_btn.addEventListener('click', ()=>{
   if(!isSpeaking){
@@ -413,7 +420,8 @@ chooseroute_btn.addEventListener('click', ()=>{
   currentSpeak.play();
   }
 })
-let bye_btn = document.querySelector("#bye_btn");
+
+let bye_btn = document.querySelector("#bye");
 bye_btn.addEventListener('click', ()=>{
   if(!isSpeaking){
   currentSpeak = bye;

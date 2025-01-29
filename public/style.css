@@ -7,6 +7,7 @@ body {
 
 
 .btn-intro{
+  margin: 10px;
   color: #000000;
   background: #77B254;
 /*   position: absolute; */
@@ -22,6 +23,7 @@ body {
 }
 
 .btn-randomize{
+  margin: 10px;
   color: #000000;
   background: #FFC785;
 /*   position: absolute; */
@@ -37,6 +39,7 @@ body {
 }
 
 .btn-timer{
+  margin: 10px;
   color: #000000;
   background: #E8F9FF;
 /*   position: absolute; */
@@ -52,6 +55,7 @@ body {
 }
 
 .btn-challenge{
+  margin: 10px;
   color: #000000;
   background: #E17564;
 /*   position: absolute; */
@@ -67,6 +71,7 @@ body {
 }
 
 .btn-hug{
+  margin: 10px;
   color: #000000;
   background: #FFA09B;
 /*   position: absolute; */
@@ -82,6 +87,7 @@ body {
 }
 
 .btn-thief{
+  margin: 10px;
   color: #FFFFFF;
   background: #2A3335;
 /*   position: absolute; */
@@ -97,6 +103,7 @@ body {
 }
 
 .btn-hurt{
+  margin: 10px;
   color: #FFFFFF;
   background: #872341;
 /*   position: absolute; */
@@ -112,6 +119,7 @@ body {
 }
 
 .btn-help{
+  margin: 10px;
   color: #FFFFFF;
   background: #2E5077;
 /*   position: absolute; */
@@ -127,6 +135,7 @@ body {
 }
 
 .btn-friend{
+  margin: 10px;
   color: #000000;
   background: #E5D9F2;
 /*   position: absolute; */
@@ -142,6 +151,7 @@ body {
 }
 
 .btn-together{
+  margin: 10px;
   color: #000000;
   background: #FCC737;
 /*   position: absolute; */
@@ -154,6 +164,26 @@ body {
 /*   width: 200px; */
   padding: 10px;
   border: none;
+}
+
+.btn-bye{
+  margin: 10px;
+  color: #000000;
+  background: #FFFECB;
+/*   position: absolute; */
+  box-sizing: border-box;
+  font-family: "Titillium Web", serif;
+/*   font-weight: 700; */
+  font-style: normal;
+/*   letter-spacing: 2px; */
+  font-size: 15px;
+/*   width: 200px; */
+  padding: 10px;
+  border: none;
+}
+
+#btns{
+  visibility: hidden;
 }
 /* .elements{
   margin: 0;
