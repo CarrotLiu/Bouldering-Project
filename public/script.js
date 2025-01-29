@@ -402,43 +402,43 @@ forgetstuff_btn.addEventListener('click', ()=>{
 
 let stg1_btn = document.querySelector("#stage1");
 stg1_btn.addEventListener('click', ()=>{
-  stage = 1;
+  stage = 0;
   sendSceneDt();
 })
 
 let stg2_btn = document.querySelector("#stage2");
 stg2_btn.addEventListener('click', ()=>{
-  stage = 2;
+  stage = 1;
   sendSceneDt();
 })
 
 let stg3_btn = document.querySelector("#stage3");
 stg3_btn.addEventListener('click', ()=>{
-  stage = 3;
+  stage = 2;
   sendSceneDt();
 })
 
 let stg4_btn = document.querySelector("#stage4");
-stg3_btn.addEventListener('click', ()=>{
-  stage = 4;
+stg4_btn.addEventListener('click', ()=>{
+  stage = 3;
   sendSceneDt();
 })
 
 let stg5_btn = document.querySelector("#stage5");
-stg3_btn.addEventListener('click', ()=>{
-  stage = 5;
+stg5_btn.addEventListener('click', ()=>{
+  stage = 4;
   sendSceneDt();
 })
 
 let stg6_btn = document.querySelector("#stage6");
-stg3_btn.addEventListener('click', ()=>{
-  stage = 6;
+stg6_btn.addEventListener('click', ()=>{
+  stage = 5;
   sendSceneDt();
 })
 
 let stg7_btn = document.querySelector("#stage7");
-stg3_btn.addEventListener('click', ()=>{
-  stage = 7;
+stg7_btn.addEventListener('click', ()=>{
+  stage = 6;
   sendSceneDt();
 })
 
@@ -510,11 +510,26 @@ function draw() {
     }
   } else if(stage == 1){//random route
     randomizer();
+    if(isSpeaking){//normal stage
+      focusing();
+    }else{
+      idling();
+    }
   } else if(stage == 2){//challenge stage
     challenging();
+    if(isSpeaking){//normal stage
+      focusing();
+    }else{
+      idling();
+    }
   } else if(stage == 3){//rest timer
     scene = null;
     timer();
+    if(isSpeaking){//normal stage
+      focusing();
+    }else{
+      idling();
+    }
   }else if(stage == 4){//crying
     crying();
   }else if(stage == 5){//laughing
@@ -731,8 +746,33 @@ function crying(){
 
 function laughing(){
   push();
-  eyeOffsetX = lerp(eyeOffsetX, 0, 0.05);
-  eyeOffsetY = lerp(eyeOffsetY, 0, 0.05);
+  translate(eyeOffsetX, eyeOffsetY);
+  stroke(255);
+  strokeWeight(4);
+  noFill();
+
+  // Left Eye: ">"
+  line(width / 2 - 120, height / 2 - 10, width / 2 - 100, height / 2);
+  line(width / 2 - 100, height / 2, width / 2 - 120, height / 2 + 10);
+  
+  // Right Eye: "<"
+  line(width / 2 + 120, height / 2 - 10, width / 2 + 100, height / 2);
+  line(width / 2 + 100, height / 2, width / 2 + 120, height / 2 + 10);
+
+  // Laughing Mouth
+  if (isSpeaking) {
+    if (level != 0) {
+      mouthOpenHeight = lerp(mouthOpenHeight, 40 + level * 50, 0.3); 
+      mouthOpenWidth = lerp(mouthOpenWidth, 80 + level * 20, 0.3);
+    } else {
+      mouthOpenHeight = lerp(mouthOpenHeight, 40, 0.1); 
+      mouthOpenWidth = lerp(mouthOpenWidth, 80, 0.1);
+    }
+
+    arc(width / 2, height / 2 + 40, mouthOpenWidth, mouthOpenHeight, 0, PI);
+  } else {
+    arc(width / 2, height / 2 + 40, 80, 40, 0, PI); // Default laugh shape
+  }
   pop();
 }
 
@@ -763,46 +803,46 @@ function timer(){
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
 }
-function touchStarted() {
+// function touchStarted() {
   
-  let touchX = touches[0].x;
-  let touchY = touches[0].y;
-  let circles
+//   let touchX = touches[0].x;
+//   let touchY = touches[0].y;
+//   let circles
   
 
-  if(stage == 1){
-    circles = [
-      { x: width / 2 - 130, y: height / 2 - 130, sceneValue: 2 }, // Circle 1
-      { x: width / 2 - 50, y: height / 2 - 180, sceneValue: 3 },  // Circle 2
-      { x: width / 2 + 50, y: height / 2 - 180, sceneValue: 4 },  // Circle 3
-      { x: width / 2 + 130, y: height / 2 - 130, sceneValue: 5 },  // Circle 4
-      { x: width / 2 - 130, y: height / 2 + 130, sceneValue: 2 }, // Circle 1
-      { x: width / 2 - 50, y: height / 2 + 180, sceneValue: 3 },  // Circle 2
-      { x: width / 2 + 50, y: height / 2 + 180, sceneValue: 4 },  // Circle 3
-      { x: width / 2 + 130, y: height / 2 + 130, sceneValue: 5 }  // Circle 4
-    ];
+//   if(stage == 1){
+//     circles = [
+//       { x: width / 2 - 130, y: height / 2 - 130, sceneValue: 2 }, // Circle 1
+//       { x: width / 2 - 50, y: height / 2 - 180, sceneValue: 3 },  // Circle 2
+//       { x: width / 2 + 50, y: height / 2 - 180, sceneValue: 4 },  // Circle 3
+//       { x: width / 2 + 130, y: height / 2 - 130, sceneValue: 5 },  // Circle 4
+//       { x: width / 2 - 130, y: height / 2 + 130, sceneValue: 2 }, // Circle 1
+//       { x: width / 2 - 50, y: height / 2 + 180, sceneValue: 3 },  // Circle 2
+//       { x: width / 2 + 50, y: height / 2 + 180, sceneValue: 4 },  // Circle 3
+//       { x: width / 2 + 130, y: height / 2 + 130, sceneValue: 5 }  // Circle 4
+//     ];
     
-  }else if(stage == 2){
-    circles = [
-      { x: width / 2 - 130, y: height / 2 - 130, sceneValue: 2 }, // Circle 1
-      { x: width / 2 - 50, y: height / 2 - 180, sceneValue: 3 },  // Circle 2
-      { x: width / 2 + 50, y: height / 2 - 180, sceneValue: 4 },  // Circle 3
-      { x: width / 2 + 130, y: height / 2 - 130, sceneValue: 5 }  // Circle 4
-    ];
+//   }else if(stage == 2){
+//     circles = [
+//       { x: width / 2 - 130, y: height / 2 - 130, sceneValue: 2 }, // Circle 1
+//       { x: width / 2 - 50, y: height / 2 - 180, sceneValue: 3 },  // Circle 2
+//       { x: width / 2 + 50, y: height / 2 - 180, sceneValue: 4 },  // Circle 3
+//       { x: width / 2 + 130, y: height / 2 - 130, sceneValue: 5 }  // Circle 4
+//     ];
     
-  }
-  for (let c of circles) {
-      let d = dist(touchX, touchY, c.x, c.y);
-      if (d < 30) { // If inside circle (radius = 30)
-        scene = c.sceneValue;
-        sendSceneDt();
-        console.log("Scene changed to:", scene);
-        return false; // Prevents default scrolling on iPhone
-      }
-    }
+//   }
+//   for (let c of circles) {
+//       let d = dist(touchX, touchY, c.x, c.y);
+//       if (d < 30) { // If inside circle (radius = 30)
+//         scene = c.sceneValue;
+//         sendSceneDt();
+//         console.log("Scene changed to:", scene);
+//         return false; // Prevents default scrolling on iPhone
+//       }
+//     }
   
-  return false;
-}
+//   return false;
+// }
 
 function keyPressed() {
   if(key === '1'){
