@@ -472,6 +472,11 @@ function draw() {
     // }
     if(data.s){
       sendSpeakDt();
+      
+    }
+    if(windowWidth < 1000){
+      mic.stop(); // Start mic only when speaking
+      level = 0; // Get microphone input level
     }
     idling();
     // sendListenDt();
@@ -553,14 +558,14 @@ function assembleFace(){
   if(isSpeaking){
     
     if(level != 0){
-      mouthOpenHeight = lerp(mouthOpenHeight, 35 - level * 360, 0.3); 
-      mouthOpenWidth = lerp(mouthOpenWidth, 35 - level * 200, 0.3);
+      mouthOpenHeight = lerp(mouthOpenHeight, 35 - level * 110, 0.3); 
+      mouthOpenWidth = lerp(mouthOpenWidth, 35 - level * 26, 0.3);
     }else{
       mouthOpenHeight = lerp(mouthOpenHeight, 35, 0.1); 
       mouthOpenWidth = lerp(mouthOpenWidth, 35, 0.1);
     }
     arc(width / 2 + eyeOffsetX * 0.35, height / 2 + 20 + eyeOffsetX * 0.05, mouthOpenWidth, mouthOpenHeight, 0, PI); 
-    arc(width / 2 + eyeOffsetX * 0.35, height / 2 + 20 + eyeOffsetX * 0.05, mouthOpenWidth, 35 + level * 10, 0, PI); 
+    arc(width / 2 + eyeOffsetX * 0.35, height / 2 + 20 + eyeOffsetX * 0.05, mouthOpenWidth, 35 + level * 6, 0, PI); 
   }else{
     arc(width / 2 + eyeOffsetX * 0.35, height / 2 + 20 + eyeOffsetX * 0.05, 35, 35, 0, PI); 
   }
