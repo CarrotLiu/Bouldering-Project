@@ -774,15 +774,15 @@ function challenging(){
     fill(0);
     text("5-", 130, 50);
     pop();
-    push();
-    translate(width / 2, height / 2 + 130);
-    fill(255);
-    textSize(25);
-    text("Choose a Route Color Code", 0, -20);
-    // textSize(16);
-    // text("The color code indicates the route's difficulty", 0, 35);
-    // text("Challenges available for levels below the sky blue color", 0, 60);
-    pop();
+    // push();
+    // translate(width / 2, height / 2 + 130);
+    // fill(255);
+    // textSize(25);
+    // text("Choose a Route Color Code", 0, -20);
+    // // textSize(16);
+    // // text("The color code indicates the route's difficulty", 0, 35);
+    // // text("Challenges available for levels below the sky blue color", 0, 60);
+    // pop();
   }
   
 }
@@ -823,35 +823,35 @@ function randomizer(){
     
     
     fill(challengeColor[4]);
-    circle(-130, -150, 60);
+    circle(-130, 300, 60);
     fill(255);
-    text("5+", 130, 50);
+    text("5+", -130, 300);
     fill(challengeColor[5]);
-    circle(-50, -20, 60);
+    circle(-45, 300, 60);
     fill(255);
-    text("6a", 130, 50);
+    text("6a", -45, 300);
     fill(challengeColor[6]);
-    circle(-50, -20, 60);
-    fill(0);
-    text("6b", 130, 50);
+    circle(45, 300, 60);
+    fill(255);
+    text("6b", 45, 300);
     fill(challengeColor[7]);
-    circle(-50, -20, 60);
+    circle(130, 300, 60);
     fill(255);
-    text("7a", 130, 50);
+    text("7a", 130, 300);
     fill(challengeColor[8]);
-    circle(-50, -20, 60);
+    circle(-45, -20, 60);
     fill(255);
-    text("7b", 130, 50);
+    text("7b", 130, 45);
     pop();
     push();
-    translate(width / 2, height / 2 + 130);
-    fill(255);
-    textSize(25);
-    text("Choose a Route Color Code", 0, -20);
-    // textSize(16);
-    // text("The color code indicates the route's difficulty", 0, 35);
-    // text("Challenges available for levels below the sky blue color", 0, 60);
-    pop();
+    // translate(width / 2, height / 2 + 130);
+    // fill(255);
+    // textSize(25);
+    // text("Choose a Route Color Code", 0, -20);
+    // // textSize(16);
+    // // text("The color code indicates the route's difficulty", 0, 35);
+    // // text("Challenges available for levels below the sky blue color", 0, 60);
+    // pop();
   }
   
 }
