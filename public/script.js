@@ -63,7 +63,7 @@ let scene;
 
 const challenges=[["Climb with left hand only", "Climb with right hand only", "Climb without hands", "Climb without feet", "Grab every boulder with both hands","Skip three holds of your choice."],["climb with one hand only", "skip two holds of your choice"],["skip one hold of your choice"],["climb while keeping your back towards the wall all the time"] ];
 const challengeColor=["#007944", "#FFE31A", "#F35588", "#80C4E9", "#FF8000", "#C62300", "#3C3D37", "#8FD14F", "#024CAA", "#4F1787"];
-const routeColor=["#007944", "#FFE31A", "#F35588", "#80C4E9"];
+const challengeSound=[c1, c2, c3,c4,c5,c6,c7,c8,c9,c10,c11,c12,c13];
 let detected = []; 
 
 socket = io.connect();
@@ -575,6 +575,7 @@ socket.on('scene', function (data){
   stage=data.stage;
   scene=data.scene;
   totalTime = data.totalTime;
+  Rindex=data.rindex;
   if(stage == 3){
     setInterval(() => {
     if (totalTime > 0) {
@@ -644,6 +645,8 @@ function draw() {
   }
   pop();
   if(stage == 0){
+    scene = null;
+    Rindex = 0;
     if(isSpeaking){//normal stage
       focusing();
     }else{
@@ -666,7 +669,7 @@ function draw() {
   } else if(stage == 3){//rest timer
     scene = null;
     timer();
-    if(isSpeaking){//normal stage
+    if(isSpeaking){
       focusing();
     }else{
       idling();
@@ -704,6 +707,7 @@ function sendSceneDt(){
   scndata.stage = stage;
   scndata.scene = scene;
   scndata.totalTime = totalTime;
+  scndata.rindex = Rindex;
   socket.emit("scene", scndata);
   console.log(scndata);
 }
@@ -782,11 +786,9 @@ function challenging(){
   if(scene != null){
     push();
     translate(width / 2, height / 2 -180);
-    fill(challengeColor[0]);
+    fill(challengeColor[scene]);
     textSize(25);
-    text("Go To Route" + Rindex, 0, 0);
-    textSize(18);
-    text(challenges[scene][Rindex][1], 0, -50);
+    text("Go To Route " + str(Rindex), 0, 0);
     pop();
   }else{
     push();
@@ -831,9 +833,9 @@ function randomizer(){
     
     push();
     translate(width / 2, height / 2 -180);
-    fill(challengeColor[0]);
+    fill(challengeColor[scene]);
     textSize(25);
-    text("Go To Route " + Rindex, 0, 0);
+    text("Go To Route " + str(Rindex), 0, 0);
     pop();
   }else{
     push();
@@ -1098,15 +1100,21 @@ function windowResized() {
   
 //   return false;
 // }
-
+function mouseClicked(){
+  if(scene){
+    Rindex =int(random(0, 10));
+    sendSceneDt();
+  }
+}
 function keyPressed() {
   if(key === '1'){
     scene = 0;
+    Rindex =int(random(0, 10));
     sendSceneDt();
     
   }else if (key === '2') {
     scene = 1;
-    Rindex =int(random(0, challenges.length));
+    Rindex =int(random(0, 10));
     sendSceneDt();
     // if(stage < 6){
     //   stage ++;
@@ -1115,31 +1123,35 @@ function keyPressed() {
     // }
   }else if(key === '3'){
     scene = 2;
-    Rindex =int(random(0, challenges.length));
+    Rindex =int(random(0, 10));
     sendSceneDt();
   }else if(key === '4'){
     scene = 3;
-    Rindex =int(random(0, challenges.length));
+    Rindex =int(random(0, 10));
     sendSceneDt();
   }else if(key === '5'){
     scene = 4;
-    Rindex =int(random(0, challenges.length));
+    Rindex =int(random(0, 10));
     sendSceneDt();
   }else if(key === '6'){
     scene = 5;
-    Rindex =int(random(0, challenges.length));
+    Rindex =int(random(0, 10));
     sendSceneDt();
   }else if(key === '7'){
     scene = 6;
+    Rindex =int(random(0, 10));
     sendSceneDt();
   }else if(key === '8'){
     scene = 7;
+    Rindex =int(random(0, 10));
     sendSceneDt();
   }else if(key === '9'){
     scene = 8;
+    Rindex =int(random(0, 10));
     sendSceneDt();
   }else if(key === '0'){
     scene = 9;
+    Rindex =int(random(0, 10));
     sendSceneDt();
   }
 }
