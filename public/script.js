@@ -788,7 +788,11 @@ function challenging(){
     translate(width / 2, height / 2 -180);
     fill(challengeColor[scene]);
     textSize(25);
-    text("Go To Route " + str(Rindex), 0, 0);
+    if(Rindex > 3){
+      Rindex = int(random(0, 4));
+    }
+    text("Go To Route " + str(Rindex+1), 0, 0);
+    
     pop();
   }else{
     push();
@@ -835,7 +839,7 @@ function randomizer(){
     translate(width / 2, height / 2 -180);
     fill(challengeColor[scene]);
     textSize(25);
-    text("Go To Route " + str(Rindex), 0, 0);
+    text("Go To Route " + str(Rindex+1), 0, 0);
     pop();
   }else{
     push();
@@ -1110,11 +1114,21 @@ function keyPressed() {
   if(key === '1'){
     scene = 0;
     Rindex =int(random(0, 10));
+    Cindex =int(random(0, 4));
+    if(!isSpeaking){
+      currentSpeak = challengeSound[Cindex];
+      currentSpeak.play();
+    }
     sendSceneDt();
     
   }else if (key === '2') {
     scene = 1;
     Rindex =int(random(0, 10));
+    Cindex =int(random(0, 4));
+    if(!isSpeaking){
+      currentSpeak = challengeSound[Rindex];
+      currentSpeak.play();
+    }
     sendSceneDt();
     // if(stage < 6){
     //   stage ++;
@@ -1124,14 +1138,29 @@ function keyPressed() {
   }else if(key === '3'){
     scene = 2;
     Rindex =int(random(0, 10));
+    Cindex =int(random(0, 4));
+    if(!isSpeaking){
+      currentSpeak = challengeSound[Cindex];
+      currentSpeak.play();
+    }
     sendSceneDt();
   }else if(key === '4'){
     scene = 3;
     Rindex =int(random(0, 10));
+    Cindex =int(random(0, 4));
+    if(!isSpeaking){
+      currentSpeak = challengeSound[Cindex];
+      currentSpeak.play();
+    }
     sendSceneDt();
   }else if(key === '5'){
     scene = 4;
     Rindex =int(random(0, 10));
+    Cindex =int(random(0, 4));
+    if(!isSpeaking){
+      currentSpeak = challengeSound[Cindex];
+      currentSpeak.play();
+    }
     sendSceneDt();
   }else if(key === '6'){
     scene = 5;
@@ -1148,6 +1177,7 @@ function keyPressed() {
   }else if(key === '9'){
     scene = 8;
     Rindex =int(random(0, 10));
+    
     sendSceneDt();
   }else if(key === '0'){
     scene = 9;
