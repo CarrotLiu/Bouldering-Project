@@ -837,11 +837,15 @@ function randomizer(){
     fill(challengeColor[7]);
     circle(130, 300, 60);
     fill(255);
-    text("7a", 130, 300);
+    text("6c", 130, 300);
     fill(challengeColor[8]);
-    circle(-45, -20, 60);
+    circle(-85, 350, 60);
     fill(255);
-    text("7b", 130, 45);
+    text("7a", -85, 350);
+    fill(challengeColor[9]);
+    circle(85, 350, 60);
+    fill(255);
+    text("7b", 85, 350);
     pop();
     push();
     // translate(width / 2, height / 2 + 130);
