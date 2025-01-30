@@ -16,6 +16,7 @@ let mouthSize = 200;
 let cheekShake = 0;
 let laughSpeed = 0.1;
 let laughAmount = 3;
+let Rindex;
 let intro;
 let nicetry, sticktoolong, offyougo;
 let notsure, askhelp, agreetohelp, hesitatehelp, findother, rejecthelp;
@@ -142,6 +143,24 @@ nicetry_btn.addEventListener('click', ()=>{
     currentSpeak = nicetry;
     currentSpeak.play();
   }
+  totalTime = 180;
+  stage = 3;
+  sendSceneDt();
+setInterval(() => {
+    if (totalTime > 0) {
+      totalTime--;
+    }else{
+      
+      stage = 0;
+      currentSpeak = timerend;
+      if(!finishTiming && !currentSpeak.isPlaying()){
+        
+        currentSpeak.play();
+        finishTiming = true;
+      }
+      sendSceneDt();
+    }
+  }, 1000);
 })
 
 let sticktoolong_btn = document.querySelector("#sticktoolong");
@@ -315,10 +334,9 @@ let finishTiming = false;
 let success_btn = document.querySelector("#success");
 success_btn.addEventListener('click', ()=>{
   if(!isSpeaking){
-  currentSpeak = success;
-  currentSpeak.play();
+    currentSpeak = success;
+    currentSpeak.play();
   }
-  
   totalTime = 180;
   stage = 3;
   sendSceneDt();
@@ -462,7 +480,7 @@ choosechallenge_btn.addEventListener('click', ()=>{
   sendSceneDt();
 })
 
-let trythisroute_btn = document.querySelector("#trythisroute");
+let trythisroute_btn = document.querySelector("#gotothisroute");
 trythisroute_btn.addEventListener('click', ()=>{
   if(!isSpeaking){
   currentSpeak = trythisroute;
@@ -766,9 +784,9 @@ function challenging(){
     translate(width / 2, height / 2 -180);
     fill(challengeColor[0]);
     textSize(25);
-    text("Go to the " + challenges[scene][int(random(0, challenges.length))][0], 0, 0);
+    text("Go To Route" + Rindex, 0, 0);
     textSize(18);
-    text(challenges[scene][int(random(0, challenges.length))][1], 0, -50);
+    text(challenges[scene][Rindex][1], 0, -50);
     pop();
   }else{
     push();
@@ -806,17 +824,16 @@ function challenging(){
   
 }
 
+
 function randomizer(){
   textAlign(CENTER, CENTER);
   if(scene != null){
-    let Rindex = int(random(0, challenges.length));
+    
     push();
     translate(width / 2, height / 2 -180);
     fill(challengeColor[0]);
     textSize(25);
-    text("Go to the " + challenges[scene][Rindex][0], 0, 0);
-    textSize(18);
-    text(challenges[scene][int(random(0, challenges.length))][1], 0, -50);
+    text("Go To Route " + Rindex, 0, 0);
     pop();
   }else{
     push();
@@ -1089,6 +1106,7 @@ function keyPressed() {
     
   }else if (key === '2') {
     scene = 1;
+    Rindex =int(random(0, challenges.length));
     sendSceneDt();
     // if(stage < 6){
     //   stage ++;
@@ -1097,15 +1115,19 @@ function keyPressed() {
     // }
   }else if(key === '3'){
     scene = 2;
+    Rindex =int(random(0, challenges.length));
     sendSceneDt();
   }else if(key === '4'){
     scene = 3;
+    Rindex =int(random(0, challenges.length));
     sendSceneDt();
   }else if(key === '5'){
     scene = 4;
+    Rindex =int(random(0, challenges.length));
     sendSceneDt();
   }else if(key === '6'){
     scene = 5;
+    Rindex =int(random(0, challenges.length));
     sendSceneDt();
   }else if(key === '7'){
     scene = 6;

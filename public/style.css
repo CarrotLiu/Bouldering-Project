@@ -21,7 +21,23 @@ body {
   padding: 10px;
   border: none;
 }
+#suggestchallenge{
+  color: #000000;
+  background: #FEF9E1;
+}
 #chooseroute{
+  color: #000000;
+  background: #E17564;
+}
+#nicetry{
+  color: #000000;
+  background: #E17564;
+}
+#success{
+  color: #000000;
+  background: #E17564;
+}
+#takerest{
   color: #000000;
   background: #E17564;
 }
