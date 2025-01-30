@@ -16,7 +16,8 @@ let mouthSize = 200;
 let cheekShake = 0;
 let laughSpeed = 0.1;
 let laughAmount = 3;
-let Rindex;
+let Rindex = 0;
+let Cindex = 0;
 let intro;
 let nicetry, sticktoolong, offyougo;
 let notsure, askhelp, agreetohelp, hesitatehelp, findother, rejecthelp;
@@ -63,7 +64,7 @@ let scene;
 
 const challenges=[["Climb with left hand only", "Climb with right hand only", "Climb without hands", "Climb without feet", "Grab every boulder with both hands","Skip three holds of your choice."],["climb with one hand only", "skip two holds of your choice"],["skip one hold of your choice"],["climb while keeping your back towards the wall all the time"] ];
 const challengeColor=["#007944", "#FFE31A", "#F35588", "#80C4E9", "#FF8000", "#C62300", "#3C3D37", "#8FD14F", "#024CAA", "#4F1787"];
-const challengeSound=[c1, c2, c3,c4,c5,c6,c7,c8,c9,c10,c11,c12,c13];
+
 let detected = []; 
 
 socket = io.connect();
@@ -128,7 +129,7 @@ function preload(){
   trythisroute = loadSound("https://cdn.glitch.global/0265eab3-9492-4dd1-bac4-f07a4b024ffa/trythisroute.mp3?v=1738218585655");
   suggestchallenge = loadSound("https://cdn.glitch.global/0265eab3-9492-4dd1-bac4-f07a4b024ffa/trysthfun.mp3?v=1738218768972");
 }
-
+let challengeSound=[c1, c2, c3,c4,c5,c6,c7,c8,c9,c10,c11,c12,c13];
 let intro_btn = document.querySelector("#intro");
 intro_btn.addEventListener('click', ()=>{
   if(!isSpeaking){
@@ -576,6 +577,7 @@ socket.on('scene', function (data){
   scene=data.scene;
   totalTime = data.totalTime;
   Rindex=data.rindex;
+  Cindex=data.cindex;
   if(stage == 3){
     setInterval(() => {
     if (totalTime > 0) {
@@ -608,6 +610,7 @@ function setup() {
   tearY1 = height / 2 - 10;
 tearY2 = height / 2 - 10;
   mic = new p5.AudioIn();
+  challengeSound=[c1, c2, c3,c4,c5,c6,c7,c8,c9,c10,c11,c12,c13]
 }
 
 function draw() {
@@ -708,6 +711,7 @@ function sendSceneDt(){
   scndata.scene = scene;
   scndata.totalTime = totalTime;
   scndata.rindex = Rindex;
+  scndata.cindex = Cindex;
   socket.emit("scene", scndata);
   console.log(scndata);
 }
@@ -788,9 +792,6 @@ function challenging(){
     translate(width / 2, height / 2 -180);
     fill(challengeColor[scene]);
     textSize(25);
-    if(Rindex > 3){
-      Rindex = int(random(0, 4));
-    }
     text("Go To Route " + str(Rindex+1), 0, 0);
     
     pop();
@@ -1115,20 +1116,20 @@ function keyPressed() {
     scene = 0;
     Rindex =int(random(0, 10));
     Cindex =int(random(0, 4));
-    if(!isSpeaking){
-      currentSpeak = challengeSound[Cindex];
-      currentSpeak.play();
-    }
+    
+    currentSpeak = challengeSound[Cindex];
+    currentSpeak.play();
+    
     sendSceneDt();
     
   }else if (key === '2') {
     scene = 1;
     Rindex =int(random(0, 10));
     Cindex =int(random(0, 4));
-    if(!isSpeaking){
-      currentSpeak = challengeSound[Rindex];
+    console.log(Cindex,challengeSound[Cindex]);
+      currentSpeak = challengeSound[Cindex];
       currentSpeak.play();
-    }
+    
     sendSceneDt();
     // if(stage < 6){
     //   stage ++;
@@ -1139,28 +1140,23 @@ function keyPressed() {
     scene = 2;
     Rindex =int(random(0, 10));
     Cindex =int(random(0, 4));
-    if(!isSpeaking){
+    
       currentSpeak = challengeSound[Cindex];
       currentSpeak.play();
-    }
+    
     sendSceneDt();
   }else if(key === '4'){
     scene = 3;
     Rindex =int(random(0, 10));
     Cindex =int(random(0, 4));
-    if(!isSpeaking){
+    
       currentSpeak = challengeSound[Cindex];
       currentSpeak.play();
-    }
+ 
     sendSceneDt();
   }else if(key === '5'){
     scene = 4;
     Rindex =int(random(0, 10));
-    Cindex =int(random(0, 4));
-    if(!isSpeaking){
-      currentSpeak = challengeSound[Cindex];
-      currentSpeak.play();
-    }
     sendSceneDt();
   }else if(key === '6'){
     scene = 5;
