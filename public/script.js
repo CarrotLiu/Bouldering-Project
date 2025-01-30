@@ -23,6 +23,7 @@ let findfriend, agreejoin, hesitatejoin, rejectjoin;
 let icebreakintro, definerule, highfive, teamup, swaptip, mentor, footwork;
 let success, takerest, wait, timerend;
 let alright, brainburn;
+let trythisroute, suggestchallenge;
 let c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13;
 let thief, leavemealone, rude;
 let wanthug, yay, yournice;
@@ -123,6 +124,8 @@ function preload(){
   yournice = loadSound("https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/youarenice.mp3?v=1737881800612");
   alright = loadSound("https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/alright.mp3?v=1737881792221");
   brainburn = loadSound("https://cdn.glitch.global/26e72b2d-5b19-4d34-8211-99b75e2441cc/brainburn.mp3?v=1737881815592");
+  trythisroute = loadSound("https://cdn.glitch.global/0265eab3-9492-4dd1-bac4-f07a4b024ffa/trythisroute.mp3?v=1738218585655");
+  suggestchallenge = loadSound("https://cdn.glitch.global/0265eab3-9492-4dd1-bac4-f07a4b024ffa/trysthfun.mp3?v=1738218768972");
 }
 
 let intro_btn = document.querySelector("#intro");
@@ -441,6 +444,14 @@ ruok_btn.addEventListener('click', ()=>{
   currentSpeak.play();
   }
 })
+
+let suggestchallenge_btn = document.querySelector("#suggestchallenge");
+suggestchallenge_btn.addEventListener('click', ()=>{
+  if(!isSpeaking){
+  currentSpeak = suggestchallenge;
+  currentSpeak.play();
+  }
+})
 let choosechallenge_btn = document.querySelector("#choosechallenge");
 choosechallenge_btn.addEventListener('click', ()=>{
   if(!isSpeaking){
@@ -449,6 +460,14 @@ choosechallenge_btn.addEventListener('click', ()=>{
   }
   stage = 2;
   sendSceneDt();
+})
+
+let trythisroute_btn = document.querySelector("#trythisroute");
+trythisroute_btn.addEventListener('click', ()=>{
+  if(!isSpeaking){
+  currentSpeak = trythisroute;
+  currentSpeak.play();
+  }
 })
 
 let chooseroute_btn = document.querySelector("#chooseroute");
