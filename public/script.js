@@ -790,11 +790,12 @@ function challenging(){
 function randomizer(){
   textAlign(CENTER, CENTER);
   if(scene != null){
+    let Rindex = int(random(0, challenges.length));
     push();
     translate(width / 2, height / 2 -180);
     fill(challengeColor[0]);
     textSize(25);
-    text("Go to the " + challenges[scene][int(random(0, challenges.length))][0], 0, 0);
+    text("Go to the " + challenges[scene][Rindex][0], 0, 0);
     textSize(18);
     text(challenges[scene][int(random(0, challenges.length))][1], 0, -50);
     pop();
@@ -839,13 +840,13 @@ function randomizer(){
     fill(255);
     text("6c", 130, 300);
     fill(challengeColor[8]);
-    circle(-85, 350, 60);
+    circle(-85, 370, 60);
     fill(255);
-    text("7a", -85, 350);
+    text("7a", -85, 370);
     fill(challengeColor[9]);
-    circle(85, 350, 60);
+    circle(85, 370, 60);
     fill(255);
-    text("7b", 85, 350);
+    text("7b", 85, 370);
     pop();
     push();
     // translate(width / 2, height / 2 + 130);
@@ -988,7 +989,7 @@ function angry(){
   let topWidth = 50; // Top line width
   let bottomWidth = 80; // Bottom line width
   let heightMouth = 60; // Height of the trapezoid
-noFill();
+  noFill();
   // Drawing the triangle mouth
   beginShape();
   vertex(width / 2 - topWidth / 2, mouthY); // Left top corner
@@ -1101,6 +1102,24 @@ function keyPressed() {
     sendSceneDt();
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* global
 
 io
