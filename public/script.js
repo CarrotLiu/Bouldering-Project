@@ -610,7 +610,7 @@ function setup() {
   tearY1 = height / 2 - 10;
 tearY2 = height / 2 - 10;
   mic = new p5.AudioIn();
-  challengeSound=[c1, c2, c3,c4,c5,c6,c7,c8,c9,c10,c11,c12,c13]
+  challengeSound=[c1, c2, c3,c4,c5,c6,c7,c8,c9,c10,c11,c12,c13];
 }
 
 function draw() {
@@ -748,8 +748,8 @@ function assembleFace(){
   if(isSpeaking){
     
     if(level != 0){
-      mouthOpenHeight = lerp(mouthOpenHeight, 35 - level * 110, 0.3); 
-      mouthOpenWidth = lerp(mouthOpenWidth, 35 - level * 26, 0.3);
+      mouthOpenHeight = lerp(mouthOpenHeight, 35 - level * 100, 0.3); 
+      mouthOpenWidth = lerp(mouthOpenWidth, 35 - level * 20, 0.3);
     }else{
       mouthOpenHeight = lerp(mouthOpenHeight, 35, 0.1); 
       mouthOpenWidth = lerp(mouthOpenWidth, 35, 0.1);
