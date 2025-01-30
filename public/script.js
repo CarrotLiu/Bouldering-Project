@@ -630,11 +630,25 @@ function draw() {
       idling();
     }
   }else if(stage == 4){//crying
-    crying();
+    if(isSpeaking){
+      crying();
+    }else{
+      stage = 0;
+    }
+    
   }else if(stage == 5){//laughing
-    laughing();
+    if(isSpeaking){
+      laughing();
+    }else{
+      stage = 0;
+    }
+    
   }else if(stage == 6){//angry
+    if(isSpeaking){
     angry();
+    }else{
+      stage = 0;
+    }
   }
 }
 
