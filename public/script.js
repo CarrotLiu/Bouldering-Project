@@ -318,9 +318,9 @@ setInterval(() => {
     }else{
       
       stage = 0;
-      if(!isSpeaking){
-  currentSpeak = timerend;
-  currentSpeak.play();
+      if(!currentSpeak.isPlaying()){
+      
+      currentSpeak.play();
   }
       sendSceneDt();
     }
@@ -342,9 +342,10 @@ takerest_btn.addEventListener('click', ()=>{
       totalTime--;
     }else{
       stage = 0;
-      if(!isSpeaking){
-  currentSpeak = timerend;
-  currentSpeak.play();
+      currentSpeak = timerend;
+      if(!currentSpeak.isPlaying()){
+      
+      currentSpeak.play();
   }
       sendSceneDt();
     }
@@ -363,9 +364,9 @@ wait_btn.addEventListener('click', ()=>{
 })
 let timerend_btn = document.querySelector("#timerend");
 timerend_btn.addEventListener('click', ()=>{
-  if(!isSpeaking){
-  currentSpeak = timerend;
-  currentSpeak.play();
+  if(!currentSpeak.isPlaying()){
+      
+      currentSpeak.play();
   }
   stage = 0;
   sendSceneDt();
@@ -473,17 +474,17 @@ stg1_btn.addEventListener('click', ()=>{
   sendSceneDt();
 })
 
-// let stg2_btn = document.querySelector("#stage2");
-// stg2_btn.addEventListener('click', ()=>{
-//   stage = 1;
-//   sendSceneDt();
-// })
+let stg2_btn = document.querySelector("#stage2");
+stg2_btn.addEventListener('click', ()=>{
+  stage = 1;
+  sendSceneDt();
+})
 
-// let stg3_btn = document.querySelector("#stage3");
-// stg3_btn.addEventListener('click', ()=>{
-//   stage = 2;
-//   sendSceneDt();
-// })
+let stg3_btn = document.querySelector("#stage3");
+stg3_btn.addEventListener('click', ()=>{
+  stage = 2;
+  sendSceneDt();
+})
 
 let stg4_btn = document.querySelector("#stage4");
 stg4_btn.addEventListener('click', ()=>{
@@ -535,10 +536,6 @@ socket.on('scene', function (data){
       totalTime--;
     }else{
       stage = 0;
-      if(!isSpeaking){
-  currentSpeak = timerend;
-  currentSpeak.play();
-  }
       sendSceneDt();
     }
   }, 1000);
