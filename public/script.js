@@ -170,6 +170,8 @@ yay_btn.addEventListener('click', ()=>{
   if(!isSpeaking){
   currentSpeak = yay;
   currentSpeak.play();
+    stage = 5;
+  sendSceneDt();
   }
 })
 let yournice_btn = document.querySelector("#yournice");
@@ -177,7 +179,10 @@ yournice_btn.addEventListener('click', ()=>{
   if(!isSpeaking){
   currentSpeak = yournice;
   currentSpeak.play();
+    
   }
+  stage = 5;
+  sendSceneDt();
 })
 
 let notsure_btn = document.querySelector("#notsure");
