@@ -302,6 +302,8 @@ footwork_btn.addEventListener('click', ()=>{
   }
 })
 
+let finishTiming = false;
+
 let success_btn = document.querySelector("#success");
 success_btn.addEventListener('click', ()=>{
   if(!isSpeaking){
@@ -318,10 +320,12 @@ setInterval(() => {
     }else{
       
       stage = 0;
-      if(!currentSpeak.isPlaying()){
-      
-      currentSpeak.play();
-  }
+      currentSpeak = timerend;
+      if(!finishTiming && !currentSpeak.isPlaying()){
+        
+        currentSpeak.play();
+        finishTiming = true;
+      }
       sendSceneDt();
     }
   }, 1000);
@@ -343,8 +347,7 @@ takerest_btn.addEventListener('click', ()=>{
     }else{
       stage = 0;
       currentSpeak = timerend;
-      if(!currentSpeak.isPlaying()){
-      
+      if(!finishTiming && !currentSpeak.isPlaying()){
       currentSpeak.play();
   }
       sendSceneDt();
@@ -364,8 +367,8 @@ wait_btn.addEventListener('click', ()=>{
 })
 let timerend_btn = document.querySelector("#timerend");
 timerend_btn.addEventListener('click', ()=>{
-  if(!currentSpeak.isPlaying()){
-      
+  currentSpeak = timerend;
+  if(!finishTiming && !currentSpeak.isPlaying()){
       currentSpeak.play();
   }
   stage = 0;
