@@ -45,6 +45,12 @@ body {
   -webkit-tap-highlight-color: transparent;
   }
 
+  #user-choice{
+    font-size: large;
+    text-align: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  }
+
   /* Positioning each button in the rhombus layout */
  #forward {
     grid-area: forward;

@@ -1,13 +1,18 @@
 const source = new EventSource("/events");
-// var isR = false; 
-// var isL = false; 
-// var isPressed = false;
-// var pressTimer;
 
 source.onmessage = (event) => {
-  //   console.log(event.data);
+    console.log(event.data);
 };
 
+source.addEventListener("yes", (event) => {
+  document.getElementById("user-choice").textContent = `${event.data}`;
+});
+source.addEventListener("no", (event) => {
+  document.getElementById("user-choice").textContent = `${event.data}`;
+});
+source.addEventListener("neutral", (event) => {
+  document.getElementById("user-choice").textContent = `${event.data}`;
+});
 // Map to track hold timers for each button
 const holdTimers = {};
 
