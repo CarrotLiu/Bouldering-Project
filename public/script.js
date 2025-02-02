@@ -617,6 +617,7 @@ function draw() {
   background(0);
   fill(255);
   noStroke();
+  console.log(isSpeaking);
   if(windowWidth > 1000){
     if(currentSpeak && currentSpeak.isPlaying()){
       isSpeaking = true;
@@ -625,7 +626,7 @@ function draw() {
     }
     
   }
-  push();
+
   if(isSpeaking){ //speaking
     if(windowWidth < 1000){
       mic.start(); 
@@ -646,7 +647,6 @@ function draw() {
       level = 0; 
     }
   }
-  pop();
   if(stage == 0){
     scene = null;
     Rindex = 0;
@@ -686,6 +686,7 @@ function draw() {
     
   }else if(stage == 5){//laughing
     if(isSpeaking){
+      
       laughing();
     }else{
       stage = 0;
@@ -891,7 +892,7 @@ function randomizer(){
     fill(255);
     text("7b", 85, 370);
     pop();
-    push();
+    // push();
     // translate(width / 2, height / 2 + 130);
     // fill(255);
     // textSize(25);
@@ -989,6 +990,7 @@ let mouthY = height / 2 + 15 + mouthFloat; // Mouth moves up & down
   // Dynamic line that follows arc endpoints
   line(mouthX1, mouthY, mouthX2, mouthY);
   arc(width / 2, mouthY, mouthWidth, mouthHeight, 0, PI);
+  
   
   
   // Shaking Cheeks
