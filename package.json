@@ -1,29 +1,20 @@
 {
-  "name": "glitch-hello-node",
-  "version": "0.1.0",
-  "description": "A simple Node app built on fastify, instantly up and running. Built to be remixed on Glitch.com.",
-  "main": "server.js",
-  "scripts": {
-    "start": "node server.js"
-  },
-  "dependencies": {
-    "fastify": "^5.1.0",
-    "handlebars": "^4.7.8",
-    "@fastify/formbody": "^8.0.1",
-    "@fastify/static": "^8.0.2",
-    "@fastify/view": "^10.0.1",
-    "express": "^5.0.1",
-    "socket.io": "^4.8.1"
-  },
-  "engines": {
-    "node": "v16.x"
-  },
-  "repository": {
-    "url": "https://glitch.com/edit/#!/glitch-hello-node"
-  },
-  "license": "MIT",
-  "keywords": [
-    "node",
-    "glitch"
-  ]
-}
+    "name": "Pebo",
+    "version": "1.0.0",
+    "description": "",
+    "main": "server.js",
+    "type": "module",
+    "scripts": {
+      "start": "node .",
+      "dev": "nodemon ."
+    },
+    "keywords": [],
+    "author": "Carrot Xinyu Liu",
+    "license": "ISC",
+    "dependencies": {
+      "express": "^4.21.1",
+      "nodemon": "^3.1.7",
+      "socket.io": "^4.8.0"
+    }
+  }
+  
