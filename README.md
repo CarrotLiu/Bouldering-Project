@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-# Demo socket.io
-
-Remix(duplicate) this code to get up node.js server (with Express) and socket.io!
-=======
-# Bouldering Project
- D2D
->>>>>>> efb4cb8610a8132b2fe5ba36c34967229a9513b6
+# Bolder to Boulder -- Pebo the Bouldering Bot
+Human-robot interaction design to help engage and connect solo climbers to the bouldering community at Delfts Bleau Bouldering Center.
+Incorporate design research methodologies such as field studies, user interviews, survey design, fast prototyping, wizard of oz, and user testing.
+Deliver a high-fidelity prototype with 3D modeling & printing, ESP32 remote control via Wifi and real-time communication via Socket.io.
